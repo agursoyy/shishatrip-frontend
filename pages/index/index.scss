@@ -21,6 +21,14 @@
         border-radius: 8px;
       }
     }
+    .home-location-list {
+      &--loading {
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
 
   @include respond-above(sm) {
@@ -38,14 +46,6 @@
       padding: 40px 50px;
       background: rgba(#fff, 0.97);
       animation: animate-content 1.2s ease-out forwards;
-      .home-location-list {
-        &--loading {
-          height: 60vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
     }
   }
 }

@@ -79,7 +79,7 @@
           .Dropdown-control {
             position: relative;
             width: 100%;
-            padding: 9px 14px;
+            padding: 11px 14px;
             color: $main-font-color;
             font-weight: 600;
             font-size: 16px;
@@ -122,7 +122,7 @@
             border: 1px solid $main-font-color;
             border-radius: 8px;
             .Dropdown-option {
-              padding: 9px 14px;
+              padding: 12px 14px;
               font-weight: 500;
               font-size: 16px;
               line-height: 18px;
@@ -157,6 +157,7 @@
           padding: 9px 14px;
           display: flex;
           justify-content: space-between;
+          align-items: center;
           color: $main-font-color;
           font-weight: 600;
           font-size: 16px;
