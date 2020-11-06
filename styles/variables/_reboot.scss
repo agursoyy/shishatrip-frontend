@@ -1,7 +1,17 @@
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  font-size: 62.5%;
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  overflow-x: hidden;
-  overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    font-size: 1.4rem;
+
+    @include respond-above(md) {
+      font-size: 1.6rem;
+    }
+    color: $main-font-color;
+  }
 }

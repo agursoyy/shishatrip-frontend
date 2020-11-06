@@ -1,4 +1,4 @@
-const { api = 'http://localhost:8080/api' } = process.env;
+const { api = 'https://api.shishatrip.de/api' } = process.env;
 
 module.exports = {
   publicRuntimeConfig: {
@@ -8,7 +8,8 @@ module.exports = {
       header: true,
       layout: true,
     },
-    api: 'https://jsonplaceholder.typicode.com',
+    api: 'https://api.shishatrip.de/api',
+    saved_token: 'JsKjDobJlTjLHo6vlLVSUHMpqyHzqHKmFvJgNWm9y3KTf43XGoHEYnAE75By',
   },
   serverRuntimeConfig: {},
 };

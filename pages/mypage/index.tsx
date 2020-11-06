@@ -13,9 +13,10 @@ const MyPage: NextPage<IProps> = () => {
   );
 };
 
+/*
 export const getServerSideProps = wrapper.getServerSideProps(({ store, req, res }) => {
   console.log('MYPAGEMYPAGEMYPAGE');
   //store.dispatch(login({ email: 'email', password: 'password' }) as any);
 });
-
+*/
 export default MyPage;

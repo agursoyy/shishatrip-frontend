@@ -10,11 +10,13 @@ import { MakeStore, createWrapper, Context, HYDRATE } from 'next-redux-wrapper';
 import { authReducer } from './auth/reducers';
 import { alertReducer } from './alert/reducers';
 import { newsReducer } from './news/reducers';
+import { locationReducer } from './locations/reducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   alert: alertReducer,
   news: newsReducer,
+  locations: locationReducer,
 });
 
 // *****FOR HYDRATE****

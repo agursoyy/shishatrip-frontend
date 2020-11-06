@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { NextPage } from 'next';
 import App, { Container, AppInitialProps, AppContext, AppProps } from 'next/app';
 import getConfig from 'next/config';
+import Head from 'next/head';
 
 import '../styles/index.scss';
 
@@ -9,6 +10,7 @@ import { Store, wrapper, RootState } from '../stores';
 import { Provider, useSelector } from 'react-redux';
 import { login } from '../stores/auth/actions';
 import { success } from '../stores/alert/actions';
+import Header from '../components/header';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -48,10 +50,22 @@ class MyApp extends App<IProps> {
 
   public render() {
     const { Component, pageProps, pageConfig } = this.props;
-    console.log(pageConfig);
+    const { layout, header, footer } = pageConfig;
     return (
       <Container>
-        <Component {...pageProps} />
+        <Head>
+          <title>shishatrip</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <link rel="shortcut icon" href="/icons/favicon.svg" />
+        </Head>
+        {layout ? (
+          <>
+            {header && <Header />}
+            <Component {...pageProps} />
+          </>
+        ) : (
+          <Component {...pageProps} />
+        )}
       </Container>
     );
   }

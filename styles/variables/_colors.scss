@@ -1,22 +1,29 @@
 $white: #fff !default;
+$pink: #fe2d5b !default;
 $black: #000 !default;
+$black-1: #424242;
 $dusk: #577592 !default;
 $candlelight: #f9d423 !default;
+$main-font-color: #7e8089;
 
 $colors: (
   'white': $white,
   'black': $black,
   'dusk': $dusk,
+  'pink': $pink,
   'candlelight': $candlelight,
+  'main-font-color': $main-font-color,
 ) !default;
 
-$primary-color: $dusk !default;
-$secondary-color: $candlelight !default;
+$primary-color: $pink !default;
+$secondary-color: $black-1 !default;
 
 $theme-colors: (
   'black': $black,
   'white': $white,
   'dusk': $dusk,
+  'pink': $pink,
+  'primary': $pink,
   'candlelight': $candlelight,
 ) !default;
 

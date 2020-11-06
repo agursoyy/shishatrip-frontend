@@ -1,8 +1,9 @@
 import Axios from 'axios';
-import Store from '.';
+//import Store from '.';
 import queryString from 'query-string';
 import getConfig from 'next/config';
 
+/*
 type IParams = {
   url: string;
   method?: 'get' | 'post' | 'put' | 'delete';
@@ -65,3 +66,4 @@ export default class Api {
       });
   };
 }
+ */
