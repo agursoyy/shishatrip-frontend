@@ -12,6 +12,7 @@ import LocationList from '../../components/locationList';
 import { load } from 'dotenv/types';
 import Loading from '../../components/loading/loading';
 import Header from '../../components/header';
+import ReturnToTop from '../../components/returnToTop';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -40,8 +41,7 @@ const Home: INextPage<IProps> = ({ custom }) => {
 
   return (
     <div className="home-page">
-      <div className="d-none">Prop from Redux {auth.message}</div>
-      <div className="d-none">Prop from getInitialProps {custom} </div>
+      <ReturnToTop />
       <div className="row">
         <div className="col-lg-8 col-xl-9">
           <div className="content">

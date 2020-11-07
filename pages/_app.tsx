@@ -58,6 +58,10 @@ class MyApp extends App<IProps> {
           <title>shishatrip</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <link rel="shortcut icon" href="/icons/favicon.svg" />
+          <link
+            href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+            rel="stylesheet"
+          />
         </Head>
         {layout ? (
           <>

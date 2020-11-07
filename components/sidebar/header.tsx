@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import './header.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import $ from 'jquery';
+
 const Header = () => {
   const router = useRouter();
   const { pathname } = router;
@@ -13,8 +15,10 @@ const Header = () => {
       console.log((this as any).oldScroll > this.scrollY);
       if ((this as any).oldScroll > this.scrollY) {
         (bottomMenuRef.current as any).classList.remove('hidden');
+        $('#return-to-top').addClass('hidden');
       } else {
         (bottomMenuRef.current as any).classList.add('hidden');
+        $('#return-to-top').removeClass('hidden');
       }
       (this as any).oldScroll = this.scrollY;
     };
