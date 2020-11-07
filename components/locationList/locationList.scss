@@ -95,6 +95,8 @@
           &.is-open {
             .Dropdown-control {
               background-image: none;
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
               &::after {
                 content: ' ';
                 position: absolute;
@@ -120,13 +122,18 @@
             position: relative;
             max-height: 260px;
             border: 1px solid $main-font-color;
-            border-radius: 8px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-top-color: transparent;
             .Dropdown-option {
               padding: 12px 14px;
               font-weight: 500;
               font-size: 16px;
               line-height: 18px;
               color: $main-font-color;
+              &:not(:last-child) {
+                border-bottom: 0.7px solid lighten($main-font-color, 20%);
+              }
 
               &.is-selected,
               &:hover {
