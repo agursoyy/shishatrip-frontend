@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './header.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 const Header = () => {
   const router = useRouter();
   const { pathname } = router;
+  const bottomMenuRef = useRef(null);
+
+  function scrollDetect() {
+    window.onscroll = function (e: any) {
+      // print "false" if direction is down and "true" if up
+      console.log((this as any).oldScroll > this.scrollY);
+      if ((this as any).oldScroll > this.scrollY) {
+        (bottomMenuRef.current as any).classList.remove('hidden');
+      } else {
+        (bottomMenuRef.current as any).classList.add('hidden');
+      }
+      (this as any).oldScroll = this.scrollY;
+    };
+  }
+
+  useEffect(() => {
+    scrollDetect();
+  }, []);
+
   return (
     <>
       <div className="sidebar--desktop">
@@ -77,7 +96,7 @@ const Header = () => {
           </div>
         </nav>
       </div>
-      <div className="sidebar--mobile">
+      <div className="sidebar--mobile hidden" ref={bottomMenuRef}>
         <nav>
           <div className="nav-item">
             <Link href="/">
