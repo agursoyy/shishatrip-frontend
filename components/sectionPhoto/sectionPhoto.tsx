@@ -4,7 +4,7 @@ import PhotoBoxView from '../photoBoxView/photoBoxView';
 import Popup from 'reactjs-popup';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Grid } from 'semantic-ui-react';
-import './SectionPhoto.scss';
+import './sectionPhoto.scss';
 // get our fontawesome imports
 
 const SectionPhoto = (props: any) => {
