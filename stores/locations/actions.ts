@@ -8,6 +8,8 @@ import {
   SORT_BY_VALUE,
   FILTER_BY_NAME_INPUT,
   CLEAR_FILTER_SORT_BY_VALUE,
+  FETCH_SINGLE_LOCAL_DATA_SUCESS,
+  FETCH_SINGLE_LOCAL_DATA_FAILED,
 } from './types';
 import { RootState } from '../index';
 import getConfig from 'next/config';
@@ -33,10 +35,19 @@ export function fetchInıtData(force?: boolean) {
         dispatch({ type: FETCH_INIT_DATA_FAILED });
       }
     } else {
-      dispatch({ type: FETCH_INIT_DATA_REQUEST });
-      setTimeout(() => {
-        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
-      }, 500);
+      dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
+    }
+  };
+}
+
+export function fetchVisitedLocalData(slug: string) {
+  // force to fetch data even though it exists
+  return async (dispatch: any, getState: () => RootState) => {
+    const { data, status } = await Axios.get(api + '/local/' + slug);
+    if (status == 200) {
+      dispatch({ type: FETCH_SINGLE_LOCAL_DATA_SUCESS, payload: data });
+    } else {
+      dispatch({ type: FETCH_SINGLE_LOCAL_DATA_FAILED });
     }
   };
 }

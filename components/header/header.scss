@@ -1,18 +1,55 @@
+@import '../../styles/mixins/';
+@import '../../styles/variables/colors';
+
 .header {
-  nav {
-    .nav-item {
-      .nav-link {
-        &.auth-button {
-          margin-left: auto;
-          background: #1c8be9;
-          padding: 12px 50px;
-          border: 0;
-          color: #fff;
-          font-family: Poppins, sans-serif;
-          font-size: 13px;
-          font-weight: 500;
-          letter-spacing: 0.3px;
-          border-radius: 8px;
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+  nav.navbar {
+    background: #fff !important;
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+    font-weight: 400;
+    padding: 0.92857143em 1.14285714em;
+    .navbar-brand {
+      img {
+        width: 100px !important;
+        height: 29px !important;
+      }
+    }
+    button.navbar-toggler {
+      border: 1.5px solid $primary-color;
+      &:focus {
+        outline: none;
+      }
+      .fa-bars {
+        color: $primary-color;
+        font-size: 2rem;
+      }
+    }
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      .nav-item {
+        @include respond-above(md) {
+          &:not(:last-child) {
+            margin-right: 30px;
+          }
+        }
+        .nav-link {
+          color: $main-font-color;
+          .auth-btn {
+            background: #f33364;
+            padding: 12px 50px;
+            border: 0;
+            color: #fff;
+            font-family: acumin-pro;
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            border-radius: 30px;
+            margin-right: 10px;
+            line-height: 1rem;
+          }
         }
       }
     }

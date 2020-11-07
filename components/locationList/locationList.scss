@@ -4,29 +4,23 @@
 .location-list-container {
   .places-search {
     position: relative;
-    margin-bottom: 34px;
     .ap-input-icon.ap-icon-clear {
       display: none;
     }
     .algolia-places {
-      width: 98%;
-      @include respond-above(xl) {
-        width: 50%;
-      }
     }
     input.address-input {
-      box-sizing: border-box;
-      border: none;
-      border-bottom: 2px solid #1c8be9;
-      border-radius: 0;
-      font-size: 2rem;
-      font-weight: 600;
+      background: #f1f3f6;
+      font-family: acumin-pro, sans-serif;
+      font-size: 1.6rem;
       letter-spacing: 0.2rem;
+      border: 0;
       outline: none;
-      padding-left: 30px;
-      padding-bottom: 15px;
-      margin-left: 1rem;
-      color: #29283d !important;
+      height: 43px;
+      color: #29283d;
+      font-weight: 600;
+      padding: 0 20px;
+      border-radius: 26px !important;
       &::-webkit-input-placeholder {
         /* Edge */
         color: #29283d;
@@ -38,48 +32,146 @@
       &::placeholder {
         color: #29283d;
       }
-      @include respond-above(md) {
-        font-size: 3.6rem;
-        height: 50px;
-      }
-    }
-    .search-icon {
-      position: absolute;
-      left: 6px;
-      top: 15%;
     }
   }
-  .locals-list-filter {
-    margin-bottom: 60px;
-    &__elements {
-      display: flex;
-      flex-direction: column;
-      @include respond-above(sm) {
-        flex-direction: row;
+  .list-content {
+    margin-top: 40px;
+    @include respond-above(lg) {
+      margin-top: 90px;
+    }
+    .locals-list-filter {
+      margin-bottom: 30px;
+      @include respond-above(lg) {
+        padding-right: 0;
+        padding-left: 20px;
+        position: sticky;
+        top: 140px;
       }
-      .form-group {
-        &:not(:last-child) {
-          margin-bottom: 20px;
-        }
+      @include respond-above(xl) {
+        padding-right: 60px;
+      }
+      &__elements {
+        display: flex;
+        flex-direction: column;
         @include respond-above(sm) {
-          margin-bottom: 0 !important;
-          margin-right: 24px;
+          flex-direction: row;
         }
-        label {
-          margin-bottom: 12px;
-          font-size: 12px;
-          line-height: 8px;
-          letter-spacing: 0.01em;
-          text-transform: uppercase;
+        @include respond-above(lg) {
+          flex-direction: column;
         }
-        .filter-select {
-          @include respond-above(sm) {
-            width: 170px;
+        .form-group {
+          &:not(:last-child) {
+            margin-bottom: 20px;
           }
-          .Dropdown-control {
+          @include respond-above(sm) {
+            margin-bottom: 0;
+            margin-right: 24px;
+          }
+          @include respond-above(lg) {
+            margin-bottom: 20px;
+          }
+          label {
+            margin-bottom: 12px;
+            font-size: 12px;
+            line-height: 8px;
+            letter-spacing: 0.01em;
+            text-transform: uppercase;
+          }
+          .filter-select {
+            @include respond-above(sm) {
+              width: 170px;
+            }
+            @include respond-above(lg) {
+              width: auto;
+            }
+            .Dropdown-control {
+              position: relative;
+              width: 100%;
+              padding: 11px 14px;
+              color: $main-font-color;
+              font-weight: 600;
+              font-size: 16px;
+              border: 1px solid $main-font-color;
+              border-radius: 0;
+              outline: none;
+              border-radius: 8px;
+              background-image: url('/icons/select-down.svg');
+              background-repeat: no-repeat;
+              background-position-x: calc(100% - 14px);
+              background-position-y: 55%;
+            }
+            &.is-open {
+              .Dropdown-control {
+                background-image: none;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                &::after {
+                  content: ' ';
+                  position: absolute;
+                  z-index: 100;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-image: url('/icons/select-up.svg');
+                  background-repeat: no-repeat;
+                  background-position-x: calc(100% - 14px);
+                  background-position-y: 50%;
+                  border-top-left-radius: 0;
+                  border-top-right-radius: 0;
+                }
+              }
+            }
+            .Dropdown-arrow-wrapper {
+              display: none;
+            }
+
+            .Dropdown-menu {
+              position: relative;
+              max-height: 260px;
+              border: 1px solid $main-font-color;
+              border-bottom-left-radius: 8px;
+              border-bottom-right-radius: 8px;
+              border-top-color: transparent;
+              .Dropdown-option {
+                padding: 12px 14px;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 18px;
+                color: $main-font-color;
+                &:not(:last-child) {
+                  border-bottom: 0.7px solid lighten($main-font-color, 20%);
+                }
+
+                &.is-selected,
+                &:hover {
+                  background-color: #cac9c9;
+                  color: #fff;
+                }
+              }
+            }
+          }
+          input.text {
+            display: block;
+            width: 100%;
+            @include respond-above(sm) {
+              width: 200px;
+            }
+            padding: 9px 14px;
+            color: #484848;
+            font-size: 16px;
+            border: 1px solid #484848;
+            background-color: #e5e5e5;
+            border-radius: 0;
+            outline: none;
+          }
+          .filtered-location {
             position: relative;
             width: 100%;
-            padding: 11px 14px;
+            padding: 9px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             color: $main-font-color;
             font-weight: 600;
             font-size: 16px;
@@ -87,111 +179,27 @@
             border-radius: 0;
             outline: none;
             border-radius: 8px;
-            background-image: url('/icons/select-down.svg');
-            background-repeat: no-repeat;
-            background-position-x: calc(100% - 14px);
-            background-position-y: 55%;
-          }
-          &.is-open {
-            .Dropdown-control {
-              background-image: none;
-              border-bottom-left-radius: 0;
-              border-bottom-right-radius: 0;
-              &::after {
-                content: ' ';
-                position: absolute;
-                z-index: 100;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: url('/icons/select-up.svg');
-                background-repeat: no-repeat;
-                background-position-x: calc(100% - 14px);
-                background-position-y: 50%;
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-              }
-            }
-          }
-          .Dropdown-arrow-wrapper {
-            display: none;
-          }
-
-          .Dropdown-menu {
-            position: relative;
-            max-height: 260px;
-            border: 1px solid $main-font-color;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-            border-top-color: transparent;
-            .Dropdown-option {
-              padding: 12px 14px;
-              font-weight: 500;
-              font-size: 16px;
-              line-height: 18px;
-              color: $main-font-color;
-              &:not(:last-child) {
-                border-bottom: 0.7px solid lighten($main-font-color, 20%);
-              }
-
-              &.is-selected,
-              &:hover {
-                background-color: #cac9c9;
-                color: #fff;
-              }
-            }
-          }
-        }
-        input.text {
-          display: block;
-          width: 100%;
-          @include respond-above(sm) {
-            width: 200px;
-          }
-          padding: 9px 14px;
-          color: #484848;
-          font-size: 16px;
-          border: 1px solid #484848;
-          background-color: #e5e5e5;
-          border-radius: 0;
-          outline: none;
-        }
-        .filtered-location {
-          border: 1px solid red;
-          position: relative;
-          width: 100%;
-          padding: 9px 14px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: $main-font-color;
-          font-weight: 600;
-          font-size: 16px;
-          border: 1px solid $main-font-color;
-          border-radius: 0;
-          outline: none;
-          border-radius: 8px;
-          .times {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            svg {
-              stroke: $main-font-color;
-              fill: $main-font-color;
-              path {
+            .times {
+              display: inline-flex;
+              justify-content: center;
+              align-items: center;
+              svg {
                 stroke: $main-font-color;
                 fill: $main-font-color;
+                path {
+                  stroke: $main-font-color;
+                  fill: $main-font-color;
+                }
               }
             }
           }
         }
       }
     }
-  }
-  .location-list {
-    &-item {
-      margin-bottom: 34px;
+    .location-list {
+      &-item {
+        margin-bottom: 34px;
+      }
     }
   }
 }

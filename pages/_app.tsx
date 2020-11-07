@@ -3,8 +3,11 @@ import { NextPage } from 'next';
 import App, { Container, AppInitialProps, AppContext, AppProps } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
+import NProgress from 'nprogress';
+import Router from 'next/router';
 
 import '../styles/index.scss';
+import '../styles/globals.scss';
 
 import { Store, wrapper, RootState } from '../stores';
 import { Provider, useSelector } from 'react-redux';
@@ -65,10 +68,18 @@ class MyApp extends App<IProps> {
             href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
             rel="stylesheet"
           />
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          />
+          <link
+            rel="text/javascript"
+            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"
+          />
         </Head>
         {layout ? (
           <>
-            {sidebar && <Sidebar />}
+            {header && <Header />}
             <Component {...pageProps} />
           </>
         ) : (
@@ -80,3 +91,11 @@ class MyApp extends App<IProps> {
 }
 
 export default wrapper.withRedux(MyApp);
+
+NProgress.configure({ showSpinner: false });
+
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => {
+  NProgress.done();
+});
+Router.events.on('routeChangeError', () => NProgress.done());

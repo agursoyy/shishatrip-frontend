@@ -9,6 +9,8 @@ import {
   FILTER_BY_NAME_INPUT,
   CLEAR_FILTER_SORT_BY_VALUE,
   CLEAR_FILTER_BY_NAME_INPUT,
+  FETCH_SINGLE_LOCAL_DATA_SUCESS,
+  FETCH_SINGLE_LOCAL_DATA_FAILED,
 } from './types';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   locationSearchVal: null,
   sortByVal: null,
   filterByCategory: null,
+  visitedLocalData: null,
 };
 
 export function locationReducer(state = initialState, action: any) {
@@ -35,6 +38,10 @@ export function locationReducer(state = initialState, action: any) {
       };
     case FETCH_INIT_DATA_FAILED:
       return { ...state, loading: false, error: true };
+    case FETCH_SINGLE_LOCAL_DATA_SUCESS:
+      return { ...state, loading: false, error: false, visitedLocalData: action.payload };
+    case FETCH_SINGLE_LOCAL_DATA_FAILED:
+      return { ...state, loading: false, error: true, visitedLocalData: false };
     case START_FILTER_LOADING:
       return { ...state, loading: true };
     case FILTER_BY_SEARCH_PARAM:

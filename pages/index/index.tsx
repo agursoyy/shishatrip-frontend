@@ -42,24 +42,15 @@ const Home: INextPage<IProps> = ({ custom }) => {
   return (
     <div className="home-page">
       <ReturnToTop />
-      <div className="row">
-        <div className="col-lg-8 col-xl-9">
-          <div className="content">
-            <div className="container">
-              <div className="header-wrapper">{<Header />}</div>
-              <div className="home-location-list">
-                {loading ? (
-                  <div className="home-location-list--loading">
-                    <Loading />
-                  </div>
-                ) : !filteredData ? (
-                  <div className="home-location-list--error">Error...</div>
-                ) : (
-                  <LocationList />
-                )}
-              </div>
+      <div className="content">
+        <div className="home-location-list">
+          {loading ? (
+            <div className="home-location-list--loading">
+              <Loading />
             </div>
-          </div>
+          ) : (
+            filteredData && <LocationList />
+          )}
         </div>
       </div>
     </div>

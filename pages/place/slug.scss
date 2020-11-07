@@ -1,0 +1,11 @@
+@import '../../styles/mixins/';
+
+.place-slug-page {
+  padding-top: 50px;
+  @include respond-above(lg) {
+    padding-top: 140px;
+  }
+  @include respond-above(xl) {
+    padding-top: 200px;
+  }
+}

@@ -5,10 +5,11 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface IProps {
   link: string;
+  as: string;
   locationItem?: any; // data
 }
 
-const LocationList: FC<IProps> = ({ link, locationItem }) => {
+const LocationList: FC<IProps> = ({ link, locationItem, as }) => {
   const { logo_img, name, address, up, opening_hours, slug } = locationItem;
   return (
     <div className="location-item-card">
@@ -26,7 +27,7 @@ const LocationList: FC<IProps> = ({ link, locationItem }) => {
         </div>
         <div className="card-body">
           <h5 className="card-title name">
-            <Link href={link}>
+            <Link href={as} as={link}>
               <a>{name}</a>
             </Link>
           </h5>

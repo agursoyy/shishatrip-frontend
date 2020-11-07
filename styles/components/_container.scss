@@ -1,0 +1,8 @@
+@include respond-above(lg) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
+    width: 62.5%;
+  }
+}

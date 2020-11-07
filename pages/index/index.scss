@@ -1,14 +1,12 @@
 @import '../../styles/mixins/';
 
 .home-page {
+  padding-top: 80px;
+  @include respond-above(md) {
+    padding-top: 90px;
+  }
   .content {
     // common desktop and mobile content
-    margin-right: -15px;
-    padding: 40px 15px;
-    .header-wrapper {
-      margin-bottom: 60px;
-    }
-
     .home-location-list {
       &--loading {
         position: fixed;
@@ -27,28 +25,9 @@
 
   @include respond-above(sm) {
     // header desktop appears above sm screen.
-    min-height: 100vh;
-    padding-left: 100px;
-    background: url('/images/map-bg.jpg');
-    background-size: cover;
-    background-position: fixed;
-    background-attachment: fixed;
     .content {
       //transform: translateX(-100%);
       margin-right: 0;
-      min-height: 100vh;
-      padding: 40px 50px;
-      background: rgba(#fff, 0.97);
-      animation: animate-content 1.2s ease-out forwards;
     }
-  }
-}
-
-@keyframes animate-content {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0%);
   }
 }
