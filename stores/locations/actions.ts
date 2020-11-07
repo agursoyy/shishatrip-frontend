@@ -32,6 +32,11 @@ export function fetchInıtData(force?: boolean) {
       } else {
         dispatch({ type: FETCH_INIT_DATA_FAILED });
       }
+    } else {
+      dispatch({ type: FETCH_INIT_DATA_REQUEST });
+      setTimeout(() => {
+        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
+      }, 500);
     }
   };
 }
@@ -60,10 +65,12 @@ export function filterBySearchVal(param: any) {
             (addressObj.county == county || addressObj.county == name)
           );
       });
-      dispatch({
-        type: FILTER_BY_SEARCH_PARAM,
-        payload: { locationSearchVal: param, filteredData: { locals: filtered } },
-      });
+      setTimeout(() => {
+        dispatch({
+          type: FILTER_BY_SEARCH_PARAM,
+          payload: { locationSearchVal: param, filteredData: { locals: filtered } },
+        });
+      }, 600);
     }
   };
 }
@@ -76,7 +83,7 @@ export function clearFilterBySearchVal() {
     } = getState();
     if (data) {
       dispatch({ type: CLEAR_FILTER_BY_SEARCH_PARAM });
-      dispatch(fetchInıtData(true));
+      dispatch(fetchInıtData());
     }
   };
 }

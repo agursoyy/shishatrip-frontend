@@ -11,6 +11,7 @@ import './index.scss';
 import LocationList from '../../components/locationList';
 import { load } from 'dotenv/types';
 import Loading from '../../components/loading/loading';
+import Header from '../../components/header';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -45,9 +46,7 @@ const Home: INextPage<IProps> = ({ custom }) => {
         <div className="col-lg-8 col-xl-9">
           <div className="content">
             <div className="container">
-              <div className="auth-wrapper">
-                <button className="auth-button btn">Register</button>
-              </div>
+              <div className="header-wrapper">{<Header />}</div>
               <div className="home-location-list">
                 {loading ? (
                   <div className="home-location-list--loading">

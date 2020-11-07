@@ -5,28 +5,22 @@
     // common desktop and mobile content
     margin-right: -15px;
     padding: 40px 15px;
-    .auth-wrapper {
+    .header-wrapper {
       margin-bottom: 60px;
-      display: flex;
-      justify-content: flex-end;
-      .auth-button {
-        background: #1c8be9;
-        padding: 12px 50px;
-        border: 0;
-        color: #fff;
-        font-family: Poppins, sans-serif;
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.3px;
-        border-radius: 8px;
-      }
     }
+
     .home-location-list {
       &--loading {
-        height: 60vh;
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        background: #fff;
       }
     }
   }

@@ -1,7 +1,10 @@
 import './loading.scss';
 
 const Loading = () => (
-  <div className="lds-circle">
+  <div className="lds-ring">
+    <div></div>
+    <div></div>
+    <div></div>
     <div></div>
   </div>
 );

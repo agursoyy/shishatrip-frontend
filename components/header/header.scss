@@ -1,56 +1,18 @@
-@import '../../styles/variables/colors';
-@import '../../styles/mixins/';
-
-header.header--desktop {
-  display: none;
-  @include respond-above(sm) {
-    display: block;
-  }
-  z-index: 1000;
-  padding: 20px 0;
-  width: 100px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: #fff;
-  box-shadow: 0 0 20px rgba(34, 36, 38, 0.15);
+.header {
   nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     .nav-item {
-      margin-bottom: 56px;
-      .navbar-brand {
-        margin-right: 0;
-        img {
-          width: 30px;
-        }
-      }
       .nav-link {
-        border-radius: 50%;
-        padding: 0;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        img {
-          width: 30px;
-        }
-        &:hover {
-          background: $primary-color;
-          svg {
-            stroke: #fff;
-          }
-        }
-      }
-      &.active {
-        .nav-link {
-          background: $primary-color;
-          svg {
-            stroke: #fff;
-          }
+        &.auth-button {
+          margin-left: auto;
+          background: #1c8be9;
+          padding: 12px 50px;
+          border: 0;
+          color: #fff;
+          font-family: Poppins, sans-serif;
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 0.3px;
+          border-radius: 8px;
         }
       }
     }

@@ -6,6 +6,7 @@ module.exports = {
       auth: false,
       footer: true, // default values of header,footer,layout and auth configs.
       header: true,
+      sidebar: true,
       layout: true,
     },
     api: 'https://api.shishatrip.de/api',

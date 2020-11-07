@@ -10,6 +10,7 @@ import { Store, wrapper, RootState } from '../stores';
 import { Provider, useSelector } from 'react-redux';
 import { login } from '../stores/auth/actions';
 import { success } from '../stores/alert/actions';
+import Sidebar from '../components/sidebar';
 import Header from '../components/header';
 
 const { publicRuntimeConfig } = getConfig();
@@ -50,7 +51,7 @@ class MyApp extends App<IProps> {
 
   public render() {
     const { Component, pageProps, pageConfig } = this.props;
-    const { layout, header, footer } = pageConfig;
+    const { layout, header, footer, sidebar } = pageConfig;
     return (
       <Container>
         <Head>
@@ -60,7 +61,7 @@ class MyApp extends App<IProps> {
         </Head>
         {layout ? (
           <>
-            {header && <Header />}
+            {sidebar && <Sidebar />}
             <Component {...pageProps} />
           </>
         ) : (

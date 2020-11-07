@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
 import './locationCard.scss';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface IProps {
   link: string;
@@ -15,7 +16,11 @@ const LocationList: FC<IProps> = ({ link, locationItem }) => {
         <div className="img-wrapper">
           <Link href={link}>
             <a>
-              <img className="card-img-top" src={logo_img} alt="Card image cap" />
+              <img className="card-img-top d-none" src={logo_img} alt="Card image cap" />
+              <LazyLoadImage
+                alt={'Card image cap'}
+                src={logo_img} // use normal <img> attributes as props
+              />
             </a>
           </Link>
         </div>
