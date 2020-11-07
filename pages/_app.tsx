@@ -49,6 +49,9 @@ class MyApp extends App<IProps> {
     };
   };
 
+  componentDidMount() {
+    document.body.style.zoom = '1.0';
+  }
   public render() {
     const { Component, pageProps, pageConfig } = this.props;
     const { layout, header, footer, sidebar } = pageConfig;
