@@ -1502,10 +1502,17 @@ a:active .side-menu-span {
 .nav-pills .show > .nav-link {
   color: #b872cd;
   background-color: #ffffff;
-  fonr-weight: 700;
+  font-weight: 700;
   background: #ffffff;
   box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.03);
   border-radius: 8px;
+  svg {
+    stroke: #b872cd;
+    fill: #b872cd;
+    path {
+      fill: #b872cd;
+    }
+  }
 }
 
 .local-section1-portfolio-wrapper {
@@ -1748,18 +1755,7 @@ a:active .side-menu-span {
   .local-top-navbar-login-button-wrapper-cafe {
     margin-left: auto;
   }
-  .navbar-light .navbar-nav .nav-link {
-    color: #ffffff;
-    font-family: Titillium;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 18px;
-    line-height: 21.6px;
-    margin-left: 12px;
-    margin-right: 12px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
+
   .local-login-button-cafe {
     background-color: white;
     color: black;
@@ -1879,6 +1875,13 @@ a:active .side-menu-span {
   .nav-pills .show > .nav-link {
     color: #b872cd;
     background-color: #ffffff;
+    svg {
+      stroke: #b872cd;
+      fill: #b872cd;
+      path {
+        fill: #b872cd;
+      }
+    }
   }
   .local-section1-portfolio-wrapper {
     padding: 5px 8px;
@@ -1973,7 +1976,7 @@ a:active .side-menu-span {
     display: flex;
   }
   .local-section1-info-button-temp-innerwrapper-cafe {
-    display: none;
+    //display: none;
   }
   .local-col-border-bottom-right {
     border-width: 1px;

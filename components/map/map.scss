@@ -1,0 +1,10 @@
+@import '../../styles/mixins/';
+@import '../../styles/variables/colors';
+
+.map-container {
+  height: 260px;
+  width: 100%;
+  @include respond-above(md) {
+    height: 400px;
+  }
+}

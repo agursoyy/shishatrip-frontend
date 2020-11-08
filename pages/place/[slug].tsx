@@ -13,6 +13,7 @@ import SectionHeaderWithPinkLogo from '../../components/sectionHeaderWithPinkLog
 import PhotoSection from '../../components/sectionPhoto/sectionPhoto';
 import { fetchVisitedLocalData, filter } from '../../stores/locations/actions';
 import { useSelector } from 'react-redux';
+import SectionInfo from '../../components/sectionInfo';
 
 type IProps = {
   error?: {
@@ -28,13 +29,13 @@ const {
 } = getConfig();
 
 const Slug: NextPage<IProps> = ({ error }) => {
-  const [profileSection, setProfileSection] = useState('photo');
+  const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('info');
 
   const {
     locations: { loading, filteredData, locationSearchVal, visitedLocalData },
   } = useSelector((state: RootState) => state);
 
-  const setProfileSectionHandler = (v: string) => {
+  const setProfileSectionHandler = (v: 'info' | 'photo' | 'stories') => {
     setProfileSection(v);
   };
 
@@ -60,10 +61,14 @@ const Slug: NextPage<IProps> = ({ error }) => {
           <div className="local-container-fluid-section1-cafe">
             <SectionHeaderWithPinkLogo
               setProfileSectionHandler={setProfileSectionHandler}
+              profileSection={profileSection}
               local={data}
             />
             {profileSection === 'photo' && (
               <PhotoSection setProfileSectionHandler={setProfileSectionHandler} local={data} />
+            )}
+            {profileSection === 'info' && (
+              <SectionInfo setProfileSectionHandler={setProfileSectionHandler} local={data} />
             )}
           </div>
         </Container>

@@ -25,10 +25,11 @@ const PhotoBoxView = (props: any) => {
   return (
     <Carousel {...getConfigurableProps()} selectedItem={props.selectedItem}>
       {props.images &&
-        props.images.map((img: any) => (
+        props.images.map((img: any, index: number) => (
           <div
             className={'profile-gallery-images'}
             style={{ backgroundImage: `url(${img.path})` }}
+            key={index}
           />
         ))}
     </Carousel>

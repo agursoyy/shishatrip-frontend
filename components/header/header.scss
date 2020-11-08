@@ -29,14 +29,26 @@
     .navbar-nav {
       display: flex;
       align-items: center;
+      padding-top: 14px;
+      @include respond-above(lg) {
+        padding-top: 0;
+      }
       .nav-item {
-        @include respond-above(md) {
+        margin-bottom: 8px;
+        @include respond-above(lg) {
           &:not(:last-child) {
             margin-right: 30px;
+            margin-bottom: 0;
           }
         }
         .nav-link {
           color: $main-font-color;
+          font-family: Titillium;
+          font-weight: 700;
+          font-style: normal;
+          font-size: 13px;
+          line-height: 10px;
+
           .auth-btn {
             background: #f33364;
             padding: 12px 50px;
