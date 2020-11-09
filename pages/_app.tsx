@@ -1,6 +1,5 @@
-import React, { FC, useState } from 'react';
-import { NextPage } from 'next';
-import App, { Container, AppInitialProps, AppContext, AppProps } from 'next/app';
+import React from 'react';
+import App, {AppContext, AppInitialProps, Container} from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import NProgress from 'nprogress';
@@ -9,11 +8,7 @@ import Router from 'next/router';
 import '../styles/index.scss';
 import '../styles/globals.scss';
 
-import { Store, wrapper, RootState } from '../stores';
-import { Provider, useSelector } from 'react-redux';
-import { login } from '../stores/auth/actions';
-import { success } from '../stores/alert/actions';
-import Sidebar from '../components/sidebar';
+import {Store, wrapper} from '../stores';
 import Header from '../components/header';
 
 const { publicRuntimeConfig } = getConfig();
@@ -76,11 +71,6 @@ class MyApp extends App<IProps> {
             rel="text/javascript"
             href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"
           />
-          <script
-            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossOrigin="anonymous"
-          ></script>
           <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"

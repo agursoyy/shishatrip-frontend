@@ -1,3 +1,4 @@
+@import url('https://use.typekit.net/rjk0fvd.css');
 @mixin font-face(
   $font-name,
   $font-folder: $font-name,
@@ -12,7 +13,9 @@
     font-weight: $font-weight;
     // src: local('#{$font-name}'), local('#{$font-file-name}'),
     src: url('/fonts/#{$font-folder}/#{$font-file-name}.woff') format('woff'),
-      url('/fonts/#{$font-folder}/#{$font-file-name}.woff2') format('woff2'),
-      url('/fonts/#{$font-folder}/#{$font-file-name}.ttf') format('truetype');
+    url('/fonts/#{$font-folder}/#{$font-file-name}.woff2') format('woff2'),
+    url('/fonts/#{$font-folder}/#{$font-file-name}.ttf') format('truetype');
   }
 }
+
+$main-font-color: acumin-pro, sans-serif;

@@ -1,15 +1,15 @@
-import { defaultHead } from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect} from 'react';
 import './locationList.scss';
 import Dropdown from 'react-dropdown';
 import LocationCard from '../locationCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../stores';
-import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../stores';
+import {clearFilterBySearchVal, filterBySearchVal} from '../../stores/locations/actions';
+
 const LocationList = () => {
   const dispatch = useDispatch();
   const {
-    locations: { loading, filteredData, locationSearchVal },
+    locations: {loading, filteredData, locationSearchVal},
   } = useSelector((state: RootState) => state);
 
   useEffect(() => {
@@ -33,10 +33,10 @@ const LocationList = () => {
         <div className="col-lg-7 offset-lg-3">
           <div className="places-search">
             <input
-              type="search"
-              id="address-input"
-              className="address-input"
-              placeholder={'Suche nach Ort?'}
+                type="search"
+                id="address-input"
+                className="address-input"
+                placeholder={'Suche Stadt oder Ort'}
             />
           </div>
         </div>
