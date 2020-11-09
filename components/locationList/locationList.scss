@@ -3,24 +3,39 @@
 
 .location-list-container {
   .places-search {
+    $search_input_border: 12px;
     position: relative;
+    z-index: 100;
+    padding: 14px 16px;
+    border-radius: $search_input_border;
+    box-shadow: 0px 0px 20px 0 rgba(34, 36, 38, 0.05);
+    background: #fff;
+    display: flex;
     .ap-input-icon.ap-icon-clear {
       display: none;
     }
     .algolia-places {
+      position: static !important;
+    }
+    .ap-input-icon svg {
+      right: 10px;
+      @include respond-above(md) {
+        right: 100px;
+      }
     }
     input.address-input {
+      flex: 1;
       background: #f1f3f6;
       font-family: acumin-pro, sans-serif;
       font-size: 1.3rem;
       letter-spacing: 0.2rem;
       border: 0;
+      border-radius: $search_input_border;
       outline: none;
       height: 43px;
       color: #29283d;
       font-weight: 600;
       padding: 0 20px;
-      border-radius: 26px !important;
 
       &::-webkit-input-placeholder {
         /* Edge */
@@ -33,6 +48,33 @@
       &::placeholder {
         color: #29283d;
       }
+    }
+    .ap-dropdown-menu {
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
+      -moz-box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
+      box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
+      border-color: transparent;
+      border-radius: $search_input_border;
+      margin-top: 16px;
+      background: rgb(252, 252, 252);
+      padding: 14px 16px;
+      transition: all 2s ease-in;
+      .ap-suggestion {
+        transform: translateY(-1000px);
+        animation: animate-autoplace-dropdown-element 350ms ease-in forwards;
+      }
+    }
+    .close-btn {
+      display: none;
+      @include respond-above(md) {
+        display: inline;
+      }
+      width: 100px;
+      text-transform: uppercase;
+      color: rgb(97, 97, 112);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.4rem;
     }
   }
   .list-content {
@@ -56,27 +98,27 @@
         flex-direction: column;
         @include respond-above(sm) {
           flex-direction: row;
+          // flex-wrap: wrap;
+          //align-items: center;
         }
         @include respond-above(lg) {
           flex-direction: column;
+          align-items: stretch;
         }
         .form-group {
-          &:not(:last-child) {
-            margin-bottom: 20px;
-          }
+          margin-bottom: 20px;
+
           @include respond-above(sm) {
-            margin-bottom: 0;
             margin-right: 24px;
           }
           @include respond-above(lg) {
-            margin-bottom: 20px;
+            margin-bottom: 20px !important;
           }
           label {
             margin-bottom: 12px;
             font-size: 12px;
             line-height: 8px;
             letter-spacing: 0.01em;
-            text-transform: uppercase;
           }
           .filter-select {
             @include respond-above(sm) {
@@ -194,6 +236,86 @@
               }
             }
           }
+
+          .custom-checkbox {
+            flex-basis: 50%;
+            position: relative;
+            display: block;
+            margin-bottom: 8px;
+            @include respond-above(sm) {
+              flex-basis: auto;
+              margin-bottom: 6px;
+              margin-right: 16px;
+            }
+            @include respond-above(lg) {
+              margin-bottom: 10px;
+              margin-right: 0;
+            }
+            label {
+              position: relative;
+              min-height: 34px;
+              display: block;
+              padding-left: 40px;
+              margin-bottom: 0;
+              font-weight: normal;
+              font-size: 14px;
+              line-height: 16px;
+              color: $main-font-color;
+              cursor: pointer;
+              span {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+              &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                margin: 4px;
+                width: 22px;
+                height: 22px;
+                transition: transform 0.28s ease;
+                border-radius: 3px;
+                border: 2px solid $main-font-color;
+              }
+              &:after {
+                content: '';
+                display: block;
+                width: 10px;
+                height: 5px;
+                border-bottom: 2px solid darken($main-font-color, 10%);
+                border-left: 2px solid darken($main-font-color, 10%);
+                transform: rotate(-45deg) scale(0);
+                transition: transform ease 0.25s;
+                position: absolute;
+                top: 12px;
+                left: 10px;
+              }
+              a {
+                color: $main-font-color;
+                text-decoration: underline;
+              }
+            }
+            input[type='checkbox'] {
+              width: auto;
+              opacity: 0.00000001;
+              position: absolute;
+              left: 0;
+              margin-left: -20px;
+              &:checked ~ label {
+                &:before {
+                  border: 2px solid $main-font-color;
+                }
+                &:after {
+                  transform: rotate(-45deg) scale(1);
+                }
+              }
+              &:focus + label::before {
+                outline: 0;
+              }
+            }
+          }
         }
       }
     }
@@ -202,5 +324,14 @@
         margin-bottom: 34px;
       }
     }
+  }
+}
+
+@keyframes animate-autoplace-dropdown-element {
+  from {
+    transform: translateY(-1000px);
+  }
+  to {
+    transform: translateY(0);
   }
 }

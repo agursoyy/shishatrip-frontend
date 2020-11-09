@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import './locationList.scss';
 import Dropdown from 'react-dropdown';
 import LocationCard from '../locationCard';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../../stores';
-import {clearFilterBySearchVal, filterBySearchVal} from '../../stores/locations/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../stores';
+import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
 
 const LocationList = () => {
   const dispatch = useDispatch();
   const {
-    locations: {loading, filteredData, locationSearchVal},
+    locations: { loading, filteredData, locationSearchVal },
   } = useSelector((state: RootState) => state);
 
   useEffect(() => {
@@ -33,11 +33,19 @@ const LocationList = () => {
         <div className="col-lg-7 offset-lg-3">
           <div className="places-search">
             <input
-                type="search"
-                id="address-input"
-                className="address-input"
-                placeholder={'Suche Stadt oder Ort'}
+              type="search"
+              id="address-input"
+              className="address-input"
+              placeholder={locationSearchVal ? locationSearchVal.value : 'Suche Stadt oder Ort'}
             />
+            <button
+              className="btn btn-link close-btn"
+              onClick={() => {
+                dispatch(clearFilterBySearchVal());
+              }}
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>
@@ -70,22 +78,7 @@ const LocationList = () => {
                   </div>
                 )}
                 <div className="form-group">
-                  <label className="filter-labe d-none">Besonderheiten*</label>
-                  <Dropdown
-                    className="filter-select"
-                    options={[
-                      { value: '-1', label: 'Besonderheiten' },
-                      { value: '1', label: 'Sky' },
-                      { value: '2', label: 'Sky' },
-                    ]}
-                    value={'Besonderheiten'}
-                    onChange={(e) => {
-                      console.log(e.value);
-                    }}
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="filter-labe d-none">Besonderheiten*</label>
+                  <label className="filter-labe d-none">Sortier*</label>
                   <Dropdown
                     className="filter-select"
                     options={[
@@ -98,6 +91,105 @@ const LocationList = () => {
                       console.log(e.value);
                     }}
                   />
+                </div>
+
+                <div className="form-group d-flex flex-wrap flex-row flex-sm-row flex-lg-column">
+                  <div className="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="checkbox"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="checkbox"
+                      className="d-flex align-items-center"
+                      style={{ lineHeight: '16px' }}
+                    >
+                      Backgommon
+                    </label>
+                  </div>
+                  <div className="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="checkbox1"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="checkbox1"
+                      className="d-flex align-items-center"
+                      style={{ lineHeight: '16px' }}
+                    >
+                      TV
+                    </label>
+                  </div>
+                  <div className="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="checkbox2"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="checkbox2"
+                      className="d-flex align-items-center"
+                      style={{ lineHeight: '16px' }}
+                    >
+                      POS
+                    </label>
+                  </div>
+                  <div className="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="checkbox3"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="checkbox3"
+                      className="d-flex align-items-center"
+                      style={{ lineHeight: '16px' }}
+                    >
+                      DRINK
+                    </label>
+                  </div>
+                  <div className="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="checkbox4"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="checkbox4"
+                      className="d-flex align-items-center"
+                      style={{ lineHeight: '16px' }}
+                    >
+                      Wifi
+                    </label>
+                  </div>
+                  <div className="custom-checkbox">
+                    <input
+                      type="checkbox"
+                      id="checkbox5"
+                      onChange={(e) => {
+                        console.log(e.target.checked);
+                      }}
+                    />
+                    <label
+                      htmlFor="checkbox5"
+                      className="d-flex align-items-center"
+                      style={{ lineHeight: '16px' }}
+                    >
+                      Playstation 5
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
