@@ -1,9 +1,9 @@
 @import '../../styles/mixins/index';
 
 .home-page {
-  padding-top: 80px;
+  padding-top: 140px;
   @include respond-above(md) {
-    padding-top: 90px;
+    padding-top: 176px;
   }
   .content {
     // common desktop and mobile content

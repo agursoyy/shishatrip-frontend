@@ -23,19 +23,19 @@ const Login: NextPage<IProps> = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="register-page">
+    <div className="login-page">
       <div className="row mr-0 ml-0">
         <div className="col-md-6 p-0">
-          <div className="register-page-left-wrapper">
+          <div className="login-page-left-wrapper">
             <AuthLeftSide />
           </div>
         </div>
         <div className="col-md-6">
-          <div className="register-page-content">
+          <div className="login-page-content">
             <div className="logo-wrapper">
               <img src="/icons/logo-dark.svg" alt="" />
             </div>
-            <div className="register-form">
+            <div className="login-form">
               <div className="row justify-content-center">
                 <div className="col-11 col-lg-10 col-xl-6">
                   <Formik
