@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import './locationCard.scss';
-import {LazyLoadImage} from 'react-lazy-load-image-component';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface IProps {
   link: string;
@@ -16,45 +16,46 @@ const LocationList: FC<IProps> = ({ link, locationItem, as }) => {
       <a className="location-item-card">
         <div className="card">
           <div className="img-wrapper">
-            <Link href={link}>
-              <a>
-                <img className="card-img-top d-none" src={logo_img} alt="Card image cap" />
-                <LazyLoadImage
-                  alt={'Card image cap'}
-                  src={logo_img} // use normal <img> attributes as props
-                />
-              </a>
-            </Link>
+            <img className="card-img-top d-none" src={logo_img} alt="Card image cap" />
+            <LazyLoadImage
+              alt={'Card image cap'}
+              src={logo_img} // use normal <img> attributes as props
+            />
           </div>
           <div className="card-body">
-            <h5 className="card-title name">
-              <Link href={as} as={link}>
-                <a>{name}</a>
-              </Link>
-            </h5>
+            <h5 className="card-title name">{name}</h5>
             <p className="card-text adress">{JSON.parse(address).value}</p>
 
             <div className="flexbox d-flex">
               <div className="info">
                 <p>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                       stroke="#a5adc4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
-                    <circle cx="12" cy="10" r="3"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#a5adc4"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+                    <circle cx="12" cy="10" r="3" />
                   </svg>
                   <span className="expl ml-4">1.1 km</span>
                 </p>
                 <p>
                   <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#a5adc4"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#a5adc4"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                   >
                     <circle cx="12" cy="12" r="10"></circle>
                     <polyline points="12 6 12 12 16 14"></polyline>

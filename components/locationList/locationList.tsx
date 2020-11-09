@@ -57,6 +57,7 @@ const LocationList = () => {
               <div className="locals-list-filter__elements">
                 {locationSearchVal && (
                   <div className="form-group">
+                    <label>Location</label>
                     <button
                       className="filtered-location"
                       onClick={() => {
@@ -75,6 +76,7 @@ const LocationList = () => {
                         </svg>{' '}
                       </span>
                     </button>
+                    <div className="separator"></div>
                   </div>
                 )}
                 <div className="form-group">

@@ -1,5 +1,5 @@
 import React from 'react';
-import App, {AppContext, AppInitialProps, Container} from 'next/app';
+import App, { AppContext, AppInitialProps, Container } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import NProgress from 'nprogress';
@@ -8,7 +8,7 @@ import Router from 'next/router';
 import '../styles/index.scss';
 import '../styles/globals.scss';
 
-import {Store, wrapper} from '../stores';
+import { Store, wrapper } from '../stores';
 import Header from '../components/header';
 
 const { publicRuntimeConfig } = getConfig();
@@ -76,6 +76,16 @@ class MyApp extends App<IProps> {
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossOrigin="anonymous"
           ></script>
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
         </Head>
         {layout ? (
           <>

@@ -67,7 +67,6 @@ export function filterBySearchVal(param: any) {
       const filtered = locals.filter((local: any) => {
         const { address } = local;
         const addressObj = JSON.parse(address);
-        console.log(addressObj);
         if (!addressObj.administrative || !addressObj.county) {
           return addressObj.value.indexOf(name) >= 0;
         } else

@@ -5,3 +5,10 @@ $fontSizes: (
   lg: '+ 4px',
   xl: '+ 8px',
 );
+
+@font-face {
+  font-family: 'Titillium';
+  src: url('/fonts/TitilliumWeb-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}

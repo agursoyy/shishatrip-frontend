@@ -1,0 +1,65 @@
+@import '../../styles/mixins/';
+
+form.auth-form-container {
+  padding: 24px 20px;
+  @include respond-above(lg) {
+    padding: 46px;
+  }
+  background: #ffffff;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+
+  .form-group {
+    margin-bottom: 16px;
+    label {
+      margin-bottom: 11px;
+      font-family: Titillium;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 19px;
+      color: #4a5568;
+    }
+    input {
+      margin: 0;
+      border: 1px solid #e8e8e8;
+      box-sizing: border-box;
+      border-radius: 5px;
+      padding: 20px;
+      font-family: Titillium;
+      font-size: 14px;
+      line-height: 17px;
+      color: #2d3748;
+    }
+    .hide-password {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 10px;
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .form-error {
+      margin-top: 4px;
+      color: #df585a;
+    }
+  }
+  .btn-wrapper {
+    margin-top: 26px;
+    .submit-btn {
+      padding: 13px;
+      background: #d280d7;
+      border-radius: 5px;
+      font-family: 'Titillium';
+      font-style: normal;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+  }
+}
