@@ -9,10 +9,19 @@
     }
   }
   &-content {
-    min-height: 90vh;
+    min-height: 100vh;
+    overflow-y: auto;
+
+    padding-top: 90px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* padding-top: 120px;   // switched  when you have more inputs in form. "Remove the display flex property."
+    padding-bottom: 60px;  
+    @include respond-above(md) {
+      max-height: 100vh; 
+      padding: 200px 0;
+    }*/
     .logo-wrapper {
       text-align: center;
       margin-bottom: 29px;

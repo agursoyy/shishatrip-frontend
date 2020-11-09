@@ -1,5 +1,6 @@
 .auth-left-side-wrapper {
   height: 100vh;
+  padding-top: 95px; // extract the fixed navbar height.
   background: url('/icons/auth-bg.svg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;

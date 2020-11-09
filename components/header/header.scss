@@ -2,9 +2,10 @@
 @import '../../styles/variables/colors';
 
 .header {
-  position: sticky;
+  position: fixed; // switch to fixed between sticky.
   z-index: 100000;
   top: 0;
+  width: 100%;
   nav.navbar {
     background: #fff !important;
     box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
