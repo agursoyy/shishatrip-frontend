@@ -110,7 +110,6 @@
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
 
-
 .test {
   border-width: 2px;
   border-style: solid;
@@ -1404,7 +1403,9 @@ a:active .side-menu-span {
 
 .local-section1-button-wrapper-cafe {
   text-align: center;
-  margin-top: -150px;
+  @include respond-above(md) {
+    margin-top: -150px;
+  }
 }
 
 .local-section1-brand-text1-cafe {

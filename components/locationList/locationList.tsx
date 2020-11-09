@@ -78,7 +78,7 @@ const LocationList = () => {
                   </div>
                 )}
                 <div className="form-group">
-                  <label className="filter-labe d-none">Sortier*</label>
+                  <label className="filter-label">Sortier</label>
                   <Dropdown
                     className="filter-select"
                     options={[
@@ -91,9 +91,11 @@ const LocationList = () => {
                       console.log(e.value);
                     }}
                   />
+                  <div className="separator"></div>
                 </div>
 
                 <div className="form-group d-flex flex-wrap flex-row flex-sm-row flex-lg-column">
+                  <label className="filter-label w-100">Features</label>
                   <div className="custom-checkbox">
                     <input
                       type="checkbox"
@@ -190,6 +192,7 @@ const LocationList = () => {
                       Playstation 5
                     </label>
                   </div>
+                  <div className="separator"></div>
                 </div>
               </div>
             </div>
