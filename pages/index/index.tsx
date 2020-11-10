@@ -16,22 +16,21 @@ import ReturnToTop from '../../components/returnToTop';
 
 const { publicRuntimeConfig } = getConfig();
 
-type IProps = {
-  custom: string;
-};
+import LocationListQuery from '../../interfaces/locationListQuery';
+type IProps = {} & LocationListQuery;
 
 type INextPage<P> = NextPage<P> & {
   pageConfig?: IPageConfig;
 };
 
-const Home: INextPage<IProps> = ({ custom }) => {
+const Home: INextPage<IProps> = ({ page, sortby, lat, lng }) => {
   const { news, auth } = useSelector((state: RootState) => state);
   console.log(auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(fetchInıtData());
+      //dispatch(fetchInıtData());
     }, 1250);
   }, []);
 
@@ -49,7 +48,7 @@ const Home: INextPage<IProps> = ({ custom }) => {
               <Loading />
             </div>
           ) : (
-            filteredData && <LocationList />
+            filteredData && <LocationList page={page} sortby={sortby} lat={lat} lng={lng} />
           )}
         </div>
       </div>
@@ -62,12 +61,40 @@ Home.pageConfig = {
   footer: false,
 };
 
-/*
+function isNumeric(x: any) {
+  return parseFloat(x).toString() === x.toString();
+}
 Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
-  store.dispatch({ type: 'FOO', payload: 'foo' }); // The component can read from the store's state when rendered
-  const { auth } = store.getState();
-  return { custom: auth.message }; // You can pass some custom props to the component from here
+  const { page, sortby, lat, lng } = query;
+  let pageQuery = 1,
+    sortByQuery: 'abc' | 'last' | 'nearby' | undefined,
+    latQuery,
+    lngQuery;
+
+  if (page && isNumeric(page.toString())) {
+    pageQuery = parseInt(page.toString());
+  }
+  console.log(pageQuery);
+
+  if (sortby) {
+    let temp = sortby.toString();
+    if (temp === 'abc' || temp === 'last' || temp === 'nearby') {
+      sortByQuery = temp;
+    }
+  }
+  if (lat && isNumeric(lat.toString())) {
+    latQuery = parseFloat(lat.toString());
+  }
+  if (lng && isNumeric(lng.toString())) {
+    lngQuery = parseFloat(lng.toString());
+  }
+  await store.dispatch(
+    fetchInıtData({ page: pageQuery, sortby: sortByQuery, lat: latQuery, lng: lngQuery }) as any,
+  );
+
+  return { page: pageQuery, sortby: sortByQuery, lat: latQuery, lng: lngQuery };
 };
+
 //export default connect(Home);
 
 /*

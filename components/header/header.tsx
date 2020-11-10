@@ -14,11 +14,11 @@ const Header = () => {
           </a>
         </Link>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler d-none"
           type="button"
           data-toggle="collapse"
           data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
+          aria-controls="#navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
@@ -27,6 +27,33 @@ const Header = () => {
           </span>
         </button>
 
+        <button
+          className="navbar-toggler d-none"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="icon-bar top-bar"></span>
+          <span className="icon-bar middle-bar"></span>
+          <span className="icon-bar bottom-bar"></span>
+          <span className="sr-only">Toggle navigation</span>
+        </button>
+        <button
+          className="navbar-toggler navbar-toggler-right collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span> </span>
+          <span> </span>
+          <span> </span>
+        </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
             <li className="nav-item">

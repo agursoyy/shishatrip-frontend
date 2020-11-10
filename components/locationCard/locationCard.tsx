@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const LocationList: FC<IProps> = ({ link, locationItem, as }) => {
-  const { logo_img, name, address, up, opening_hours, slug } = locationItem;
+  const { logo_img, name, address, up, opening_hours, slug, distance } = locationItem;
   return (
     <Link href={as} as={link}>
       <a className="location-item-card">
@@ -43,7 +43,7 @@ const LocationList: FC<IProps> = ({ link, locationItem, as }) => {
                     <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  <span className="expl ml-4">1.1 km</span>
+                  <span className="expl ml-4">{distance.toFixed()} km</span>
                 </p>
                 <p>
                   <svg

@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
+import Router from 'next/router';
 import './locationList.scss';
 import Dropdown from 'react-dropdown';
 import LocationCard from '../locationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
 import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
+import queryString from 'query-string';
 
-const LocationList = () => {
+import ILocationListQuery from '../../interfaces/locationListQuery';
+type IProps = {} & ILocationListQuery;
+
+const LocationList: FC<IProps> = ({ page, sortby, lat, lng }) => {
   const dispatch = useDispatch();
   const {
     locations: { loading, filteredData, locationSearchVal },
@@ -23,10 +28,59 @@ const LocationList = () => {
       container: document.querySelector('#address-input'),
       value: locationSearchVal && locationSearchVal.value,
     });
-    placesAutocomplete.on('change', (e: any) => {
-      dispatch(filterBySearchVal(e.suggestion));
+    placesAutocomplete.on('change', async (e: any) => {
+      await dispatch(filterBySearchVal(e.suggestion)); // save filtered location in store globally!.
+      filterByLocation(e.suggestion);
     });
   }, []);
+
+  const filterByLocation = (suggestion: any) => {
+    // suggestion object obtained from Algolia autocomplate search.
+    const query: ILocationListQuery = {};
+    if (page && page > 1) {
+      query.page = page;
+    }
+    //query.sortby = sortby;
+    query.location = suggestion.name.toLowerCase();
+    query.lat = suggestion.latlng.lat;
+    query.lng = suggestion.latlng.lng;
+    const stringified = queryString.stringify(query as any);
+    Router.push(`/index?${stringified}`);
+  };
+
+  const clearFilterByLocation = () => {
+    dispatch(clearFilterBySearchVal());
+    const query: ILocationListQuery = {};
+    if (page && page > 1) {
+      query.page = page;
+    }
+    if (sortby) {
+      query.sortby = sortby;
+    }
+    const stringified = queryString.stringify(query as any);
+    Router.push(`/index${Object.keys(query).length !== 0 ? `?${stringified}` : ''}`);
+  };
+
+  const sortBy = (sortQuery: 'abc' | 'last' | 'nearby' | 'clear') => {
+    let query: ILocationListQuery = {};
+    if (sortQuery === 'clear') {
+      query = { page, lat, lng };
+    } else {
+      if (page && page > 1) {
+        query.page = page;
+      }
+      if (lat) {
+        query.lat = lat;
+      }
+      if (lng) {
+        query.lng = lng;
+      }
+      query.sortby = sortQuery;
+      const stringified = queryString.stringify(query as any);
+      Router.push(`/index?${stringified}`);
+    }
+  };
+
   return (
     <div className="location-list-container container-fluid">
       <div className="row">
@@ -38,12 +92,7 @@ const LocationList = () => {
               className="address-input"
               placeholder={locationSearchVal ? locationSearchVal.value : 'Suche Stadt oder Ort'}
             />
-            <button
-              className="btn btn-link close-btn"
-              onClick={() => {
-                dispatch(clearFilterBySearchVal());
-              }}
-            >
+            <button className="btn btn-link close-btn" onClick={clearFilterByLocation}>
               Close
             </button>
           </div>
@@ -58,12 +107,7 @@ const LocationList = () => {
                 {locationSearchVal && (
                   <div className="form-group">
                     <label>Location</label>
-                    <button
-                      className="filtered-location"
-                      onClick={() => {
-                        dispatch(clearFilterBySearchVal());
-                      }}
-                    >
+                    <button className="filtered-location" onClick={clearFilterByLocation}>
                       {locationSearchVal.name}
                       <span className="btn times ml-3 ">
                         <svg
@@ -84,13 +128,16 @@ const LocationList = () => {
                   <Dropdown
                     className="filter-select"
                     options={[
-                      { value: '-1', label: 'Sortier nach' },
-                      { value: '1', label: 'Sky' },
-                      { value: '2', label: 'Sky' },
+                      { value: 'clear', label: 'Sortier nach' },
+                      { value: 'abc', label: 'Abc' },
+                      { value: 'last', label: 'Last' },
+                      { value: 'nearby', label: 'Nearby' },
                     ]}
-                    value={'Sortier nach'}
+                    value={
+                      sortby ? sortby.charAt(0).toUpperCase() + sortby.slice(1) : 'Sortier Nach'
+                    }
                     onChange={(e) => {
-                      console.log(e.value);
+                      sortBy(e.value as any);
                     }}
                   />
                   <div className="separator"></div>

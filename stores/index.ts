@@ -38,4 +38,4 @@ export type Store = ReduxStore<RootState>;
 
 const makeStore: MakeStore<RootState> = (context: Context) =>
   createStore(reducer, {}, composeWithDevTools(applyMiddleware(thunkMiddleware)));
-export const wrapper = createWrapper<RootState>(makeStore, { debug: true });
+export const wrapper = createWrapper<RootState>(makeStore, { debug: false });
