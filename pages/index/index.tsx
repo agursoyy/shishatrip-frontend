@@ -5,7 +5,11 @@ import { success } from '../../stores/alert/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import getConfig from 'next/config';
 import { login } from '../../stores/auth/actions';
-import { fetchInıtData } from '../../stores/locations/actions';
+import {
+  clearFilterBySearchVal,
+  fetchCategories,
+  fetchInıtData,
+} from '../../stores/locations/actions';
 import IPageConfig from '../../interfaces/PageConfig';
 import './index.scss';
 import LocationList from '../../components/locationList';
@@ -23,7 +27,7 @@ type INextPage<P> = NextPage<P> & {
   pageConfig?: IPageConfig;
 };
 
-const Home: INextPage<IProps> = ({ page, sortby, lat, lng }) => {
+const Home: INextPage<IProps> = ({ page, sortby, lat, lng, category, category_id, search }) => {
   const { news, auth } = useSelector((state: RootState) => state);
   console.log(auth);
   const dispatch = useDispatch();
@@ -43,13 +47,20 @@ const Home: INextPage<IProps> = ({ page, sortby, lat, lng }) => {
       <ReturnToTop />
       <div className="content">
         <div className="home-location-list">
-          {loading ? (
+          {/*loading && (
             <div className="home-location-list--loading">
               <Loading />
             </div>
-          ) : (
-            filteredData && <LocationList page={page} sortby={sortby} lat={lat} lng={lng} />
-          )}
+          )*/}
+          <LocationList
+            page={page}
+            sortby={sortby}
+            lat={lat}
+            lng={lng}
+            category={category}
+            category_id={category_id}
+            search={search}
+          />
         </div>
       </div>
     </div>
@@ -65,20 +76,21 @@ function isNumeric(x: any) {
   return parseFloat(x).toString() === x.toString();
 }
 Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
-  const { page, sortby, lat, lng } = query;
+  const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
-    sortByQuery: 'abc' | 'last' | 'nearby' | undefined,
+    sortByQuery: 'abc' | 'last' | 'near' | undefined,
     latQuery,
-    lngQuery;
+    lngQuery,
+    categoryObj,
+    searchQuery;
 
   if (page && isNumeric(page.toString())) {
     pageQuery = parseInt(page.toString());
   }
-  console.log(pageQuery);
 
   if (sortby) {
     let temp = sortby.toString();
-    if (temp === 'abc' || temp === 'last' || temp === 'nearby') {
+    if (temp === 'abc' || temp === 'last' || temp === 'near') {
       sortByQuery = temp;
     }
   }
@@ -88,11 +100,37 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   if (lng && isNumeric(lng.toString())) {
     lngQuery = parseFloat(lng.toString());
   }
+  await store.dispatch(fetchCategories() as any);
+  if (category) {
+    let catStr = category.toString();
+    const { locations } = store.getState() as RootState;
+    const { categories } = locations;
+    categoryObj = categories.categories.find(
+      (cat: any) => cat.name.toLowerCase() === catStr.toLowerCase(),
+    );
+  }
+  console.log(categoryObj);
+
   await store.dispatch(
-    fetchInıtData({ page: pageQuery, sortby: sortByQuery, lat: latQuery, lng: lngQuery }) as any,
+    fetchInıtData({
+      page: pageQuery,
+      sortby: sortByQuery,
+      lat: latQuery,
+      lng: lngQuery,
+      category: categoryObj?.id,
+      search: search?.toString(),
+    }) as any,
   );
 
-  return { page: pageQuery, sortby: sortByQuery, lat: latQuery, lng: lngQuery };
+  return {
+    page: pageQuery,
+    sortby: sortByQuery,
+    lat: latQuery,
+    lng: lngQuery,
+    category: categoryObj?.name.toLowerCase(),
+    category_id: categoryObj?.id,
+    search: search?.toString(),
+  };
 };
 
 //export default connect(Home);

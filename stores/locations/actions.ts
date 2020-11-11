@@ -10,6 +10,9 @@ import {
   CLEAR_FILTER_SORT_BY_VALUE,
   FETCH_SINGLE_LOCAL_DATA_SUCESS,
   FETCH_SINGLE_LOCAL_DATA_FAILED,
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_CATEGORIES_FAILED,
+  FETCH_CATEGORIES_SUCCESS,
 } from './types';
 import { RootState } from '../index';
 import getConfig from 'next/config';
@@ -19,23 +22,53 @@ const {
 import Axios from 'axios';
 import queryString from 'query-string';
 
+export function fetchCategories() {
+  return async (dispatch: any, getState: () => RootState) => {
+    // redux thunk.
+    const {
+      locations: { categories },
+    } = getState();
+    if (!categories) {
+      dispatch({ type: FETCH_CATEGORIES_REQUEST });
+      const { data, status } = await Axios.get(api + `/categories`);
+      if (status == 200 || status == 204) {
+        dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: data });
+      } else {
+        dispatch({ type: FETCH_CATEGORIES_FAILED });
+      }
+    }
+  };
+}
 export function fetchInıtData(query: {
   page?: number;
-  sortby?: 'abc' | 'last' | 'nearby';
+  sortby?: 'abc' | 'last' | 'near';
   lat?: number;
   lng?: number;
+  category?: any;
+  search?: string;
 }) {
   // force to fetch data even though it exists
   return async (dispatch: any, getState: () => RootState) => {
     // redux thunk.
-
+    const { locations } = getState();
     const stringified = queryString.stringify(query);
     console.log(stringified);
 
     dispatch({ type: FETCH_INIT_DATA_REQUEST });
     const { data, status } = await Axios.get(api + `/local/search?${stringified}`);
-    if (status == 200) {
-      dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
+    if (status == 200 || status == 204) {
+      if (query.page === 1) {
+        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
+      } else {
+        console.log(data);
+
+        let tempData = locations.data ? { ...locations.data } : { locals: [] };
+        if (query.page && query.page > 1) {
+          let locals = [...tempData.locals, ...data?.locals];
+          tempData.locals = locals;
+        }
+        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: tempData });
+      }
     } else {
       dispatch({ type: FETCH_INIT_DATA_FAILED });
     }
