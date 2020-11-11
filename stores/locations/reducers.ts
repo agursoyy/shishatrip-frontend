@@ -1,3 +1,4 @@
+import { settings } from 'nprogress';
 import {
   FETCH_INIT_DATA_REQUEST,
   FETCH_INIT_DATA_FAILED,
@@ -11,6 +12,9 @@ import {
   CLEAR_FILTER_BY_NAME_INPUT,
   FETCH_SINGLE_LOCAL_DATA_SUCESS,
   FETCH_SINGLE_LOCAL_DATA_FAILED,
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_CATEGORIES_SUCCESS,
+  FETCH_CATEGORIES_FAILED,
 } from './types';
 
 const initialState = {
@@ -18,6 +22,7 @@ const initialState = {
   error: false,
   data: null,
   filteredData: null,
+  categories: null,
   locationSearchVal: null,
   sortByVal: null,
   filterByCategory: null,
@@ -26,6 +31,12 @@ const initialState = {
 
 export function locationReducer(state = initialState, action: any) {
   switch (action.type) {
+    case FETCH_CATEGORIES_REQUEST:
+      return { ...state, loading: true };
+    case FETCH_CATEGORIES_SUCCESS:
+      return { ...state, loading: false, categories: action.payload };
+    case FETCH_CATEGORIES_FAILED:
+      return { ...state, loading: false, error: true, categories: null };
     case FETCH_INIT_DATA_REQUEST:
       return { ...state, loading: true };
     case FETCH_INIT_DATA_SUCCESS:

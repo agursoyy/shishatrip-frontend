@@ -1,8 +1,10 @@
 export default interface LocationListPageQuery {
   page?: number;
-  sortby?: 'abc' | 'last' | 'nearby';
+  sortby?: 'abc' | 'last' | 'near';
   lat?: number;
   lng?: number;
   location?: string; // city, county etc.
-  // eslint-disable-next-line semi
+  category?: string; // convert it to string cat value after fetch all categories from an endpoint.
+  category_id?: number;
+  search?: string;
 }
