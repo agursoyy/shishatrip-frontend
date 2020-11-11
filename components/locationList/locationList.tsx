@@ -55,6 +55,9 @@ const LocationList: FC<IProps> = ({
     placesAutocomplete.on('change', async (e: any) => {
       filterByLocation(e.suggestion);
     });
+    Router.events.on('routeChangeComplete', () => {
+      setSetSearchInput('');
+    });
   }, []);
 
   const scrollRef = useBottomScrollListener(
