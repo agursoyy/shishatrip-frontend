@@ -21,6 +21,8 @@ const {
 } = getConfig();
 import Axios from 'axios';
 import queryString from 'query-string';
+import ILocationListQuery from '../../interfaces/locationListQuery';
+import Router from 'next/router';
 
 export function fetchCategories() {
   return async (dispatch: any, getState: () => RootState) => {
@@ -105,6 +107,22 @@ export function clearFilterBySearchVal() {
     }
   };
 }
+
+export const filterByLocationValue = (suggestion: any, query: ILocationListQuery) => {
+  return async (dispatch: any, getState: () => RootState) => {
+    dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
+    const stringified = queryString.stringify(query as any);
+    let isObjectEmpty = true;
+    let keys = Object.keys(query);
+    keys.forEach((element) => {
+      if ((query as any)[`${element}`] !== undefined) {
+        isObjectEmpty = false;
+      }
+    });
+    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
+  };
+};
+
 export function filter() {
   return async (dispatch: any, getState: () => RootState) => {
     // redux thunk.

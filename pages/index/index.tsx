@@ -20,14 +20,17 @@ import ReturnToTop from '../../components/returnToTop';
 
 const { publicRuntimeConfig } = getConfig();
 
-import LocationListQuery from '../../interfaces/locationListQuery';
-type IProps = {} & LocationListQuery;
+import ILocationListQuery from '../../interfaces/locationListQuery';
+type IProps = {
+  query: ILocationListQuery;
+};
 
 type INextPage<P> = NextPage<P> & {
   pageConfig?: IPageConfig;
 };
 
-const Home: INextPage<IProps> = ({ page, sortby, lat, lng, category, category_id, search }) => {
+const Home: INextPage<IProps> = ({ query }) => {
+  const { page, sortby, lat, lng, category, category_id, search } = query;
   const { news, auth } = useSelector((state: RootState) => state);
   console.log(auth);
   const dispatch = useDispatch();
@@ -52,15 +55,7 @@ const Home: INextPage<IProps> = ({ page, sortby, lat, lng, category, category_id
               <Loading />
             </div>
           )*/}
-          <LocationList
-            page={page}
-            sortby={sortby}
-            lat={lat}
-            lng={lng}
-            category={category}
-            category_id={category_id}
-            search={search}
-          />
+          <LocationList query={query} />
         </div>
       </div>
     </div>
@@ -70,6 +65,7 @@ const Home: INextPage<IProps> = ({ page, sortby, lat, lng, category, category_id
 Home.pageConfig = {
   auth: true,
   footer: false,
+  header_algolia: true,
 };
 
 function isNumeric(x: any) {
@@ -123,13 +119,15 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   );
 
   return {
-    page: pageQuery,
-    sortby: sortByQuery,
-    lat: latQuery,
-    lng: lngQuery,
-    category: categoryObj?.name.toLowerCase(),
-    category_id: categoryObj?.id,
-    search: search?.toString(),
+    query: {
+      page: pageQuery,
+      sortby: sortByQuery,
+      lat: latQuery,
+      lng: lngQuery,
+      category: categoryObj?.name.toLowerCase(),
+      category_id: categoryObj?.id,
+      search: search?.toString(),
+    },
   };
 };
 

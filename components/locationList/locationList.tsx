@@ -9,6 +9,7 @@ import {
   clearFilterBySearchVal,
   fetchInıtData,
   filterBySearchVal,
+  filterByLocationValue,
 } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
@@ -18,17 +19,12 @@ import ILocationListQuery from '../../interfaces/locationListQuery';
 const bodyScrollLock = require('body-scroll-lock');
 const disableBodyScroll = bodyScrollLock.disableBodyScroll;
 
-type IProps = {} & ILocationListQuery;
+type IProps = {
+  query: ILocationListQuery;
+};
 
 const LocationList: FC<IProps> = ({
-  page,
-  sortby,
-  lat,
-  lng,
-  category,
-  category_id,
-  search,
-  location,
+  query: { page, sortby, lat, lng, category, category_id, search, location },
 }) => {
   const dispatch = useDispatch();
   const {
@@ -51,6 +47,9 @@ const LocationList: FC<IProps> = ({
     });
     placesAutocomplete.on('change', async (e: any) => {
       filterByLocation(e.suggestion);
+    });
+    placesAutocomplete.on('clear', async (e: any) => {
+      clearFilterByLocation();
     });
     Router.events.on('routeChangeComplete', () => {
       setSetSearchInput('');
@@ -92,7 +91,7 @@ const LocationList: FC<IProps> = ({
       lat: suggestion.latlng.lat,
       lng: suggestion.latlng.lng,
     };
-    routePush(query);
+    dispatch(filterByLocationValue(suggestion, query));
   };
 
   const clearFilterByLocation = () => {
@@ -192,15 +191,8 @@ const LocationList: FC<IProps> = ({
                 type="search"
                 id="address-input"
                 className="address-input"
-                placeholder={
-                  locationSearchVal && lat ? locationSearchVal.value : 'Suche Stadt oder Ort'
-                }
+                placeholder={'Suche Stadt oder Ort'}
               />
-              {locationSearchVal && lat && (
-                <button className="btn btn-link close-btn" onClick={clearFilterByLocation}>
-                  <img src={'/images/icons/x.svg'} />
-                </button>
-              )}
             </div>
           </div>
         </div>

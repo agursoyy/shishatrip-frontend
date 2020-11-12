@@ -31,20 +31,19 @@
         padding-top: 14px;
         padding-bottom: 14px;
       }
-      .ap-input-icon.ap-icon-clear {
-        display: none;
-      }
 
+      .ap-input-icon.ap-icon-clear {
+        right: 38.5px;
+        width: 20px;
+        text-align: center;
+        background: #fff;
+        .ap-input-icon svg {
+        }
+      }
       .algolia-places {
         position: static !important;
       }
 
-      .ap-input-icon svg {
-        right: 10px;
-        @include respond-above(md) {
-          right: 100px;
-        }
-      }
       input.address-input {
         flex: 1;
         background: white;
@@ -96,7 +95,7 @@
         @include respond-above(md) {
           display: inline;
         }
-        width: 100px;
+        width: 40px;
         text-transform: uppercase;
         color: rgb(97, 97, 112);
         text-decoration: none;
