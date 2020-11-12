@@ -1,4 +1,4 @@
-const { api = 'https://api.shishatrip.de/api' } = process.env;
+const {api = 'https://api.shishatrip.de/api'} = process.env;
 
 module.exports = {
   publicRuntimeConfig: {
