@@ -99,27 +99,54 @@
         }
         .nav-link {
           color: $main-font-color;
-          font-family: acumin-pro, sans-serif;
+          font-family: $alt-font-family;
           font-weight: 500;
           font-style: normal;
           font-size: 13px;
           line-height: 10px;
           letter-spacing: 0.2px;
 
+
           .auth-btn {
-            background: #f33364;
-            padding: 12px 50px;
+            background: white;
+            padding: 10px 10px;
             border: 0;
-            color: #fff;
-            font-family: acumin-pro;
+            color: $grey;
             font-size: 1.4rem;
             font-weight: 700;
             letter-spacing: 0.3px;
             border-radius: 30px;
             line-height: 1.5rem;
+            font-family: $alt-font-family;
+            letter-spacing: 0.2px;
+            margin-top: 7px;
+            border: 1px solid $lightgrey;
+
+            span {
+              padding-right: 3px;
+              padding-left: 3px;
+
+              img {
+                width: 22px;
+              }
+            }
+
           }
         }
       }
     }
   }
+}
+
+
+.header-bg {
+  position: absolute;
+  top: 100px;
+  height: 340px;
+  width: 100%;
+  z-index: -1;
+  background-image: url('/images/shisha-bg.jpg');
+  background-size: cover;
+  background-position-y: -20px;
+  box-shadow: 0px 0px 10px 0 rgba(34, 36, 38, 0.6);
 }

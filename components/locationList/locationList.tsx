@@ -1,32 +1,25 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Router from 'next/router';
 import './locationList.scss';
 import Dropdown from 'react-dropdown';
 import LocationCard from '../locationCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../stores';
-import {
-  clearFilterBySearchVal,
-  fetchInıtData,
-  filter,
-  filterBySearchVal,
-} from '../../stores/locations/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../stores';
+import {clearFilterBySearchVal, fetchInıtData, filterBySearchVal,} from '../../stores/locations/actions';
 import queryString from 'query-string';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+import {useBottomScrollListener} from 'react-bottom-scroll-listener';
 import Loading from '../../components/loading';
+import ILocationListQuery from '../../interfaces/locationListQuery';
+
 const bodyScrollLock = require('body-scroll-lock');
 const disableBodyScroll = bodyScrollLock.disableBodyScroll;
-
-import ILocationListQuery from '../../interfaces/locationListQuery';
-import next from 'next';
-import { load } from 'dotenv/types';
 
 type IProps = {} & ILocationListQuery;
 
 const LocationList: FC<IProps> = ({
-  page,
-  sortby,
-  lat,
+                                    page,
+                                    sortby,
+                                    lat,
   lng,
   category,
   category_id,
@@ -196,7 +189,7 @@ const LocationList: FC<IProps> = ({
               }
             />
             <button className="btn btn-link close-btn" onClick={clearFilterByLocation}>
-              Close
+              <img src={"/images/icons/x.svg"}/>
             </button>
           </div>
         </div>
@@ -209,7 +202,7 @@ const LocationList: FC<IProps> = ({
               <div className="locals-list-filter__elements">
                 {((locationSearchVal && lat) || search) && (
                   <div className="filter-criterias form-group">
-                    <label>Search Criterias</label>
+                    <label>Such Kriterien</label>
 
                     {locationSearchVal && lat && (
                       <div className="form-group mr-0 mb-2">
@@ -245,22 +238,21 @@ const LocationList: FC<IProps> = ({
                         </button>
                       </div>
                     )}
-                    <div className="separator"></div>
                   </div>
                 )}
 
                 <div className="form-group search-input-group">
-                  <label>Search Value</label>
+                  <label>Suchwort</label>
                   <input
-                    type="text"
-                    className="filter-input"
-                    placeholder="Search value"
-                    value={searchInput}
-                    onChange={(e) => {
-                      setSetSearchInput(e.target.value);
-                    }}
-                    onKeyPress={(event) => {
-                      if (event.key === 'Enter') {
+                      type="text"
+                      className="filter-input"
+                      placeholder="Suche nach Name"
+                      value={searchInput}
+                      onChange={(e) => {
+                        setSetSearchInput(e.target.value);
+                      }}
+                      onKeyPress={(event) => {
+                        if (event.key === 'Enter') {
                         filterBySearchValue();
                       }
                     }}
@@ -285,43 +277,41 @@ const LocationList: FC<IProps> = ({
                       </svg>
                     </span>
                   </button>
-                  <div className="separator"></div>
                 </div>
                 <div className="form-group">
-                  <label className="filter-label">Sortier</label>
+                  <label className="filter-label">Sortiern</label>
                   <Dropdown
-                    className="filter-select"
-                    options={[
-                      { value: 'clear', label: 'Sortier nach' },
-                      { value: 'abc', label: 'Abc' },
-                      { value: 'last', label: 'Last' },
-                      { value: 'near', label: 'Near' },
-                    ]}
-                    value={
-                      sortby ? sortby.charAt(0).toUpperCase() + sortby.slice(1) : 'Sortier Nach'
+                      className="filter-select"
+                      options={[
+                        {value: 'clear', label: 'Sortiern nach'},
+                        {value: 'abc', label: 'Abc'},
+                        {value: 'last', label: 'Letzte'},
+                        {value: 'near', label: 'Nähe'},
+                      ]}
+                      value={
+                        sortby ? sortby.charAt(0).toUpperCase() + sortby.slice(1) : 'Sortiern nach'
                     }
                     onChange={(e) => {
                       sortBy(e.value as any);
                     }}
                   />
-                  <div className="separator"></div>
                 </div>
                 <div className="form-group">
-                  <label className="filter-label">Category</label>
+                  <label className="filter-label">Kategorie</label>
                   <Dropdown
-                    className="filter-select"
-                    options={[
-                      { value: -1, label: 'Select category' },
-                      ...(categories
-                        ? categories.categories.map((cat: any) => {
-                            return { value: cat.id, label: cat.name };
-                          })
-                        : []),
-                    ]}
+                      className="filter-select"
+                      options={[
+                        {value: -1, label: 'Kategorie auswählen'},
+                        ...(categories
+                            ? categories.categories.map((cat: any) => {
+                              return {value: cat.id, label: cat.name};
+                            })
+                            : []),
+                      ]}
                     value={
                       category
-                        ? category.charAt(0).toUpperCase() + category.slice(1)
-                        : 'Select category'
+                          ? category.charAt(0).toUpperCase() + category.slice(1)
+                          : 'Kategorie wählen'
                     }
                     onChange={(e) => {
                       console.log(e);
@@ -331,17 +321,17 @@ const LocationList: FC<IProps> = ({
                   <div className="separator"></div>
                 </div>
                 <div className="form-group d-flex flex-wrap flex-row flex-sm-row flex-lg-column">
-                  <label className="filter-label w-100">Features</label>
+                  <label className="filter-label w-100">Besonderheiten</label>
                   <div className="custom-checkbox">
                     <input
-                      type="checkbox"
-                      id="checkbox"
-                      onChange={(e) => {
-                        console.log(e.target.checked);
-                      }}
+                        type="checkbox"
+                        id="checkbox"
+                        onChange={(e) => {
+                          console.log(e.target.checked);
+                        }}
                     />
                     <label
-                      htmlFor="checkbox"
+                        htmlFor="checkbox"
                       className="d-flex align-items-center"
                       style={{ lineHeight: '16px' }}
                     >
@@ -428,7 +418,6 @@ const LocationList: FC<IProps> = ({
                       Playstation 5
                     </label>
                   </div>
-                  <div className="separator"></div>
                 </div>
               </div>
             </div>

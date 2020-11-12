@@ -1,4 +1,4 @@
-const { api = 'https://api.shishatrip.de/api' } = process.env;
+const {api = 'http://shishatrip-backend-laravel.test/api'} = process.env;
 
 module.exports = {
   publicRuntimeConfig: {
@@ -9,7 +9,7 @@ module.exports = {
       sidebar: true,
       layout: true,
     },
-    api: 'https://api.shishatrip.de/api',
+    api: 'http://shishatrip-backend-laravel.test/api',
     saved_token: 'JsKjDobJlTjLHo6vlLVSUHMpqyHzqHKmFvJgNWm9y3KTf43XGoHEYnAE75By',
   },
   serverRuntimeConfig: {},
