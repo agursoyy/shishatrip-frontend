@@ -60,10 +60,8 @@ export function fetchInıtData(query: {
       if (query.page === 1) {
         dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
       } else {
-        console.log(data);
-
         let tempData = locations.data ? { ...locations.data } : { locals: [] };
-        if (query.page && query.page > 1) {
+        if (query.page && query.page > 1 && data) {
           let locals = [...tempData.locals, ...data?.locals];
           tempData.locals = locals;
         }
