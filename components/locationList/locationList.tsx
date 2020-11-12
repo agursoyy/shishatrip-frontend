@@ -20,12 +20,12 @@ const LocationList: FC<IProps> = ({
                                     page,
                                     sortby,
                                     lat,
-  lng,
-  category,
-  category_id,
-  search,
-  location,
-}) => {
+                                    lng,
+                                    category,
+                                    category_id,
+                                    search,
+                                    location,
+                                  }) => {
   const dispatch = useDispatch();
   const {
     locations: { loading, filteredData, locationSearchVal, categories },

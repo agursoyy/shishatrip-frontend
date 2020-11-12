@@ -7,4 +7,5 @@ export default interface LocationListPageQuery {
   category?: string; // convert it to string cat value after fetch all categories from an endpoint.
   category_id?: number;
   search?: string;
+  location?: string;
 }
