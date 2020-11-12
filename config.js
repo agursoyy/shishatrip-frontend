@@ -1,4 +1,4 @@
-const {api = 'https://api.shishatrip.de/api'} = process.env;
+const { api = 'https://api.shishatrip.de/api' } = process.env;
 
 module.exports = {
   publicRuntimeConfig: {
@@ -8,6 +8,7 @@ module.exports = {
       header: true,
       sidebar: true,
       layout: true,
+      header_algolia: false,
     },
     api: 'https://api.shishatrip.de/api',
     saved_token: 'JsKjDobJlTjLHo6vlLVSUHMpqyHzqHKmFvJgNWm9y3KTf43XGoHEYnAE75By',

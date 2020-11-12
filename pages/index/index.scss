@@ -1,13 +1,13 @@
 @import '../../styles/mixins/index';
 
 .home-page {
-  padding-top: 61px;
+  padding-top: 66px; // extract navbar height
   @include respond-above(md) {
-    padding-top: 82px;
+    padding-top: 80px;
   }
   .content {
     // common desktop and mobile content
-    margin-top: 0;
+    margin-top: 0; //pt-0
     padding-bottom: 48px;
     .home-location-list {
       &--loading {

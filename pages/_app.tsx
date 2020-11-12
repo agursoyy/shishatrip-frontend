@@ -52,7 +52,7 @@ class MyApp extends App<IProps> {
   }
   public render() {
     const { Component, pageProps, pageConfig } = this.props;
-    const { layout, header, footer, sidebar } = pageConfig;
+    const { layout, header, footer, sidebar, header_algolia } = pageConfig;
     return (
       <Container>
         <Head>
@@ -94,7 +94,7 @@ class MyApp extends App<IProps> {
         </Head>
         {layout ? (
           <>
-            {header && <Header />}
+            {header && <Header algoliaSearch={header_algolia} />}
             <Component {...pageProps} />
           </>
         ) : (
