@@ -1,13 +1,14 @@
 @import '../../styles/mixins/index';
 
 .home-page {
-  padding-top: 140px;
-  padding-bottom: 48px;
+  padding-top: 61px;
   @include respond-above(md) {
-    padding-top: 176px;
+    padding-top: 82px;
   }
   .content {
     // common desktop and mobile content
+    margin-top: 0;
+    padding-bottom: 48px;
     .home-location-list {
       &--loading {
         position: fixed;

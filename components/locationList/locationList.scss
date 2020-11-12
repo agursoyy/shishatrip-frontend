@@ -6,96 +6,110 @@
     background: $lightgrey;
     border-radius: 3px;
   }
-
-  .places-search {
-    $search_input_border: 12px;
-    position: relative;
-    z-index: 100;
-    padding: 14px 16px;
-    border-radius: $search_input_border;
-    box-shadow: 0px 0px 8px 0 rgba(34, 36, 38, 0.04);
-    background: #fff;
-    display: flex;
-    margin-top: 60px;
-
-    .ap-input-icon.ap-icon-clear {
-      display: none;
+  .places-search-wrapper {
+    padding: 80px 0;
+    background-image: url('/images/shisha-bg.jpg');
+    background-size: cover;
+    box-shadow: 0px 0px 10px 0 rgba(34, 36, 38, 0.6);
+    @include respond-above(sm) {
+      padding: 100px 0;
     }
-
-    .algolia-places {
-      position: static !important;
+    @include respond-above(lg) {
+      padding: 150px 0;
     }
-
-    .ap-input-icon svg {
-      right: 10px;
-      @include respond-above(md) {
-        right: 100px;
-      }
-    }
-    input.address-input {
-      flex: 1;
-      background: white;
-      font-family: $alt-font-family;
-      font-size: 1.5rem;
-      letter-spacing: 0.2rem;
-      border: 0;
+    .places-search {
+      $search_input_border: 12px;
+      position: relative;
+      z-index: 100;
+      padding: 7px 16px;
       border-radius: $search_input_border;
-      outline: none;
-      height: 43px;
-      color: $grey; //#29283d;
-      font-weight: 600;
-      padding: 0 20px;
+      box-shadow: 0px 0px 8px 0 rgba(34, 36, 38, 0.04);
+      background: #fff;
+      display: flex;
 
-
-      &::-webkit-input-placeholder {
-        /* Edge */
-        color: $grey;
+      @include respond-above(lg) {
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+      .ap-input-icon.ap-icon-clear {
+        display: none;
       }
 
-      &:-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        color: $grey;
+      .algolia-places {
+        position: static !important;
       }
-      &::placeholder {
-        color: $grey;
-      }
-    }
-    .ap-dropdown-menu {
-      -webkit-box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
-      -moz-box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
-      box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
-      border-color: transparent;
-      border-radius: $search_input_border;
-      margin-top: 16px;
-      background: rgb(252, 252, 252);
-      padding: 14px 16px;
-      transition: all 2s ease-in;
-      .ap-suggestion {
-        transform: translateY(-1000px);
-        animation: animate-autoplace-dropdown-element 350ms ease-in forwards;
 
-        svg {
-          margin-top: -13px !important;
+      .ap-input-icon svg {
+        right: 10px;
+        @include respond-above(md) {
+          right: 100px;
         }
       }
-    }
-    .close-btn {
-      display: none;
-      @include respond-above(md) {
-        display: inline;
+      input.address-input {
+        flex: 1;
+        background: white;
+        font-family: $alt-font-family;
+        font-size: 1.5rem;
+        letter-spacing: 0.2rem;
+        border: 0;
+        border-radius: $search_input_border;
+        outline: none;
+        height: 43px;
+        color: $grey; //#29283d;
+        font-weight: 600;
+        padding: 0 20px;
+
+        &::-webkit-input-placeholder {
+          /* Edge */
+          color: $grey;
+        }
+
+        &:-ms-input-placeholder {
+          /* Internet Explorer 10-11 */
+          color: $grey;
+        }
+        &::placeholder {
+          color: $grey;
+        }
       }
-      width: 100px;
-      text-transform: uppercase;
-      color: rgb(97, 97, 112);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.4rem;
+      .ap-dropdown-menu {
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
+        box-shadow: 0px 0px 5px 0px rgba(34, 36, 38, 0.025);
+        border-color: transparent;
+        border-radius: $search_input_border;
+        margin-top: 16px;
+        background: rgb(252, 252, 252);
+        padding: 14px 16px;
+        transition: all 2s ease-in;
+        .ap-suggestion {
+          transform: translateY(-1000px);
+          animation: animate-autoplace-dropdown-element 350ms ease-in forwards;
+
+          svg {
+            margin-top: -13px !important;
+          }
+        }
+      }
+      .close-btn {
+        display: none;
+        @include respond-above(md) {
+          display: inline;
+        }
+        width: 100px;
+        text-transform: uppercase;
+        color: rgb(97, 97, 112);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.4rem;
+      }
     }
   }
+
   .list-content {
-    margin-top: 40px;
-    @include respond-above(lg) {
-      margin-top: 180px;
+    margin-top: 30px;
+    @include respond-above(md) {
+      margin-top: 60px;
     }
     .locals-list-filter {
       margin-bottom: 30px;
@@ -132,6 +146,18 @@
           @include respond-above(lg) {
             margin-right: 0;
             margin-bottom: 26px !important;
+          }
+          &.filter-criterias {
+            flex-basis: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            label {
+              flex: 0 0 100%;
+            }
+            .form-group.child {
+              margin-bottom: 10px !important;
+              margin-right: 10px !important;
+            }
           }
           .separator {
             margin-top: 26px;
