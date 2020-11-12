@@ -83,7 +83,6 @@ const Header = () => {
           </div>
         </nav>
       </header>
-      <div className="header-bg d-none" />
     </React.Fragment>
   );
 };
