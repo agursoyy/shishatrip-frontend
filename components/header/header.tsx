@@ -25,8 +25,17 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   const [places, setPlaces] = useState<any>(null);
 
   useEffect(() => {
-    handleHeaderScrollClass();
-    handleAutoComplete();
+    if (algoliaSearch) {
+      handleHeaderScrollClass();
+      handleAutoComplete();
+    }
+    Router.events.on('routeChangeStart', () => {
+      const All_Details = document.querySelectorAll('header.header .nav-item details');
+
+      All_Details.forEach((deet) => {
+        (deet as any).open = !open;
+      });
+    });
   }, []);
 
   useEffect(() => {

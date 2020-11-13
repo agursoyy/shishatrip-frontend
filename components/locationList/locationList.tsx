@@ -16,8 +16,7 @@ import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 import Loading from '../../components/loading';
 import ILocationListQuery from '../../interfaces/locationListQuery';
 
-const bodyScrollLock = require('body-scroll-lock');
-const disableBodyScroll = bodyScrollLock.disableBodyScroll;
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 type IProps = {
   query: ILocationListQuery;
@@ -56,16 +55,6 @@ const LocationList: FC<IProps> = ({
     });
   }, []);
 
-  const scrollRef = useBottomScrollListener(
-    () => {
-      loadMore();
-    },
-    0,
-    0,
-    {},
-    false,
-  ); // offset 0
-
   const routePush = (query: any) => {
     const stringified = queryString.stringify(query as any);
     let isObjectEmpty = true;
@@ -75,6 +64,7 @@ const LocationList: FC<IProps> = ({
         isObjectEmpty = false;
       }
     });
+    setCurrentPage(1); // return to first page.
     Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
   };
 
@@ -91,6 +81,7 @@ const LocationList: FC<IProps> = ({
       lat: suggestion.latlng.lat,
       lng: suggestion.latlng.lng,
     };
+    setCurrentPage(1);
     dispatch(filterByLocationValue(suggestion, query));
   };
 
@@ -165,20 +156,24 @@ const LocationList: FC<IProps> = ({
     routePush(query);
   };
 
-  const loadMore = async () => {
+  const [items, setItem] = useState(Array.from({ length: 20 }));
+
+  const loadMore = () => {
     let nextPage = currentPage + 1;
     setCurrentPage(nextPage);
-    let query = {
-      search,
-      lat,
-      lng,
-      category: category_id,
-      sortby,
-      page: nextPage,
-    };
-    document.body.style.overflow = 'hidden';
-    await dispatch(fetchInıtData(query));
-    document.body.style.overflow = 'auto';
+    setTimeout(async () => {
+      let query = {
+        search,
+        lat,
+        lng,
+        category: category_id,
+        sortby,
+        page: nextPage,
+      };
+      document.body.style.overflow = 'hidden';
+      await dispatch(fetchInıtData(query));
+      document.body.style.overflow = 'auto';
+    }, 2000);
   };
 
   return (
@@ -420,26 +415,34 @@ const LocationList: FC<IProps> = ({
             </div>
           </div>
           <div className="col-lg-7">
-            <div className="location-list">
+            <div className="location-list ">
               {filteredData && (
-                <>
-                  {filteredData.locals.map((localItem: any, index: number) => {
-                    return (
-                      <div className="location-list-item" key={index}>
-                        <LocationCard
-                          link={`/place/${localItem.slug}`}
-                          as={'/place/[slug]'}
-                          locationItem={localItem}
-                        />
-                      </div>
-                    );
-                  })}
-                  {loading && (
-                    <div className="page-loading">
+                <InfiniteScroll
+                  dataLength={filteredData.locals.length}
+                  next={loadMore}
+                  hasMore={true}
+                  loader={
+                    <div className="d-flex justify-content-center">
                       <Loading />
                     </div>
-                  )}
-                </>
+                  }
+                >
+                  {
+                    <>
+                      {filteredData.locals.map((localItem: any, index: number) => {
+                        return (
+                          <div className="location-list-item" key={index}>
+                            <LocationCard
+                              link={`/place/${localItem.slug}`}
+                              as={'/place/[slug]'}
+                              locationItem={localItem}
+                            />
+                          </div>
+                        );
+                      })}
+                    </>
+                  }
+                </InfiniteScroll>
               )}
             </div>
           </div>
