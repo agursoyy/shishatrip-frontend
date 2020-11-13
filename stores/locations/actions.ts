@@ -23,6 +23,9 @@ import Axios from 'axios';
 import queryString from 'query-string';
 import ILocationListQuery from '../../interfaces/locationListQuery';
 import Router from 'next/router';
+import { SUCCESS } from '../alert/types';
+import { error, success } from '../alert/actions';
+import fetch from '../api';
 
 export function fetchCategories() {
   return async (dispatch: any, getState: () => RootState) => {
@@ -31,12 +34,17 @@ export function fetchCategories() {
       locations: { categories },
     } = getState();
     if (!categories) {
-      dispatch({ type: FETCH_CATEGORIES_REQUEST });
-      const { data, status } = await Axios.get(api + `/categories`);
-      if (status == 200 || status == 204) {
-        dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: data });
-      } else {
+      try {
+        dispatch({ type: FETCH_CATEGORIES_REQUEST });
+        const data = await fetch({ url: `/categories`, auth: false }, 200);
+        if (data) {
+          dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: data });
+        } else {
+          dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: [] });
+        }
+      } catch (err) {
         dispatch({ type: FETCH_CATEGORIES_FAILED });
+        dispatch(error('Something went wrong...'));
       }
     }
   };
@@ -57,20 +65,25 @@ export function fetchInıtData(query: {
     console.log(stringified);
 
     dispatch({ type: FETCH_INIT_DATA_REQUEST });
-    const { data, status } = await Axios.get(api + `/local/search?${stringified}`);
-    if (status == 200 || status == 204) {
-      if (query.page === 1) {
-        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
-      } else {
-        let tempData = locations.data ? { ...locations.data } : { locals: [] };
-        if (query.page && query.page > 1 && data) {
-          let locals = [...tempData.locals, ...data?.locals];
+    try {
+      const form = { ...query };
+      const data = await fetch({ url: `/local/search`, auth: false, form }, 200);
+      if (data) {
+        if (query.page === 1) {
+          dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
+        } else {
+          let tempData = locations.data ? { ...locations.data } : { locals: [] };
+          let locals = [...tempData.locals, ...data.locals];
           tempData.locals = locals;
+          dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: tempData });
         }
-        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: tempData });
+      } else {
+        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: locations.data });
       }
-    } else {
+      dispatch(success('Location list data fetched successfully.'));
+    } catch (err) {
       dispatch({ type: FETCH_INIT_DATA_FAILED });
+      dispatch(error('Something went wrong...'));
     }
   };
 }

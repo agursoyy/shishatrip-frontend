@@ -1,18 +1,18 @@
-import { AlertState, AlertActionTypes } from './types';
+import { AlertState, AlertActionTypes, SUCCESS, ERROR, CLEAR } from './types';
 
-const initialState: AlertState | {} = {};
+const initialState: AlertState = null;
 export const alertReducer = (
-  state = initialState,
+  state: AlertState = initialState,
   action: AlertActionTypes,
-): typeof initialState => {
+): AlertState => {
   switch (action.type) {
-    case 'ALERT_SUCCESS':
+    case SUCCESS:
       return { type: 'alert-success', message: action.payload };
-    case 'ALERT_ERROR':
+    case ERROR:
       return { type: 'alert-danger', message: action.payload };
-    case 'ALERT_CLEAR':
-      return {};
+    case CLEAR:
+      return null;
     default:
-      return initialState;
+      return state;
   }
 };

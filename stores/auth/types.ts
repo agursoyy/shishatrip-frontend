@@ -1,34 +1,51 @@
 // /store/auth/types.ts
-import { HYDRATE } from 'next-redux-wrapper';
 
 export const LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
-
-export type auth_status = 'logged_in' | 'not_logged_in';
+export const FETCH_USER_DETAILS = 'FETCH_USER_DETAILS';
+export const RESET_ACCESS_TOKEN = 'RESET_ACCESS_TOKEN';
+export const LOGOUT = 'USER_LOGOUT';
 
 export interface AuthState {
+  loading: boolean;
   user: any;
-  message: auth_status;
-  login_request: boolean;
   accessToken: string | null;
   refreshToken: string | null;
 }
 
 export interface Auth {
   user: any;
-  message: auth_status;
   accessToken: string;
   refreshToken: string;
 }
 
-interface LoginRequest {
+interface LoginRequestAction {
   type: typeof LOGIN_REQUEST;
 }
 
-interface LoginSuccess {
+interface LoggedInAction {
   type: typeof LOGIN_SUCCESS;
   payload: Auth;
 }
-
-export type AuthActionTypes = LoginRequest | LoginSuccess;
+interface GetUserAction {
+  type: typeof FETCH_USER_DETAILS;
+  payload: any;
+}
+interface LoginFailureAction {
+  type: typeof LOGIN_FAILURE;
+}
+interface LogoutAction {
+  type: typeof LOGOUT;
+}
+interface ResetAccessTokenAction {
+  type: typeof RESET_ACCESS_TOKEN;
+  payload: { accessToken: string; refreshToken: string };
+}
+export type AuthActionTypes =
+  | LoginRequestAction
+  | LoggedInAction
+  | LoginFailureAction
+  | LogoutAction
+  | GetUserAction
+  | ResetAccessTokenAction;
