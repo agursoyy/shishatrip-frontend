@@ -81,7 +81,7 @@ const Slug: NextPage<IProps> = ({ error }) => {
 };
 
 
-
+/*
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const slug = query.slug?.toString();
   let error;
@@ -101,10 +101,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   //await store.dispatch(fetchInıtData() as any);
   // return {props: {error}} causes json.serialize error directly. This is specific for these getServerSideProps, getStaticProps lifecycle method.
   return { props: {...error && {error: error}} };
-}); 
+}); */
 
 
-/*
 //  getStaticPaths function specifies dynamic routes to pre-render based
 export async function getStaticPaths() {
   const res = await fetch('https://api.shishatrip.de/api/local/search');
@@ -143,7 +142,7 @@ export const getStaticProps = wrapper.getStaticProps(
      // return {props: {error}} causes json.serialize error directly. This is specific for these getStaticProps, getServerSideProps  lifecycle method.
    return { props: {...error && {error: error}} };
   }
-); */
+);
 
 
 
