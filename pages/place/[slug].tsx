@@ -14,6 +14,7 @@ import PhotoSection from '../../components/sectionPhoto/sectionPhoto';
 import { fetchVisitedLocalData, filter } from '../../stores/locations/actions';
 import { useSelector } from 'react-redux';
 import SectionInfo from '../../components/sectionInfo';
+import { data } from 'jquery';
 
 type IProps = {
   error?: {
@@ -106,9 +107,19 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
 
 //  getStaticPaths function specifies dynamic routes to pre-render based
 export async function getStaticPaths() {
-  const res = await fetch('https://api.shishatrip.de/api/local/search');
-  const data = await res.json()
-  const paths = data.locals.map((local: any) => ({
+  let res = await fetch('https://api.shishatrip.de/api/local/search');
+  const data1 = await res.json();
+  res = await fetch('https://api.shishatrip.de/api/local/search?page=2');
+  const data2 = await res.json();
+  res = await fetch('https://api.shishatrip.de/api/local/search?page=3');
+  const data3 = await res.json();
+  res = await fetch('https://api.shishatrip.de/api/local/search?page=3');
+  const data4 = await res.json();
+  res = await fetch('https://api.shishatrip.de/api/local/search?page=3');
+  const data5 = await res.json();
+
+
+  const paths = [...data1.locals,...data2.locals, ...data3.locals, ...data4.locals, ...data5.locals].map((local: any) => ({
     params: { slug: local.slug },
   }))
   return {
