@@ -39,10 +39,12 @@ const Slug: NextPage<IProps> = ({ error }) => {
     setProfileSection(v);
   };
 
-  if (error || !visitedLocalData) {
+  if (error) {
     return <Error statusCode={error ? error.status : 404} />;
   }
 
+  if(!visitedLocalData) 
+    return null;
   const data = visitedLocalData;
   return (
     <div className="place-slug-page">
@@ -77,6 +79,44 @@ const Slug: NextPage<IProps> = ({ error }) => {
   );
 };
 
+export async function getStaticPaths() {
+  const res = await fetch('https://api.shishatrip.de/api/local/search');
+  const data = await res.json()
+  const paths = data.locals.map((local: any) => ({
+    params: { slug: local.slug },
+  }))
+  return {
+    paths,
+    fallback: true 
+  };
+}
+
+export const getStaticProps = wrapper.getStaticProps(
+  async({store, params}) => {
+      console.log('2. Page.getStaticProps uses the store to dispatch things');
+     // store.dispatch({type: 'TICK', payload: 'was set in other page ' + preview});
+      const slug = params?.slug?.toString();
+     // const slug = query.slug?.toString();
+      let error;
+      if (slug) {
+        await store.dispatch(fetchVisitedLocalData(slug) as any);
+      }
+      const {
+        locations: { visitedLocalData },
+      } = store.getState() as RootState;
+    
+      if (!visitedLocalData) {
+        error = {
+          status: 404,
+          message: 'data fetching failed...',
+        };
+      }
+  }
+);
+
+
+
+/*
 Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
   const slug = query.slug?.toString();
   let error;
@@ -94,5 +134,7 @@ Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
     };
   }
   return { error }; // You can pass some custom props to the component from here
-};
+};*/
+
+
 export default Slug;
