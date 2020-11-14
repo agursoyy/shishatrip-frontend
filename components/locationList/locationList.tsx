@@ -148,6 +148,7 @@ const LocationList: FC<IProps> = ({ query }) => {
                   dataLength={filteredData.locals.length}
                   next={loadMore}
                   hasMore={true}
+                  style={{ overflow: 'visible' }} 
                   loader={
                     <div className="d-flex justify-content-center">
                       <Loading />
