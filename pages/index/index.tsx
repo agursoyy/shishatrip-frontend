@@ -71,6 +71,7 @@ Home.pageConfig = {
 function isNumeric(x: any) {
   return parseFloat(x).toString() === x.toString();
 }
+/*
 Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
   const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
@@ -129,7 +130,7 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
       search: search?.toString(),
     },
   };
-};
+}; */
 
 export const getStaticProps = wrapper.getStaticProps(
   async({store, params}) => {
