@@ -113,9 +113,9 @@ export async function getStaticPaths() {
   const data2 = await res.json();
   res = await fetch('https://api.shishatrip.de/api/local/search?page=3');
   const data3 = await res.json();
-  res = await fetch('https://api.shishatrip.de/api/local/search?page=3');
+  res = await fetch('https://api.shishatrip.de/api/local/search?page=4');
   const data4 = await res.json();
-  res = await fetch('https://api.shishatrip.de/api/local/search?page=3');
+  res = await fetch('https://api.shishatrip.de/api/local/search?page=5');
   const data5 = await res.json();
 
 
