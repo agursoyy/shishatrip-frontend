@@ -99,11 +99,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
     };
   }
   //await store.dispatch(fetchInıtData() as any);
-  // return {props: {error}} causes json.serialize error directly. This is specific for this getServerSideProps lifecycle method.
+  // return {props: {error}} causes json.serialize error directly. This is specific for these getServerSideProps, getStaticProps lifecycle method.
   return { props: {...error && {error: error}} };
 }); */
 
 
+//  getStaticPaths function specifies dynamic routes to pre-render based
 export async function getStaticPaths() {
   const res = await fetch('https://api.shishatrip.de/api/local/search');
   const data = await res.json()
@@ -117,6 +118,7 @@ export async function getStaticPaths() {
 }
 
 
+// getStaticProps and getStaticPaths must be used together if the page is a dynamic page. 
 export const getStaticProps = wrapper.getStaticProps(
   async({store, params}) => {
       console.log('2. Page.getStaticProps uses the store to dispatch things');
@@ -137,7 +139,7 @@ export const getStaticProps = wrapper.getStaticProps(
           message: 'data fetching failed...',
         };
       }
-     // return {props: {error}} causes json.serialize error directly. This is specific for this getServerSideProps lifecycle method.
+     // return {props: {error}} causes json.serialize error directly. This is specific for these getStaticProps, getServerSideProps  lifecycle method.
    return { props: {...error && {error: error}} };
   }
 );
