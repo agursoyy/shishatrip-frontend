@@ -132,9 +132,9 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   };
 }; */
 
-export const getStaticProps = wrapper.getStaticProps(
-  async({store, params}) => {
-    const { page, sortby, lat, lng, category, search } =params?.query as any;
+export const getServerSideProps = wrapper.getServerSideProps(
+  async({store, req, res, query}) => {
+    const { page, sortby, lat, lng, category, search } =query;
   let pageQuery = 1,
     sortByQuery: 'abc' | 'last' | 'near' | undefined,
     latQuery,
@@ -181,15 +181,17 @@ export const getStaticProps = wrapper.getStaticProps(
   );
 
   return {
-    query: {
-      page: pageQuery,
-      sortby: sortByQuery,
-      lat: latQuery,
-      lng: lngQuery,
-      category: categoryObj?.name.toLowerCase(),
-      category_id: categoryObj?.id,
-      search: search?.toString(),
-    },
+    props: {
+      query: {
+        page: pageQuery,
+        sortby: sortByQuery,
+        lat: latQuery,
+        lng: lngQuery,
+        category: categoryObj?.name.toLowerCase(),
+        category_id: categoryObj?.id,
+        search: search?.toString(),
+      }
+    }
   };
     
   }
