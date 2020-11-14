@@ -79,18 +79,30 @@ const Slug: NextPage<IProps> = ({ error }) => {
   );
 };
 
-export async function getStaticPaths() {
-  const res = await fetch('https://api.shishatrip.de/api/local/search');
-  const data = await res.json()
-  const paths = data.locals.map((local: any) => ({
-    params: { slug: local.slug },
-  }))
-  return {
-    paths,
-    fallback: true 
-  };
-}
 
+
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
+  const slug = query.slug?.toString();
+  let error;
+  if (slug) {
+    await store.dispatch(fetchVisitedLocalData(slug) as any);
+  }
+  const {
+    locations: { visitedLocalData },
+  } = store.getState() as RootState;
+
+  if (!visitedLocalData) {
+    error = {
+      status: 404,
+      message: 'data fetching failed...',
+    };
+  }
+  //await store.dispatch(fetchInıtData() as any);
+  if(error)
+  return { props: { error} };
+});
+
+/*
 export const getStaticProps = wrapper.getStaticProps(
   async({store, params}) => {
       console.log('2. Page.getStaticProps uses the store to dispatch things');
@@ -112,7 +124,9 @@ export const getStaticProps = wrapper.getStaticProps(
         };
       }
   }
-);
+);*/
+
+
 
 
 
