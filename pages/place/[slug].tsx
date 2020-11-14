@@ -80,7 +80,7 @@ const Slug: NextPage<IProps> = ({ error }) => {
 };
 
 
-
+/*
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const slug = query.slug?.toString();
   let error;
@@ -99,7 +99,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   }
   //await store.dispatch(fetchInıtData() as any);
   if(error)
-  return { props: { error} };
+  return { props: { } };
 });
 
 /*
@@ -130,7 +130,7 @@ export const getStaticProps = wrapper.getStaticProps(
 
 
 
-/*
+
 Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
   const slug = query.slug?.toString();
   let error;
@@ -148,7 +148,7 @@ Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
     };
   }
   return { error }; // You can pass some custom props to the component from here
-};*/
+};
 
 
 export default Slug;
