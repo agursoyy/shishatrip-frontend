@@ -8,6 +8,6 @@ export const error = (message: string): AlertActionTypes => {
   return { type: ERROR, payload: message };
 };
 
-export const clear = (message: string): AlertActionTypes => {
+export const clear = (): AlertActionTypes => {
   return { type: CLEAR };
 };

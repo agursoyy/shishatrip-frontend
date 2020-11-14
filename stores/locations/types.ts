@@ -13,3 +13,15 @@ export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
 export const FETCH_CATEGORIES_FAILED = 'FETCH_CATEGORIES_FAILED';
 export const FETCH_SINGLE_LOCAL_DATA_SUCESS = 'FETCH_SINGLE_LOCAL_DATA_SUCESS';
 export const FETCH_SINGLE_LOCAL_DATA_FAILED = 'FETCH_SINGLE_LOCAL_DATA_FAILED';
+
+export interface ILocationState {
+  loading: boolean;
+  error: boolean;
+  data: any;
+  filteredData: any;
+  categories: any;
+  locationSearchVal: any;
+  sortByVal: any;
+  filterByCategory: any;
+  visitedLocalData: any;
+}

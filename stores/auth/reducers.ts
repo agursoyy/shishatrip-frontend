@@ -1,9 +1,19 @@
-import { AuthState, AuthActionTypes, LOGIN_REQUEST, LOGIN_SUCCESS } from './types';
+// /store/auth/reducers.ts
+
+import {
+  AuthState,
+  AuthActionTypes,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT,
+  FETCH_USER_DETAILS,
+  RESET_ACCESS_TOKEN,
+} from './types';
 
 const initialState: AuthState = {
+  loading: false,
   user: null,
-  message: 'not_logged_in',
-  login_request: false,
   accessToken: null,
   refreshToken: null,
 };
@@ -13,17 +23,27 @@ export function authReducer(
   action: AuthActionTypes, // AuthActionTypes
 ): AuthState {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case RESET_ACCESS_TOKEN:
       return {
         ...state,
-        login_request: true,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
       };
+    case LOGIN_REQUEST:
+      return { ...state, loading: true };
     case LOGIN_SUCCESS:
       return {
-        ...state,
-        ...action.payload,
-        login_request: false,
+        loading: false,
+        user: action.payload.user,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
       };
+    case LOGIN_FAILURE:
+      return { ...state, loading: false, user: null };
+    case LOGOUT:
+      return { ...state, user: null, accessToken: null, refreshToken: null };
+    case FETCH_USER_DETAILS:
+      return { ...state, loading: false, user: action.payload };
     default:
       return state;
   }

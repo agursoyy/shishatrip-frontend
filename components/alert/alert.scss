@@ -1,0 +1,40 @@
+@import '../../styles/mixins/';
+@import '../../styles/variables/colors';
+
+.alert-box {
+  padding: 16px 18px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgb(214, 61, 61);
+
+  .alert-message {
+    flex: 1;
+  }
+  .alert-type-icon {
+    img {
+      width: 15px;
+    }
+  }
+  .close-btn {
+    img {
+      width: 15px;
+    }
+  }
+  .alert-message {
+    padding: 0 0 0 15px;
+    margin-bottom: 0;
+    margin-top: 2px;
+    color: $black-2;
+  }
+  &.alert-success {
+    background: rgba(175, 253, 194, 0.5);
+  }
+  &.alert-danger {
+    background: rgba(250, 137, 137, 0.5);
+  }
+  &.alert-warning {
+    background: rgba(250, 196, 96, 0.5);
+  }
+}

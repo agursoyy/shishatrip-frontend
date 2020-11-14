@@ -1,5 +1,6 @@
 import { settings } from 'nprogress';
 import {
+  ILocationState,
   FETCH_INIT_DATA_REQUEST,
   FETCH_INIT_DATA_FAILED,
   FETCH_INIT_DATA_SUCCESS,
@@ -17,7 +18,7 @@ import {
   FETCH_CATEGORIES_FAILED,
 } from './types';
 
-const initialState = {
+const initialState: ILocationState = {
   loading: true,
   error: false,
   data: null,
@@ -29,7 +30,7 @@ const initialState = {
   visitedLocalData: null,
 };
 
-export function locationReducer(state = initialState, action: any) {
+export function locationReducer(state: ILocationState = initialState, action: any): ILocationState {
   switch (action.type) {
     case FETCH_CATEGORIES_REQUEST:
       return { ...state, loading: true };
@@ -48,11 +49,11 @@ export function locationReducer(state = initialState, action: any) {
         filteredData: action.payload,
       };
     case FETCH_INIT_DATA_FAILED:
-      return { ...state, loading: false, error: true };
+      return { ...state, loading: false, error: true, data: null, filteredData: null };
     case FETCH_SINGLE_LOCAL_DATA_SUCESS:
       return { ...state, loading: false, error: false, visitedLocalData: action.payload };
     case FETCH_SINGLE_LOCAL_DATA_FAILED:
-      return { ...state, loading: false, error: true, visitedLocalData: false };
+      return { ...state, loading: false, error: true, visitedLocalData: null };
     case START_FILTER_LOADING:
       return { ...state, loading: true };
     case FILTER_BY_SEARCH_PARAM:
