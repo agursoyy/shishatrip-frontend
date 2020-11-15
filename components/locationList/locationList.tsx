@@ -36,7 +36,6 @@ const LocationList: FC<IProps> = ({ query }) => {
     alert,
   } = useSelector((state: RootState) => state);
 
-  const [searchInput, setSetSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -55,9 +54,6 @@ const LocationList: FC<IProps> = ({ query }) => {
     });
     placesAutocomplete.on('clear', async (e: any) => {
       clearFilterByLocation();
-    });
-    Router.events.on('routeChangeComplete', () => {
-      setSetSearchInput('');
     });
   }, []);
 
@@ -112,10 +108,8 @@ const LocationList: FC<IProps> = ({ query }) => {
         sortby,
         page: nextPage,
       };
-      document.body.style.overflow = 'hidden';
       await dispatch(fetchInıtData(query));
-      document.body.style.overflow = 'auto';
-    }, 2000);
+    }, 0);
   };
 
   return (
