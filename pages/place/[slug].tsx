@@ -29,7 +29,7 @@ const {
 } = getConfig();
 
 const Slug: NextPage<IProps> = ({ error }) => {
-  const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('info');
+  const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('photo');
 
   const {
     locations: { loading, filteredData, locationSearchVal, visitedLocalData },
@@ -43,9 +43,8 @@ const Slug: NextPage<IProps> = ({ error }) => {
     return <Error statusCode={error ? error.status : 404} message={error.message} />;
   }
 
-  if(!visitedLocalData) 
-    return null;
-    
+  if (!visitedLocalData) return null;
+
   const data = visitedLocalData;
   return (
     <div className="place-slug-page">
@@ -80,8 +79,6 @@ const Slug: NextPage<IProps> = ({ error }) => {
   );
 };
 
-
-
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const slug = query.slug?.toString();
   let error;
@@ -100,15 +97,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   }
   //await store.dispatch(fetchInıtData() as any);
   // return {props: {error}} causes json.serialize error directly. This is specific for these getServerSideProps, getStaticProps lifecycle method.
-  return { props: {...error && {error: error}} };
-}); 
-
-
-
-
-
-
-
+  return { props: { ...(error && { error: error }) } };
+});
 
 /*
 //  getStaticPaths function specifies dynamic routes to pre-render based
@@ -151,10 +141,6 @@ export const getStaticProps = wrapper.getStaticProps(
   }
 ); */
 
-
-
-
-
 /*
 Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
   const slug = query.slug?.toString();
@@ -174,6 +160,5 @@ Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   }
   return { error }; // You can pass some custom props to the component from here
 };*/
-
 
 export default Slug;

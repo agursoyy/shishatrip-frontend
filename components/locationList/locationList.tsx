@@ -31,70 +31,12 @@ const LocationList: FC<IProps> = ({ query }) => {
 
   const dispatch = useDispatch();
   const {
-    locations: { loading, filteredData, locationSearchVal, categories },
+    locations: { locationSearchLoading, filteredData, locationSearchVal, categories },
     auth,
     alert,
   } = useSelector((state: RootState) => state);
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    var places = require('places.js');
-    var placesAutocomplete = places({
-      appId: 'plRHUFFMA91H',
-      apiKey: '595d92fe0344df051d9f2660f9476121',
-      language: 'de',
-      countries: ['de'],
-      type: 'city',
-      container: document.querySelector('#address-input'),
-      value: locationSearchVal && lat && locationSearchVal.value,
-    });
-    placesAutocomplete.on('change', async (e: any) => {
-      filterByLocation(e.suggestion);
-    });
-    placesAutocomplete.on('clear', async (e: any) => {
-      clearFilterByLocation();
-    });
-  }, []);
-
-  const routePush = (query: any) => {
-    const stringified = queryString.stringify(query as any);
-    let isObjectEmpty = true;
-    let keys = Object.keys(query);
-    keys.forEach((element) => {
-      if (query[`${element}`] !== undefined) {
-        isObjectEmpty = false;
-      }
-    });
-    setCurrentPage(1); // return to first page.
-    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
-  };
-
-  const filterByLocation = (suggestion: any) => {
-    // suggestion object obtained from Algolia autocomplate search.
-    dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
-    let query: ILocationListQuery = { search };
-    if (page && page > 1) {
-      query.page = page;
-    }
-    query = {
-      ...query,
-      location: suggestion.name.toLowerCase(),
-      lat: suggestion.latlng.lat,
-      lng: suggestion.latlng.lng,
-    };
-    setCurrentPage(1);
-    dispatch(filterByLocationValue(suggestion, query));
-  };
-
-  const clearFilterByLocation = () => {
-    dispatch(clearFilterBySearchVal());
-    const query: ILocationListQuery = { sortby, search };
-    if (page && page > 1) {
-      query.page = page;
-    }
-    routePush(query);
-  };
 
   const loadMore = () => {
     let nextPage = currentPage + 1;
@@ -137,12 +79,16 @@ const LocationList: FC<IProps> = ({ query }) => {
           </div>
           <div className="col-lg-7">
             <div className="location-list ">
-              {filteredData ? (
+              {locationSearchLoading ? (
+                <div className="list--loading">
+                  <Loading />
+                </div>
+              ) : filteredData ? (
                 <InfiniteScroll
                   dataLength={filteredData.locals.length}
                   next={loadMore}
                   hasMore={true}
-                  style={{ overflow: 'visible' }} 
+                  style={{ overflow: 'visible' }}
                   loader={
                     <div className="d-flex justify-content-center">
                       <Loading />

@@ -16,10 +16,14 @@ import {
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAILED,
+  FETCH_BY_SEARCH_PARAM_REQUEST,
+  FETCH_BY_SEARCH_PARAM_END,
+  SET_QUERY,
 } from './types';
 
 const initialState: ILocationState = {
   loading: true,
+  locationSearchLoading: false,
   error: false,
   data: null,
   filteredData: null,
@@ -28,6 +32,7 @@ const initialState: ILocationState = {
   sortByVal: null,
   filterByCategory: null,
   visitedLocalData: null,
+  query: null,
 };
 
 export function locationReducer(state: ILocationState = initialState, action: any): ILocationState {
@@ -38,6 +43,8 @@ export function locationReducer(state: ILocationState = initialState, action: an
       return { ...state, loading: false, categories: action.payload };
     case FETCH_CATEGORIES_FAILED:
       return { ...state, loading: false, error: true, categories: null };
+    case SET_QUERY:
+      return { ...state, query: action.payload };
     case FETCH_INIT_DATA_REQUEST:
       return { ...state, loading: true };
     case FETCH_INIT_DATA_SUCCESS:
@@ -54,6 +61,10 @@ export function locationReducer(state: ILocationState = initialState, action: an
       return { ...state, loading: false, error: false, visitedLocalData: action.payload };
     case FETCH_SINGLE_LOCAL_DATA_FAILED:
       return { ...state, loading: false, error: true, visitedLocalData: null };
+    case FETCH_BY_SEARCH_PARAM_REQUEST:
+      return { ...state, locationSearchLoading: true };
+    case FETCH_BY_SEARCH_PARAM_END:
+      return { ...state, locationSearchLoading: false };
     case START_FILTER_LOADING:
       return { ...state, loading: true };
     case FILTER_BY_SEARCH_PARAM:

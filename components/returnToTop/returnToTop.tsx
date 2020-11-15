@@ -36,7 +36,7 @@ const ReturnToTop = () => {
   }, []);
   return (
     <a href="javascript:" id="return-to-top">
-      <i className="icon-chevron-up"></i>
+      <i className="fa fa-chevron-up"></i>{' '}
     </a>
   );
 };

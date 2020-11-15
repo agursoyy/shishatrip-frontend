@@ -5,12 +5,14 @@ import Router, { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
 import {
+  clearFilterByLocationValue,
   clearFilterBySearchVal,
   filterByLocationValue,
   filterBySearchVal,
 } from '../../stores/locations/actions';
 import queryString from 'query-string';
-
+import ILocationListQuery from '../../interfaces/locationListQuery';
+import { number } from 'prop-types';
 interface IProps {
   algoliaSearch: boolean;
 }
@@ -39,8 +41,13 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   }, []);
 
   useEffect(() => {
-    if (locationSearchVal && places) {
-      places.setVal(locationSearchVal.value);
+    if (places) {
+      places.close();
+      if (locationSearchVal) {
+        places.setVal(locationSearchVal.value);
+      } else {
+        places.setVal('');
+      }
     }
   });
 
@@ -80,27 +87,31 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
 
   const filterByLocation = (suggestion: any) => {
     // suggestion object obtained from Algolia autocomplate search.
-    dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
-    const query = {
-      ...router.query,
-      location: suggestion.name.toLowerCase(),
+    let query: ILocationListQuery | any = {
+      //location: suggestion.name.toLowerCase(),
       lat: suggestion.latlng.lat,
       lng: suggestion.latlng.lng,
+      category_id: router.query.category_id
+        ? parseInt(router.query.category_id.toString())
+        : undefined,
+      search: router.query.search ? router.query.search.toString() : undefined,
+      sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
     };
+    console.log(query);
     dispatch(filterByLocationValue(suggestion, query));
   };
+
   const clearFilterByLocation = () => {
-    dispatch(clearFilterBySearchVal());
-    const query = { ...router.query, lat: undefined, lng: undefined, location: undefined };
-    const stringified = queryString.stringify(query as any);
-    let isObjectEmpty = true;
-    let keys = Object.keys(query);
-    keys.forEach((element) => {
-      if ((query as any)[`${element}`] !== undefined) {
-        isObjectEmpty = false;
-      }
-    });
-    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
+    const query: any = {
+      category_id: router.query.category_id
+        ? parseInt(router.query.category_id.toString())
+        : undefined,
+      search: router.query.search ? router.query.search.toString() : undefined,
+      sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
+      page: 1,
+    };
+    console.log(query);
+    dispatch(clearFilterByLocationValue(query));
   };
   return (
     <React.Fragment>

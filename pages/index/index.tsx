@@ -32,14 +32,8 @@ type INextPage<P> = NextPage<P> & {
 const Home: INextPage<IProps> = ({ query }) => {
   const { page, sortby, lat, lng, category, category_id, search } = query;
   const { news, auth } = useSelector((state: RootState) => state);
-  console.log(auth);
+  //console.log(auth);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setTimeout(() => {
-      //dispatch(fetchInıtData());
-    }, 1250);
-  }, []);
 
   const {
     locations: { loading, filteredData },

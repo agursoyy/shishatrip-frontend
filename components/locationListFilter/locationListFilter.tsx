@@ -10,6 +10,8 @@ import {
   fetchInıtData,
   filterBySearchVal,
   filterByLocationValue,
+  fetchData,
+  clearFilterByLocationValue,
 } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
@@ -22,9 +24,9 @@ type IProps = {
   query: ILocationListQuery;
 };
 
-const LocationListFilter: FC<IProps> = ({
-  query: { page, sortby, lat, lng, category, category_id, search, location },
-}) => {
+const LocationListFilter: FC<IProps> = ({ query }) => {
+  const { page, sortby, lat, lng, category, category_id, search, location } = query;
+
   const dispatch = useDispatch();
   const {
     locations: { loading, filteredData, locationSearchVal, categories },
@@ -33,8 +35,24 @@ const LocationListFilter: FC<IProps> = ({
 
   const [searchInput, setSetSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [places, setPlaces] = useState<any>(null);
 
   useEffect(() => {
+    handleAutoComplete();
+  }, []);
+
+  useEffect(() => {
+    if (places) {
+      places.close();
+      if (locationSearchVal) {
+        places.setVal(locationSearchVal.value);
+      } else {
+        places.setVal('');
+      }
+    }
+  });
+
+  const handleAutoComplete = () => {
     var places = require('places.js');
     var placesAutocomplete = places({
       appId: 'plRHUFFMA91H',
@@ -43,18 +61,16 @@ const LocationListFilter: FC<IProps> = ({
       countries: ['de'],
       type: 'city',
       container: document.querySelector('#address-input'),
-      value: locationSearchVal && lat && locationSearchVal.value,
+      value: locationSearchVal && locationSearchVal.value,
     });
+    setPlaces(placesAutocomplete);
     placesAutocomplete.on('change', async (e: any) => {
       filterByLocation(e.suggestion);
     });
     placesAutocomplete.on('clear', async (e: any) => {
       clearFilterByLocation();
     });
-    Router.events.on('routeChangeComplete', () => {
-      setSetSearchInput('');
-    });
-  }, []);
+  };
 
   const routePush = (query: any) => {
     const stringified = queryString.stringify(query as any);
@@ -70,29 +86,26 @@ const LocationListFilter: FC<IProps> = ({
   };
 
   const filterByLocation = (suggestion: any) => {
-    // suggestion object obtained from Algolia autocomplate search.
-    dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
-    let query: ILocationListQuery = { search };
-    if (page && page > 1) {
-      query.page = page;
-    }
-    query = {
-      ...query,
-      location: suggestion.name.toLowerCase(),
+    let query: ILocationListQuery = {
+      //location: suggestion.name.toLowerCase(),
       lat: suggestion.latlng.lat,
       lng: suggestion.latlng.lng,
+      category_id,
+      search,
+      sortby,
     };
-    setCurrentPage(1);
+    console.log(query);
     dispatch(filterByLocationValue(suggestion, query));
   };
 
   const clearFilterByLocation = () => {
-    dispatch(clearFilterBySearchVal());
-    const query: ILocationListQuery = { sortby, search };
+    const query: ILocationListQuery = { sortby, search, category_id };
     if (page && page > 1) {
       query.page = page;
     }
-    routePush(query);
+    console.log(query);
+    dispatch(clearFilterByLocationValue(query));
+    //routePush(query);
   };
   const filterByCategory = (categoryId: number) => {
     let query: ILocationListQuery = {};
