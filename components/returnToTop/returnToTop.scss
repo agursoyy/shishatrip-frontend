@@ -5,6 +5,7 @@
   &.hidden {
     display: none !important;
   }
+  cursor: pointer;
   position: fixed;
   z-index: 100;
   bottom: 20px;
