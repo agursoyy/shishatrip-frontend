@@ -16,7 +16,7 @@ const SectionPhoto = (props: any) => {
   const ListPhotos = (props: any) => (
     <React.Fragment>
       {props.pics && (
-        <div className="row">
+        <div className="row ml-0 mr-0">
           {props.pics.map((picture: any, index: number) => (
             <React.Fragment key={index}>
               <div

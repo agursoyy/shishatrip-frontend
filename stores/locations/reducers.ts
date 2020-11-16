@@ -56,7 +56,7 @@ export function locationReducer(state: ILocationState = initialState, action: an
     case FETCH_INIT_DATA_FAILED:
       return { ...state, loading: false, error: true, data: null };
     case FETCH_SINGLE_LOCAL_DATA_SUCESS:
-      return { ...state, loading: false, error: false, visitedLocalData: action.payload };
+      return { ...state, loading: false, error: false, ...action.payload };
     case FETCH_SINGLE_LOCAL_DATA_FAILED:
       return { ...state, loading: false, error: true, visitedLocalData: null };
     case FETCH_BY_SEARCH_PARAM_REQUEST:

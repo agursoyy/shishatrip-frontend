@@ -256,12 +256,34 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
           <Dropdown
             className="filter-select"
             options={[
-              { value: 'clear', label: 'Sortiern nach' },
-              { value: 'abc', label: 'Abc' },
-              { value: 'last', label: 'Letzte' },
-              { value: 'near', label: 'Nähe' },
+              {
+                value: 'clear',
+                label: 'Sortiern nach',
+                className: !sortby ? 'is-selected' : '',
+              },
+              { value: 'abc', label: 'Abc', className: sortby === 'abc' ? 'selected-option' : '' },
+              {
+                value: 'last',
+                label: 'Letzte',
+                className: sortby === 'last' ? 'selected-option' : '',
+              },
+              {
+                value: 'near',
+                label: 'Nähe',
+                className: sortby === 'near' ? 'selected-option' : '',
+              },
             ]}
-            value={'Sortiern nach'}
+            value={
+              !sortby
+                ? 'Sortiern nach'
+                : sortby === 'abc'
+                ? 'Abc'
+                : sortby === 'last'
+                ? 'Letzte'
+                : sortby === 'near'
+                ? 'Nähe'
+                : 'Sortiern nach'
+            }
             onChange={(e) => {
               sortBy(e.value as any);
             }}
@@ -275,11 +297,19 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
               { value: -1, label: 'Kategorie auswählen' },
               ...(categories
                 ? categories.categories.map((cat: any) => {
-                    return { value: cat.id, label: cat.name };
+                    return {
+                      value: cat.id,
+                      label: cat.name,
+                      className: category_id == cat.id ? 'selected-option' : '',
+                    };
                   })
                 : []),
             ]}
-            value={'Kategorie wählen'}
+            value={
+              !category_id
+                ? 'Kategorie wählen'
+                : categories.categories.find((cat: any) => cat.id == category_id).name
+            }
             onChange={(e) => {
               console.log(e);
               filterByCategory(e.value as any);

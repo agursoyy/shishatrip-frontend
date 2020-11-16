@@ -89,6 +89,8 @@ class MyApp extends App<IProps> {
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
+          <script type="text/javascript" src="/js/zuck.min.js"></script>
+          <script type="text/javascript" src="/js/script.js"></script>
         </Head>
         {layout ? (
           <>

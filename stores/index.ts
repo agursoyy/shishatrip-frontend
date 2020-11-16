@@ -11,17 +11,20 @@ import { authReducer } from './auth/reducers';
 import { alertReducer } from './alert/reducers';
 import { newsReducer } from './news/reducers';
 import { locationReducer } from './locations/reducers';
+import { storyReducer } from './stories/reducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   alert: alertReducer,
   news: newsReducer,
   locations: locationReducer,
+  stories: storyReducer,
 });
 
 // *****FOR HYDRATE****
 const reducer = (state: any, action: any) => {
   if (action.type === HYDRATE) {
+    console.log(state);
     const nextState = {
       ...state, // use previous state
       ...action.payload, // apply delta from hydration

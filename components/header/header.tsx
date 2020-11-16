@@ -28,7 +28,6 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
 
   useEffect(() => {
     if (algoliaSearch) {
-      handleHeaderScrollClass();
       handleAutoComplete();
     }
     Router.events.on('routeChangeStart', () => {
@@ -41,6 +40,7 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   }, []);
 
   useEffect(() => {
+    handleHeaderScrollClass();
     if (places) {
       places.close();
       if (locationSearchVal) {
@@ -60,6 +60,12 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
           (headerRef.current as any).classList.add('scrolled');
         } else {
           (headerRef.current as any).classList.remove('scrolled');
+        }
+      }
+      if (places) {
+        places.close();
+        if (locationSearchVal && places.getVal() != locationSearchVal.value) {
+          places.setVal(locationSearchVal.value);
         }
       }
     };
@@ -174,8 +180,11 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
                 </Link>
               </li>
                  */}
-              {algoliaSearch && (
-                <li className="nav-item  search--scrolled">
+              {
+                <li
+                  className="nav-item  search--scrolled"
+                  style={{ visibility: !algoliaSearch ? 'hidden' : 'visible' }}
+                >
                   <div className="places-search">
                     <input
                       type="search"
@@ -185,7 +194,7 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
                     />
                   </div>
                 </li>
-              )}
+              }
               <li className="nav-item collapsed">
                 <details>
                   <summary>

@@ -30,6 +30,7 @@ import { SUCCESS } from '../alert/types';
 import { error, success } from '../alert/actions';
 import fetch from '../api';
 import { func } from 'prop-types';
+import { fetchVisitedLocalStories } from '../stories/actions';
 
 export function fetchCategories() {
   return async (dispatch: any, getState: () => RootState) => {
@@ -135,8 +136,10 @@ export function fetchVisitedLocalData(slug: string) {
   // force to fetch data even though it exists
   return async (dispatch: any, getState: () => RootState) => {
     const { data, status } = await Axios.get(api + '/local/' + slug);
+    const { locations } = getState();
     if (status == 200) {
-      dispatch({ type: FETCH_SINGLE_LOCAL_DATA_SUCESS, payload: data });
+      dispatch({ type: FETCH_SINGLE_LOCAL_DATA_SUCESS, payload: { visitedLocalData: data } });
+      await dispatch(fetchVisitedLocalStories(1)); // fetch it with real id later.
     } else {
       dispatch({ type: FETCH_SINGLE_LOCAL_DATA_FAILED });
     }

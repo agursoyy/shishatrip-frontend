@@ -12,7 +12,17 @@ interface IProps {
 }
 
 const LocationList: FC<IProps> = ({ link, locationItem, as }) => {
-  const { logo_img, name, address, up, opening_hours, slug, distance, category_id } = locationItem;
+  const {
+    logo_img,
+    name,
+    address,
+    up,
+    opening_hours,
+    isOpen,
+    slug,
+    distance,
+    category_id,
+  } = locationItem;
   const {
     locations: { categories },
   } = useSelector((state: RootState) => state);
@@ -98,23 +108,25 @@ const LocationList: FC<IProps> = ({ link, locationItem, as }) => {
             ) : (
               <div className="flexbox-2 d-flex flex-row">
                 <div className="info">
-                  <p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#a5adc4"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    <span className="expl ml-4">bis 01:00 Uhr</span>
-                  </p>
+                  {isOpen && (
+                    <p>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke={isOpen.isOpen ? '#16ca00' : '#a5adc4'}
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                      </svg>
+                      <span className="expl ml-4">{isOpen['0']}</span>
+                    </p>
+                  )}
                 </div>
                 <div className="up-down">
                   <div className="pl-0 pl-xl-2">

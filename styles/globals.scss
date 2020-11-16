@@ -273,11 +273,19 @@ ul {
   height: 200px;
   position: relative;
   z-index: 10;
-  margin-top: -245px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  &.story-exists {
+    cursor: pointer;
+    margin-top: -245px;
+    margin-bottom: 0;
+  }
   @include respond-above(md) {
     width: 223px;
     height: 223px;
-    margin-top: -268px;
+    &.story-exists {
+      margin-top: -268px;
+    }
   }
 }
 .logo-image:hover {
@@ -2268,3 +2276,8 @@ a:active .side-menu-span {
     transform: rotate(360deg);
   }
 }
+
+@import '../styles/zuck/demo/style.css';
+@import '../styles/zuck/zuck.min.css';
+
+@import '../styles/zuck/skins/snapgram.css';
