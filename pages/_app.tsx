@@ -1,5 +1,5 @@
 import React from 'react';
-import App, {AppContext, AppInitialProps, Container} from 'next/app';
+import App, { AppContext, AppInitialProps, Container } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import NProgress from 'nprogress';
@@ -8,7 +8,7 @@ import Router from 'next/router';
 import '../styles/index.scss';
 import '../styles/globals.scss';
 
-import {Store, wrapper} from '../stores';
+import { Store, wrapper } from '../stores';
 import Header from '../components/header';
 
 const { publicRuntimeConfig } = getConfig();
@@ -68,16 +68,16 @@ class MyApp extends App<IProps> {
             href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"
           />
           <script
-              src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-              integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-              crossOrigin="anonymous"
-              async={true}
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossOrigin="anonymous"
+            async={true}
           ></script>
           <script
-              src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-              integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-              crossOrigin="anonymous"
-              defer={true}
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossOrigin="anonymous"
+            defer={true}
           ></script>
           <link
             rel="stylesheet"
@@ -89,6 +89,8 @@ class MyApp extends App<IProps> {
             type="text/css"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
+          <script type="text/javascript" src="/js/zuck.min.js"></script>
+          <script type="text/javascript" src="/js/script.js"></script>
         </Head>
         {layout ? (
           <>

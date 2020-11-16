@@ -123,16 +123,22 @@
       }
     }
     .location-list {
-      padding-bottom: 120px;
+      padding-bottom: 40px;
       &-item {
         &:not(:last-child) {
           margin-bottom: 34px;
         }
       }
+      .list--loading {
+        padding-top: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .page-loading {
         display: flex;
         justify-content: center;
-        margin-bottom: 200px;
+        margin-bottom: 40px;
       }
     }
   }

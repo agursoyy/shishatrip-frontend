@@ -1,0 +1,93 @@
+@import '../../styles/mixins/';
+@import '../../styles/variables/colors';
+
+.stories.carousel {
+  overflow: visible !important;
+}
+
+.section-stories-container {
+  padding: 0 !important;
+  margin-right: 10px;
+  .row {
+    .col {
+      margin-bottom: 30px;
+    }
+  }
+  .stories {
+    flex-wrap: wrap;
+    .story {
+      // story item
+      width: 100%;
+      height: 200px;
+      margin: 0;
+      padding: 4px !important;
+      overflow: hidden !important;
+      &:nth-child(odd) {
+        padding-right: 0;
+      }
+      @include respond-above(md) {
+        height: 350px;
+        padding: 10px !important;
+      }
+      @include respond-above(lg) {
+        height: 450px;
+      }
+      .item-link {
+        // inner story item
+        .item-preview img {
+          border-radius: 10px;
+        }
+        .item-preview-avatar {
+          height: 30px;
+          width: 30px;
+          right: 0.75rem;
+          top: 0.75rem;
+          @include respond-above(md) {
+            height: 60px;
+            width: 60px;
+            right: 1.5rem;
+            top: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .local-story-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+    @include respond-above(md) {
+      height: 350px;
+      padding: 10px !important;
+    }
+    @include respond-above(lg) {
+      height: 450px;
+    }
+    &:focus {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+    &__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &__logo {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      position: absolute;
+      right: 0.75rem;
+      top: 0.75rem;
+      @include respond-above(md) {
+        height: 60px;
+        width: 60px;
+        right: 1.5rem;
+        top: 1.5rem;
+      }
+    }
+  }
+}

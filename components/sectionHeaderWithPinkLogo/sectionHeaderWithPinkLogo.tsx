@@ -1,10 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Image, Nav, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../stores';
 import './sectionHeaderWithPinkLogo.scss';
 
 const SectionHeaderWithPinkLogo = (props: any) => {
-  console.log(props);
-  const { profileSection } = props;
+  const { profileSection, setProfileSectionHandler } = props;
+  const {
+    stories: { visitedLocalStories },
+  } = useSelector((state: RootState) => state);
+
+  const [clickedOpenStories, setClickedOpenStories] = useState(false);
+  useEffect(() => {
+    if (clickedOpenStories && profileSection === 'stories') {
+      console.log(clickedOpenStories);
+      setTimeout(() => {
+        openStories(0);
+      }, 250);
+    }
+  }, [clickedOpenStories]);
+
+  const openStories = (index: number) => {
+    (document.querySelectorAll('#stories-react .story')[index] as any).click();
+  };
+
+  const handleOpenStories = () => {
+    if (isStoryExist()) {
+      if (profileSection === 'stories') {
+        openStories(0);
+      } else {
+        setProfileSectionHandler('stories');
+        setClickedOpenStories(true);
+      }
+    }
+  };
+
+  const isStoryExist = () => {
+    return visitedLocalStories && visitedLocalStories.length > 0;
+  };
+
   return (
     <React.Fragment>
       {props.local && (
@@ -66,14 +100,19 @@ const SectionHeaderWithPinkLogo = (props: any) => {
             </Col>
             <Col lg={4} className="local-col-cafe head-section">
               <div className="local-section1-button-wrapper-cafe">
-                <div className="logo-img logo-img-story-active">
-                  <img src="/images/story-ring.png" />
-                </div>
+                {isStoryExist() && (
+                  <div className="logo-img logo-img-story-active">
+                    <img src="/images/story-ring.png" />
+                  </div>
+                )}
 
                 <Image
-                  className="local-section1-button-cafe local-section1-button-cafe-for-1440 logo"
+                  className={`local-section1-button-cafe local-section1-button-cafe-for-1440 logo ${
+                    isStoryExist() && 'story-exists'
+                  }`}
                   src={props.local.logo_img}
                   alt={props.local.name}
+                  onClick={handleOpenStories}
                 />
               </div>
             </Col>
@@ -187,7 +226,13 @@ const SectionHeaderWithPinkLogo = (props: any) => {
             <Col className="local-col-cafe">
               <div className="local-section1-nav-bar-wrapper">
                 <Nav variant="pills" className="local-section1-nav-bar d-flex">
-                  <Nav.Item onClick={() => props.setProfileSectionHandler('photo')}>
+                  <Nav.Item
+                    onClick={() =>
+                      props.setProfileSectionHandler('photo', () => {
+                        setClickedOpenStories(false);
+                      })
+                    }
+                  >
                     <Nav.Link
                       className={`d-flex align-items-center h-100 ${
                         profileSection == 'photo' && 'active'
@@ -212,29 +257,37 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                       <span className="ml-2 ml-md-3">Photos</span>
                     </Nav.Link>
                   </Nav.Item>
-                  <Nav.Item onClick={() => props.setProfileSectionHandler('stories')}>
-                    <Nav.Link
-                      className={`d-flex align-items-center h-100 ${
-                        profileSection == 'stories' && 'active'
-                      }`}
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                  {visitedLocalStories && visitedLocalStories.length > 0 && (
+                    <Nav.Item onClick={() => props.setProfileSectionHandler('stories')}>
+                      <Nav.Link
+                        className={`d-flex align-items-center h-100 ${
+                          profileSection == 'stories' && 'active'
+                        }`}
                       >
-                        <path
-                          d="M14.9999 12.5C14.3453 12.5006 13.7169 12.7579 13.2499 13.2167L6.66661 10.2833V10V9.72501L13.2499 6.78335C13.6623 7.18753 14.2018 7.43652 14.7769 7.48802C15.352 7.53953 15.9272 7.39038 16.4048 7.0659C16.8825 6.74143 17.233 6.26163 17.397 5.70801C17.561 5.15438 17.5283 4.56106 17.3044 4.02881C17.0806 3.49656 16.6794 3.05821 16.169 2.78819C15.6587 2.51817 15.0706 2.43315 14.5046 2.54755C13.9386 2.66196 13.4297 2.96874 13.0643 3.41579C12.6989 3.86285 12.4995 4.42261 12.4999 5.00001V5.28335L5.91661 8.21668C5.56525 7.87148 5.11973 7.63776 4.636 7.54487C4.15227 7.45198 3.65187 7.50406 3.19764 7.69457C2.7434 7.88508 2.35556 8.20553 2.08281 8.61569C1.81006 9.02585 1.66455 9.50744 1.66455 10C1.66455 10.4926 1.81006 10.9742 2.08281 11.3843C2.35556 11.7945 2.7434 12.115 3.19764 12.3055C3.65187 12.496 4.15227 12.548 4.636 12.4552C5.11973 12.3623 5.56525 12.1286 5.91661 11.7833L12.4999 14.725V15C12.4999 15.4945 12.6466 15.9778 12.9213 16.3889C13.196 16.8001 13.5864 17.1205 14.0432 17.3097C14.5001 17.4989 15.0027 17.5484 15.4877 17.452C15.9726 17.3555 16.4181 17.1174 16.7677 16.7678C17.1173 16.4182 17.3554 15.9727 17.4519 15.4877C17.5484 15.0028 17.4989 14.5001 17.3096 14.0433C17.1204 13.5865 16.8 13.196 16.3889 12.9213C15.9777 12.6466 15.4944 12.5 14.9999 12.5Z"
-                          fill="#8FA4BD"
-                        />
-                      </svg>
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M14.9999 12.5C14.3453 12.5006 13.7169 12.7579 13.2499 13.2167L6.66661 10.2833V10V9.72501L13.2499 6.78335C13.6623 7.18753 14.2018 7.43652 14.7769 7.48802C15.352 7.53953 15.9272 7.39038 16.4048 7.0659C16.8825 6.74143 17.233 6.26163 17.397 5.70801C17.561 5.15438 17.5283 4.56106 17.3044 4.02881C17.0806 3.49656 16.6794 3.05821 16.169 2.78819C15.6587 2.51817 15.0706 2.43315 14.5046 2.54755C13.9386 2.66196 13.4297 2.96874 13.0643 3.41579C12.6989 3.86285 12.4995 4.42261 12.4999 5.00001V5.28335L5.91661 8.21668C5.56525 7.87148 5.11973 7.63776 4.636 7.54487C4.15227 7.45198 3.65187 7.50406 3.19764 7.69457C2.7434 7.88508 2.35556 8.20553 2.08281 8.61569C1.81006 9.02585 1.66455 9.50744 1.66455 10C1.66455 10.4926 1.81006 10.9742 2.08281 11.3843C2.35556 11.7945 2.7434 12.115 3.19764 12.3055C3.65187 12.496 4.15227 12.548 4.636 12.4552C5.11973 12.3623 5.56525 12.1286 5.91661 11.7833L12.4999 14.725V15C12.4999 15.4945 12.6466 15.9778 12.9213 16.3889C13.196 16.8001 13.5864 17.1205 14.0432 17.3097C14.5001 17.4989 15.0027 17.5484 15.4877 17.452C15.9726 17.3555 16.4181 17.1174 16.7677 16.7678C17.1173 16.4182 17.3554 15.9727 17.4519 15.4877C17.5484 15.0028 17.4989 14.5001 17.3096 14.0433C17.1204 13.5865 16.8 13.196 16.3889 12.9213C15.9777 12.6466 15.4944 12.5 14.9999 12.5Z"
+                            fill="#8FA4BD"
+                          />
+                        </svg>
 
-                      <span className="ml-2 ml-md-3">Stories</span>
-                    </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item onClick={() => props.setProfileSectionHandler('info')}>
+                        <span className="ml-2 ml-md-3">Stories</span>
+                      </Nav.Link>
+                    </Nav.Item>
+                  )}
+                  <Nav.Item
+                    onClick={() =>
+                      props.setProfileSectionHandler('info', () => {
+                        setClickedOpenStories(false);
+                      })
+                    }
+                  >
                     <Nav.Link
                       className={`d-flex align-items-center h-100 ${
                         profileSection == 'info' && 'active'
