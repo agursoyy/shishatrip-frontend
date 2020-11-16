@@ -32,7 +32,7 @@ const Slug: NextPage<IProps> = ({ error }) => {
   const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('photo');
 
   const {
-    locations: { loading, filteredData, locationSearchVal, visitedLocalData },
+    locations: { loading, locationSearchVal, visitedLocalData },
   } = useSelector((state: RootState) => state);
 
   const setProfileSectionHandler = (v: 'info' | 'photo' | 'stories') => {

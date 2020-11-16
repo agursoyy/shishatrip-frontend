@@ -26,7 +26,6 @@ const initialState: ILocationState = {
   locationSearchLoading: false,
   error: false,
   data: null,
-  filteredData: null,
   categories: null,
   locationSearchVal: null,
   sortByVal: null,
@@ -53,10 +52,9 @@ export function locationReducer(state: ILocationState = initialState, action: an
         error: false,
         loading: false,
         data: action.payload,
-        filteredData: action.payload,
       };
     case FETCH_INIT_DATA_FAILED:
-      return { ...state, loading: false, error: true, data: null, filteredData: null };
+      return { ...state, loading: false, error: true, data: null };
     case FETCH_SINGLE_LOCAL_DATA_SUCESS:
       return { ...state, loading: false, error: false, visitedLocalData: action.payload };
     case FETCH_SINGLE_LOCAL_DATA_FAILED:

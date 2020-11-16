@@ -21,7 +21,7 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   const headerRef = useRef(null);
   const dispatch = useDispatch();
   const {
-    locations: { loading, filteredData, locationSearchVal, categories },
+    locations: { loading, locationSearchVal, categories },
   } = useSelector((state: RootState) => state);
 
   const [places, setPlaces] = useState<any>(null);

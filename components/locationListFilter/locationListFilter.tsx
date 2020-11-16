@@ -29,7 +29,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
 
   const dispatch = useDispatch();
   const {
-    locations: { loading, filteredData, locationSearchVal, categories },
+    locations: { locationSearchVal, categories },
     alert,
   } = useSelector((state: RootState) => state);
 

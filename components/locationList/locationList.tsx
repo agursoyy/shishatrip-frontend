@@ -31,7 +31,7 @@ const LocationList: FC<IProps> = ({ query }) => {
 
   const dispatch = useDispatch();
   const {
-    locations: { locationSearchLoading, filteredData, locationSearchVal, categories },
+    locations: { locationSearchLoading,  data, locationSearchVal, categories },
     auth,
     alert,
   } = useSelector((state: RootState) => state);
@@ -83,9 +83,9 @@ const LocationList: FC<IProps> = ({ query }) => {
                 <div className="list--loading">
                   <Loading />
                 </div>
-              ) : filteredData ? (
+              ) : data ? (
                 <InfiniteScroll
-                  dataLength={filteredData.locals.length}
+                  dataLength={data.locals.length}
                   next={loadMore}
                   hasMore={true}
                   style={{ overflow: 'visible' }}
@@ -97,7 +97,7 @@ const LocationList: FC<IProps> = ({ query }) => {
                 >
                   {
                     <>
-                      {filteredData.locals.map((localItem: any, index: number) => {
+                      {data.locals.map((localItem: any, index: number) => {
                         return (
                           <div className="location-list-item" key={index}>
                             <LocationCard

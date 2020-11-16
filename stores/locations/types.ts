@@ -25,7 +25,6 @@ export interface ILocationState {
   locationSearchLoading: boolean;
   error: boolean;
   data: any;
-  filteredData: any;
   categories: any;
   locationSearchVal: any;
   sortByVal: any;

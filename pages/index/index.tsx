@@ -36,7 +36,7 @@ const Home: INextPage<IProps> = ({ query }) => {
   const dispatch = useDispatch();
 
   const {
-    locations: { loading, filteredData },
+    locations: { loading },
   } = useSelector((state: RootState) => state);
 
   return (
