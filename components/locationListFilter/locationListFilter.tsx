@@ -9,9 +9,7 @@ import {
   clearFilterBySearchVal,
   fetchInıtData,
   filterBySearchVal,
-  filterByLocationValue,
   fetchData,
-  clearFilterByLocationValue,
 } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
@@ -19,6 +17,7 @@ import Loading from '../../components/loading';
 import ILocationListQuery from '../../interfaces/locationListQuery';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { route } from 'next/dist/next-server/server/router';
 
 type IProps = {
   query: ILocationListQuery;
@@ -83,6 +82,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
     });
     setCurrentPage(1); // return to first page.
     Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
+    window.scrollTo({ top: 120, behavior: 'smooth' });
   };
 
   const filterByLocation = (suggestion: any) => {
@@ -94,8 +94,8 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       search,
       sortby,
     };
-    console.log(query);
-    dispatch(filterByLocationValue(suggestion, query));
+    dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
+    routePush(query);
   };
 
   const clearFilterByLocation = () => {
@@ -103,9 +103,8 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
     if (page && page > 1) {
       query.page = page;
     }
-    console.log(query);
-    dispatch(clearFilterByLocationValue(query));
-    //routePush(query);
+    dispatch(clearFilterBySearchVal());
+    routePush(query);
   };
   const filterByCategory = (categoryId: number) => {
     let query: ILocationListQuery = {};

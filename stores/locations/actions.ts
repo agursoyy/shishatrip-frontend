@@ -167,6 +167,7 @@ export function clearFilterBySearchVal() {
   };
 }
 
+/*
 export const filterByLocationValue = (suggestion: any, query: ILocationListQuery) => {
   return async (dispatch: any, getState: () => RootState) => {
     dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
@@ -183,20 +184,4 @@ export const clearFilterByLocationValue = (query: ILocationListQuery) => {
     await dispatch(fetchData(query));
     await dispatch({ type: FETCH_BY_SEARCH_PARAM_END });
   };
-};
-
-export function filter() {
-  return async (dispatch: any, getState: () => RootState) => {
-    // redux thunk.
-    const {
-      locations: { error, data, locationSearchVal, sortByVal, filterByCategory },
-    } = getState();
-
-    if (locationSearchVal) {
-      dispatch(filterBySearchVal(locationSearchVal));
-    }
-    /*if (sortByVal) {
-      dispatch(sortByValue(sortByVal));
-    }*/
-  };
-}
+};*/

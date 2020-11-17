@@ -30,6 +30,9 @@ const reducer = (state: any, action: any) => {
       ...action.payload, // apply delta from hydration
     };
     //if (state.count.count) nextState.count.count = state.count.count; // preserve count value on client side navigation
+    if (state.locations.locationSearchVal) {
+      nextState.locations.locationSearchVal = state.locations.locationSearchVal;
+    }
     return nextState;
   } else {
     return rootReducer(state, action);

@@ -9,7 +9,6 @@ import {
   clearFilterBySearchVal,
   fetchInıtData,
   filterBySearchVal,
-  filterByLocationValue,
 } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
