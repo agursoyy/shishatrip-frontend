@@ -29,7 +29,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   const dispatch = useDispatch();
   const {
     locations: { locationSearchVal, categories },
-    alert,
+    router: { routeChanging },
   } = useSelector((state: RootState) => state);
 
   const [searchInput, setSetSearchInput] = useState('');
@@ -178,7 +178,11 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
 
             {locationSearchVal && lat && (
               <div className="form-group child mr-0 mb-2">
-                <button className="filtered-location" onClick={clearFilterByLocation}>
+                <button
+                  className="filtered-location"
+                  onClick={clearFilterByLocation}
+                  disabled={routeChanging}
+                >
                   {locationSearchVal.name}
                   <span className="btn times ml-3 ">
                     <svg
@@ -195,7 +199,11 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
             )}
             {search && (
               <div className="form-group  child mr-0 mb-0">
-                <button className="filtered-location" onClick={clearFilterBySearchValue}>
+                <button
+                  className="filtered-location"
+                  onClick={clearFilterBySearchValue}
+                  disabled={routeChanging}
+                >
                   {search}
                   <span className="btn times ml-3 ">
                     <svg

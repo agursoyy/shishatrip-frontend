@@ -12,6 +12,7 @@ import { alertReducer } from './alert/reducers';
 import { newsReducer } from './news/reducers';
 import { locationReducer } from './locations/reducers';
 import { storyReducer } from './stories/reducers';
+import { routerReducer } from './router/reducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   news: newsReducer,
   locations: locationReducer,
   stories: storyReducer,
+  router: routerReducer,
 });
 
 // *****FOR HYDRATE****

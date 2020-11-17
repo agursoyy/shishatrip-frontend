@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import App, { AppContext, AppInitialProps, Container } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
@@ -10,6 +10,8 @@ import '../styles/globals.scss';
 
 import { Store, wrapper } from '../stores';
 import Header from '../components/header';
+import { MapDispatchToProps, connect } from 'react-redux';
+import { routeChangeComplete, routeChangeStart } from '../stores/router/actions';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -19,6 +21,8 @@ interface IAppContext extends AppContext {
 
 interface IProps extends AppInitialProps {
   pageConfig: any;
+  routeChangeStart: () => void;
+  routeChangeComplete: () => void;
 }
 
 class MyApp extends App<IProps> {
@@ -48,7 +52,17 @@ class MyApp extends App<IProps> {
   };
 
   componentDidMount() {
-    document.body.style.zoom = '1.0';
+    const { routeChangeStart, routeChangeComplete } = this.props;
+    NProgress.configure({ showSpinner: false });
+    Router.events.on('routeChangeStart', () => {
+      NProgress.start();
+      routeChangeStart();
+    });
+    Router.events.on('routeChangeComplete', () => {
+      NProgress.done();
+      routeChangeComplete();
+    });
+    Router.events.on('routeChangeError', () => NProgress.done());
   }
   public render() {
     const { Component, pageProps, pageConfig } = this.props;
@@ -99,14 +113,15 @@ class MyApp extends App<IProps> {
   }
 }
 
-export default wrapper.withRedux(MyApp);
+function mapDispatchToProps(dispatch: any) {
+  return {
+    routeChangeStart: () => {
+      dispatch(routeChangeStart());
+    },
+    routeChangeComplete: () => {
+      dispatch(routeChangeComplete());
+    },
+  };
+}
 
-NProgress.configure({ showSpinner: false });
-
-Router.events.on('routeChangeStart', () => {
-  NProgress.start();
-});
-Router.events.on('routeChangeComplete', () => {
-  NProgress.done();
-});
-Router.events.on('routeChangeError', () => NProgress.done());
+export default wrapper.withRedux(connect(null, mapDispatchToProps)(MyApp));

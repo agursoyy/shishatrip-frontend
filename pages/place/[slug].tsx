@@ -11,7 +11,7 @@ import { Container } from 'react-bootstrap';
 import './slug.scss';
 import SectionHeaderWithPinkLogo from '../../components/sectionHeaderWithPinkLogo';
 import PhotoSection from '../../components/sectionPhoto/sectionPhoto';
-import { fetchVisitedLocalData, filter } from '../../stores/locations/actions';
+import { fetchVisitedLocalData } from '../../stores/locations/actions';
 import { useSelector } from 'react-redux';
 import SectionInfo from '../../components/sectionInfo';
 import dynamic from 'next/dynamic';
