@@ -68,7 +68,13 @@ const SectionPhoto = (props: any) => {
                   setOpen(false);
                 }}
               >
-                <PhotoBoxView images={pics} selectedItem={selectedItem} />
+                <PhotoBoxView
+                  images={pics}
+                  selectedItem={selectedItem}
+                  closeGallery={() => {
+                    setOpen(false);
+                  }}
+                />
               </OutsideClickHandler>
             </Popup>
           </div>

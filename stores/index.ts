@@ -12,6 +12,7 @@ import { alertReducer } from './alert/reducers';
 import { newsReducer } from './news/reducers';
 import { locationReducer } from './locations/reducers';
 import { storyReducer } from './stories/reducers';
+import { routerReducer } from './router/reducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   news: newsReducer,
   locations: locationReducer,
   stories: storyReducer,
+  router: routerReducer,
 });
 
 // *****FOR HYDRATE****
@@ -30,6 +32,9 @@ const reducer = (state: any, action: any) => {
       ...action.payload, // apply delta from hydration
     };
     //if (state.count.count) nextState.count.count = state.count.count; // preserve count value on client side navigation
+    if (state.locations.locationSearchVal) {
+      nextState.locations.locationSearchVal = state.locations.locationSearchVal;
+    }
     return nextState;
   } else {
     return rootReducer(state, action);

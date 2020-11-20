@@ -4,12 +4,7 @@ import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
-import {
-  clearFilterByLocationValue,
-  clearFilterBySearchVal,
-  filterByLocationValue,
-  filterBySearchVal,
-} from '../../stores/locations/actions';
+import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import ILocationListQuery from '../../interfaces/locationListQuery';
 import { number } from 'prop-types';
@@ -104,7 +99,8 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
       sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
     };
     console.log(query);
-    dispatch(filterByLocationValue(suggestion, query));
+    dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
+    routePush(query);
   };
 
   const clearFilterByLocation = () => {
@@ -116,8 +112,21 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
       sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
       page: 1,
     };
-    console.log(query);
-    dispatch(clearFilterByLocationValue(query));
+    dispatch(clearFilterBySearchVal());
+    routePush(query);
+  };
+
+  const routePush = (query: any) => {
+    const stringified = queryString.stringify(query as any);
+    let isObjectEmpty = true;
+    let keys = Object.keys(query);
+    keys.forEach((element) => {
+      if (query[`${element}`] !== undefined) {
+        isObjectEmpty = false;
+      }
+    });
+    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
+    window.scrollTo({ top: 120, behavior: 'smooth' });
   };
   return (
     <React.Fragment>

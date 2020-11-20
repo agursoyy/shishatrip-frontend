@@ -11,11 +11,12 @@ import { Container } from 'react-bootstrap';
 import './slug.scss';
 import SectionHeaderWithPinkLogo from '../../components/sectionHeaderWithPinkLogo';
 import PhotoSection from '../../components/sectionPhoto/sectionPhoto';
-import { fetchVisitedLocalData, filter } from '../../stores/locations/actions';
+import { fetchVisitedLocalData } from '../../stores/locations/actions';
 import { useSelector } from 'react-redux';
 import SectionInfo from '../../components/sectionInfo';
 import dynamic from 'next/dynamic';
 import SectionStories from '../../components/sectionStories';
+import IPageConfig from '../../interfaces/PageConfig';
 
 type IProps = {
   error?: {
@@ -24,13 +25,17 @@ type IProps = {
   };
 };
 
+type INextPage<P> = NextPage<P> & {
+  pageConfig?: IPageConfig;
+};
+
 export const siteTitle = 'Beste Shisha Bar, Lounge & Shop - localtrip';
 
 const {
   publicRuntimeConfig: { api },
 } = getConfig();
 
-const Slug: NextPage<IProps> = ({ error }) => {
+const Slug: INextPage<IProps> = ({ error }) => {
   const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('photo');
 
   const {
@@ -86,7 +91,10 @@ const Slug: NextPage<IProps> = ({ error }) => {
   );
 };
 
-/*
+Slug.pageConfig = {
+  header_algolia: true,
+};
+
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const slug = query.slug?.toString();
   let error;
@@ -106,7 +114,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   //await store.dispatch(fetchInıtData() as any);
   // return {props: {error}} causes json.serialize error directly. This is specific for these getServerSideProps, getStaticProps lifecycle method.
   return { props: { ...(error && { error: error }) } };
-}); */
+});
 
 /*
 //  getStaticPaths function specifies dynamic routes to pre-render based
@@ -149,6 +157,7 @@ export const getStaticProps = wrapper.getStaticProps(
   }
 ); */
 
+/*
 Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
   const slug = query.slug?.toString();
   let error;
@@ -167,5 +176,5 @@ Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   }
   return { error }; // You can pass some custom props to the component from here
 };
-
+*/
 export default Slug;

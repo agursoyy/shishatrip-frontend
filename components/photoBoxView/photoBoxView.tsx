@@ -1,6 +1,7 @@
 import React from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import './photoBoxView.scss';
 
 const getConfigurableProps = () => ({
   showArrows: true,
@@ -22,17 +23,29 @@ const getConfigurableProps = () => ({
 });
 
 const PhotoBoxView = (props: any) => {
+  const { closeGallery } = props;
   return (
-    <Carousel {...getConfigurableProps()} selectedItem={props.selectedItem}>
-      {props.images &&
-        props.images.map((img: any, index: number) => (
-          <div
-            className={'profile-gallery-images'}
-            style={{ backgroundImage: `url(${img.path})` }}
-            key={index}
-          />
-        ))}
-    </Carousel>
+    <div style={{ position: 'relative' }}>
+      <button
+        className="close-btn"
+        onClick={() => {
+          closeGallery();
+        }}
+      >
+        X
+      </button>
+
+      <Carousel {...getConfigurableProps()} selectedItem={props.selectedItem}>
+        {props.images &&
+          props.images.map((img: any, index: number) => (
+            <div
+              className={'profile-gallery-images'}
+              style={{ backgroundImage: `url(${img.path})` }}
+              key={index}
+            />
+          ))}
+      </Carousel>
+    </div>
   );
 };
 

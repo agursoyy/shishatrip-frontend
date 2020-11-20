@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import Router from 'next/router';
 import './locationListFilter.scss';
 import Dropdown from 'react-dropdown';
@@ -9,9 +9,7 @@ import {
   clearFilterBySearchVal,
   fetchInıtData,
   filterBySearchVal,
-  filterByLocationValue,
   fetchData,
-  clearFilterByLocationValue,
 } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
@@ -19,6 +17,8 @@ import Loading from '../../components/loading';
 import ILocationListQuery from '../../interfaces/locationListQuery';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { route } from 'next/dist/next-server/server/router';
+import Link from 'next/link';
 
 type IProps = {
   query: ILocationListQuery;
@@ -30,12 +30,14 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   const dispatch = useDispatch();
   const {
     locations: { locationSearchVal, categories },
-    alert,
+    router: { routeChanging },
   } = useSelector((state: RootState) => state);
 
   const [searchInput, setSetSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [places, setPlaces] = useState<any>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const mobileFiltersRef = useRef(null);
 
   useEffect(() => {
     handleAutoComplete();
@@ -50,7 +52,21 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
         places.setVal('');
       }
     }
+
+    Router.events.on('routeChangeComplete', () => {
+      setShowFilters(false);
+      window.scrollTo({ top: 120, behavior: 'auto' });
+    });
   });
+  useEffect(() => {
+    if (showFilters) {
+      (mobileFiltersRef.current as any).classList.add('collapsed');
+      (document.querySelector('body') as any).classList.add('scroll-lock');
+    } else {
+      (mobileFiltersRef.current as any).classList.remove('collapsed');
+      (document.querySelector('body') as any).classList.remove('scroll-lock');
+    }
+  }, [showFilters]);
 
   const handleAutoComplete = () => {
     var places = require('places.js');
@@ -94,8 +110,8 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       search,
       sortby,
     };
-    console.log(query);
-    dispatch(filterByLocationValue(suggestion, query));
+    dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
+    routePush(query);
   };
 
   const clearFilterByLocation = () => {
@@ -103,9 +119,8 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
     if (page && page > 1) {
       query.page = page;
     }
-    console.log(query);
-    dispatch(clearFilterByLocationValue(query));
-    //routePush(query);
+    dispatch(clearFilterBySearchVal());
+    routePush(query);
   };
   const filterByCategory = (categoryId: number) => {
     let query: ILocationListQuery = {};
@@ -171,7 +186,61 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   };
 
   return (
-    <div className="locals-list-filter">
+    <div className="locals-list-filter" ref={mobileFiltersRef}>
+      <div className="locals-list-filter__mobile-nav d-sm-none">
+        <div className={`filter-nav-item ${!category && 'active'}`}>
+          <a
+            className="filter-nav-link"
+            role="button"
+            onClick={() => {
+              filterByCategory(-1);
+            }}
+          >
+            ALL
+          </a>
+        </div>
+        {categories.categories &&
+          categories.categories.map((cat: any, index: number) => (
+            <div
+              className={`filter-nav-item ${
+                category && category.toLowerCase() === cat.name.toLowerCase() && 'active'
+              }`}
+              key={index}
+            >
+              <a
+                className="filter-nav-link"
+                role="button"
+                onClick={() => {
+                  filterByCategory(cat.id);
+                }}
+              >
+                {cat.name}
+              </a>
+            </div>
+          ))}
+        <button
+          className="btn btn-link p-0 toggle"
+          onClick={() => {
+            setShowFilters(!showFilters);
+          }}
+        >
+          <svg
+            id="Capa_1"
+            enable-background="new 0 0 512 512"
+            height="22"
+            viewBox="0 0 512 512"
+            width="22"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#717277"
+          >
+            <g>
+              <path d="m432.733 112.467h-228.461c-6.281-18.655-23.926-32.133-44.672-32.133s-38.391 13.478-44.672 32.133h-35.661c-8.284 0-15 6.716-15 15s6.716 15 15 15h35.662c6.281 18.655 23.926 32.133 44.672 32.133s38.391-13.478 44.672-32.133h228.461c8.284 0 15-6.716 15-15s-6.716-15-15.001-15zm-273.133 32.133c-9.447 0-17.133-7.686-17.133-17.133s7.686-17.133 17.133-17.133 17.133 7.686 17.133 17.133-7.686 17.133-17.133 17.133z" />
+              <path d="m432.733 241h-35.662c-6.281-18.655-23.927-32.133-44.672-32.133s-38.39 13.478-44.671 32.133h-228.461c-8.284 0-15 6.716-15 15s6.716 15 15 15h228.461c6.281 18.655 23.927 32.133 44.672 32.133s38.391-13.478 44.672-32.133h35.662c8.284 0 15-6.716 15-15s-6.716-15-15.001-15zm-80.333 32.133c-9.447 0-17.133-7.686-17.133-17.133s7.686-17.133 17.133-17.133 17.133 7.686 17.133 17.133-7.686 17.133-17.133 17.133z" />
+              <path d="m432.733 369.533h-164.194c-6.281-18.655-23.926-32.133-44.672-32.133s-38.391 13.478-44.672 32.133h-99.928c-8.284 0-15 6.716-15 15s6.716 15 15 15h99.928c6.281 18.655 23.926 32.133 44.672 32.133s38.391-13.478 44.672-32.133h164.195c8.284 0 15-6.716 15-15s-6.716-15-15.001-15zm-208.866 32.134c-9.447 0-17.133-7.686-17.133-17.133s7.686-17.133 17.133-17.133 17.133 7.685 17.133 17.132-7.686 17.134-17.133 17.134z" />
+            </g>
+          </svg>
+        </button>
+      </div>
       <div className="locals-list-filter__elements">
         {((locationSearchVal && lat) || search) && (
           <div className="filter-criterias form-group">
@@ -179,7 +248,11 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
 
             {locationSearchVal && lat && (
               <div className="form-group child mr-0 mb-2">
-                <button className="filtered-location" onClick={clearFilterByLocation}>
+                <button
+                  className="filtered-location"
+                  onClick={clearFilterByLocation}
+                  disabled={routeChanging}
+                >
                   {locationSearchVal.name}
                   <span className="btn times ml-3 ">
                     <svg
@@ -196,7 +269,11 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
             )}
             {search && (
               <div className="form-group  child mr-0 mb-0">
-                <button className="filtered-location" onClick={clearFilterBySearchValue}>
+                <button
+                  className="filtered-location"
+                  onClick={clearFilterBySearchValue}
+                  disabled={routeChanging}
+                >
                   {search}
                   <span className="btn times ml-3 ">
                     <svg
@@ -261,7 +338,11 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
                 label: 'Sortiern nach',
                 className: !sortby ? 'is-selected' : '',
               },
-              { value: 'abc', label: 'Abc', className: sortby === 'abc' ? 'selected-option' : '' },
+              {
+                value: 'abc',
+                label: 'Abc',
+                className: sortby === 'abc' ? 'selected-option' : '',
+              },
               {
                 value: 'last',
                 label: 'Letzte',
