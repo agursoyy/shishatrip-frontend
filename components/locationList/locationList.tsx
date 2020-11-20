@@ -65,6 +65,7 @@ const LocationList: FC<IProps> = ({ query }) => {
                 className="address-input"
                 placeholder={'Suche Stadt oder Ort'}
               />
+              <img className="places-search-icon" src="/icons/algolia-search-icon.svg" />
             </div>
           </div>
         </div>

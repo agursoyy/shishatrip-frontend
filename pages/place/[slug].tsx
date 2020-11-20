@@ -86,6 +86,10 @@ const Slug: NextPage<IProps> = ({ error }) => {
   );
 };
 
+Slug.pageConfig = {
+  header_algolia: true,
+};
+
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const slug = query.slug?.toString();
   let error;

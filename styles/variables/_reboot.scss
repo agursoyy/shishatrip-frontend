@@ -13,5 +13,9 @@ html {
       font-size: 1.6rem;
     }
     color: $main-font-color;
+
+    &.scroll-lock {
+      overflow: hidden !important;
+    }
   }
 }

@@ -82,7 +82,11 @@ const Login: NextPage<IProps> = () => {
                                     setShowPassword(!showPassword);
                                   }}
                                 >
-                                  <img src="/icons/hide-password.svg" className="" />
+                                  {showPassword ? (
+                                    <img src="/icons/visible-password.svg" className="" />
+                                  ) : (
+                                    <img src="/icons/hidden-password.svg" className="" />
+                                  )}
                                 </button>
                               </div>
                             )}

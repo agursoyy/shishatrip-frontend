@@ -1,0 +1,38 @@
+@import '../../styles/mixins/';
+@import '../../styles/variables/colors';
+
+.carousel-root {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  color: rgb(187, 186, 186);
+  z-index: 100;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  border: none;
+  &:focus {
+    border: none;
+    outline: none;
+  }
+  &:hover {
+    color: #fff;
+  }
+  @include respond-above(md) {
+    top: 20px;
+    right: 26px;
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+  }
+}
