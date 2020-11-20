@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import SectionInfo from '../../components/sectionInfo';
 import dynamic from 'next/dynamic';
 import SectionStories from '../../components/sectionStories';
+import IPageConfig from '../../interfaces/PageConfig';
 
 type IProps = {
   error?: {
@@ -24,13 +25,17 @@ type IProps = {
   };
 };
 
+type INextPage<P> = NextPage<P> & {
+  pageConfig?: IPageConfig;
+};
+
 export const siteTitle = 'Beste Shisha Bar, Lounge & Shop - localtrip';
 
 const {
   publicRuntimeConfig: { api },
 } = getConfig();
 
-const Slug: NextPage<IProps> = ({ error }) => {
+const Slug: INextPage<IProps> = ({ error }) => {
   const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('photo');
 
   const {
