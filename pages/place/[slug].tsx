@@ -17,6 +17,7 @@ import SectionInfo from '../../components/sectionInfo';
 import dynamic from 'next/dynamic';
 import SectionStories from '../../components/sectionStories';
 import IPageConfig from '../../interfaces/PageConfig';
+import Router from 'next/router';
 
 type IProps = {
   error?: {
@@ -37,6 +38,21 @@ const {
 
 const Slug: INextPage<IProps> = ({ error }) => {
   const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('photo');
+
+  useEffect(() => {
+    function historyBackEvent(e: any) {
+      var state = e.state;
+      if (state !== null) {
+        //load content with ajax
+        console.log('POOOP');
+        Router.push('/');
+      }
+    }
+    window.addEventListener('popstate', historyBackEvent);
+    return () => {
+      window.removeEventListener('popstate', historyBackEvent);
+    };
+  }, []);
 
   const {
     locations: { loading, locationSearchVal, visitedLocalData },

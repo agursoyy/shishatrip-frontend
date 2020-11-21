@@ -199,7 +199,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
             ALL
           </a>
         </div>
-        {categories.categories &&
+        {categories &&
           categories.categories.map(
             (cat: any, index: number) =>
               index < 2 && (
