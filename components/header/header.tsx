@@ -82,7 +82,9 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
       filterByLocation(e.suggestion);
     });
     placesAutocomplete.on('clear', async (e: any) => {
-      clearFilterByLocation();
+      if (locationSearchVal) {
+        clearFilterByLocation();
+      }
     });
   };
 

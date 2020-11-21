@@ -84,7 +84,9 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       filterByLocation(e.suggestion);
     });
     placesAutocomplete.on('clear', async (e: any) => {
-      clearFilterByLocation();
+      if (locationSearchVal) {
+        clearFilterByLocation();
+      }
     });
   };
 
