@@ -9,13 +9,9 @@
   position: absolute;
   color: rgb(187, 186, 186);
   z-index: 100;
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 3px;
   background: transparent;
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
   cursor: pointer;
   text-align: center;
   outline: none;
@@ -27,12 +23,16 @@
   &:hover {
     color: #fff;
   }
+  .close-icon {
+    width: 20px;
+    height: 20px;
+  }
   @include respond-above(md) {
-    top: 20px;
-    right: 26px;
-    font-size: 26px;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
+    top: 16px;
+    right: 8px;
+    .close-icon {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
