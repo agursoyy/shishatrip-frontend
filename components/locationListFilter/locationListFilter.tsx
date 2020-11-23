@@ -200,24 +200,27 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
           </a>
         </div>
         {categories.categories &&
-          categories.categories.map((cat: any, index: number) => (
-            <div
-              className={`filter-nav-item ${
-                category && category.toLowerCase() === cat.name.toLowerCase() && 'active'
-              }`}
-              key={index}
-            >
-              <a
-                className="filter-nav-link"
-                role="button"
-                onClick={() => {
-                  filterByCategory(cat.id);
-                }}
-              >
-                {cat.name}
-              </a>
-            </div>
-          ))}
+          categories.categories.map(
+            (cat: any, index: number) =>
+              index < 2 && (
+                <div
+                  className={`filter-nav-item ${
+                    category && category.toLowerCase() === cat.name.toLowerCase() && 'active'
+                  }`}
+                  key={index}
+                >
+                  <a
+                    className="filter-nav-link"
+                    role="button"
+                    onClick={() => {
+                      filterByCategory(cat.id);
+                    }}
+                  >
+                    {cat.name}
+                  </a>
+                </div>
+              ),
+          )}
         <button
           className="btn btn-link p-0 toggle"
           onClick={() => {
