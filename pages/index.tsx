@@ -34,6 +34,7 @@ const Home: INextPage<IProps> = ({ query }) => {
   const { news, auth } = useSelector((state: RootState) => state);
   //console.log(auth);
   const dispatch = useDispatch();
+  console.log(query);
 
   const {
     locations: { loading },
@@ -127,9 +128,84 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
 }; */
 
 //export default connect(Home);
-
+/*
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const { page, sortby, lat, lng, category, search } = query;
+  let pageQuery = 1,
+    sortByQuery: 'abc' | 'last' | 'near' | undefined,
+    latQuery,
+    lngQuery,
+    categoryObj,
+    searchQuery;
+
+  if (page && isNumeric(page.toString())) {
+    pageQuery = parseInt(page.toString());
+  }
+
+  if (sortby) {
+    let temp = sortby.toString();
+    if (temp === 'abc' || temp === 'last' || temp === 'near') {
+      sortByQuery = temp;
+    }
+  }
+  if (lat && isNumeric(lat.toString())) {
+    latQuery = parseFloat(lat.toString());
+  }
+  if (lng && isNumeric(lng.toString())) {
+    lngQuery = parseFloat(lng.toString());
+  }
+  if (category) {
+    let catStr = category.toString();
+    const { locations } = store.getState() as RootState;
+    const { categories } = locations;
+    categoryObj = categories.categories.find(
+      (cat: any) => cat.name.toLowerCase() === catStr.toLowerCase(),
+    );
+  }
+  await store.dispatch(fetchCategories() as any);
+
+  await store.dispatch(
+    fetchInıtData(
+      JSON.parse(
+        JSON.stringify({
+          page: pageQuery,
+          sortby: sortByQuery,
+          lat: latQuery,
+          lng: lngQuery,
+          category: categoryObj?.id,
+          search: search?.toString(),
+        }),
+      ),
+    ) as any,
+  );
+
+  return {
+    props: {
+      query: JSON.parse(
+        JSON.stringify({
+          page: pageQuery,
+          sortby: sortByQuery,
+          lat: latQuery,
+          lng: lngQuery,
+          category: categoryObj?.name.toLowerCase(),
+          category_id: categoryObj?.id,
+          search: search?.toString(),
+        }),
+      ),
+    },
+  };
+}); */
+
+export const getStaticProps = wrapper.getStaticProps(async ({ store, params, preview }) => {
+  let page, sortby, lat, lng, category, search;
+  if (params) {
+    page = params.page;
+    sortby = params.sortby;
+    lat = params.lat;
+    lng = params.lng;
+    category = params.category;
+    search = params.search;
+  }
   let pageQuery = 1,
     sortByQuery: 'abc' | 'last' | 'near' | undefined,
     latQuery,
