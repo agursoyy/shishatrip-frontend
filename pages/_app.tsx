@@ -12,6 +12,7 @@ import { Store, wrapper } from '../stores';
 import Header from '../components/header';
 import { MapDispatchToProps, connect } from 'react-redux';
 import { routeChangeComplete, routeChangeStart } from '../stores/router/actions';
+import HeadCustom from '../utils/headCustom';
 
 const { publicRuntimeConfig } = getConfig();
 

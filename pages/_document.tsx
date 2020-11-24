@@ -1,7 +1,6 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 import HeadCustom from '../utils/headCustom';
-import NextScriptCustom from '../utils/nextScriptCustom';
 import HextScriptCustom from '../utils/nextScriptCustom';
 
 class MyDocument extends Document {
@@ -13,10 +12,10 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <HeadCustom />
+        <Head />
         <body>
           <Main />
-          <NextScriptCustom />
+          <NextScript />
         </body>
       </Html>
     );
