@@ -100,6 +100,7 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   }
   console.log(categoryObj);
 
+  /*
   await store.dispatch(
     fetchInıtData({
       page: pageQuery,
@@ -109,7 +110,7 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
       category: categoryObj?.id,
       search: search?.toString(),
     }) as any,
-  );
+  ); */
 
   return {
     query: {
