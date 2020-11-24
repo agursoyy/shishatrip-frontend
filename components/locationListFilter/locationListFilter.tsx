@@ -102,7 +102,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
     });
     setCurrentPage(1); // return to first page.
     setAlgoliaFiltered(null);
-    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
+    Router.push(`/${!isObjectEmpty ? `?${stringified}` : ''}`);
   };
 
   const filterByLocation = (suggestion: any) => {

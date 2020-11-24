@@ -114,7 +114,10 @@ export function fetchInıtData(query: {
       const data = await fetch({ url: `/local/search`, auth: false, form }, 200);
       if (data) {
         if (query.page === 1) {
-          dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: data });
+          dispatch({
+            type: FETCH_INIT_DATA_SUCCESS,
+            payload: { locals: data.locals.slice(0, 10) },
+          });
         } else {
           let tempData = locations.data ? { ...locations.data } : { locals: [] };
           let locals = [...tempData.locals, ...data.locals];
