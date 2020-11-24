@@ -49,7 +49,6 @@ const Home: INextPage<IProps> = ({ query }) => {
               <Loading />
             </div>
           )*/}
-          <LocationList query={query} />
         </div>
       </div>
     </div>

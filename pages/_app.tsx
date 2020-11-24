@@ -1,5 +1,5 @@
 import React, { Dispatch } from 'react';
-import App, { AppContext, AppInitialProps, Container } from 'next/app';
+import App, { AppContext, AppInitialProps, Container, NextWebVitalsMetric } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import NProgress from 'nprogress';
@@ -111,6 +111,10 @@ class MyApp extends App<IProps> {
       </Container>
     );
   }
+}
+
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+  console.log(metric);
 }
 
 function mapDispatchToProps(dispatch: any) {
