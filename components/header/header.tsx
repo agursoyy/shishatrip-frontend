@@ -20,6 +20,7 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   } = useSelector((state: RootState) => state);
 
   const [places, setPlaces] = useState<any>(null);
+  const [algoliaFiltered, setAlgoliaFiltered] = useState<any>(null); // suggestion value from algolia is set.
 
   useEffect(() => {
     if (algoliaSearch) {
@@ -90,20 +91,25 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
 
   const filterByLocation = (suggestion: any) => {
     // suggestion object obtained from Algolia autocomplate search.
-    let query: ILocationListQuery | any = {
-      //location: suggestion.name.toLowerCase(),
-      lat: suggestion.latlng.lat,
-      lng: suggestion.latlng.lng,
-      category_id: router.query.category_id
-        ? parseInt(router.query.category_id.toString())
-        : undefined,
-      search: router.query.search ? router.query.search.toString() : undefined,
-      sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
-    };
-    console.log(query);
     dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
-    routePush(query);
+    setAlgoliaFiltered(suggestion);
   };
+
+  useEffect(() => {
+    if (algoliaFiltered) {
+      const query: ILocationListQuery | any = {
+        //location: suggestion.name.toLowerCase(),
+        lat: algoliaFiltered.latlng.lat,
+        lng: algoliaFiltered.latlng.lng,
+        category_id: router.query.category_id
+          ? parseInt(router.query.category_id.toString())
+          : undefined,
+        search: router.query.search ? router.query.search.toString() : undefined,
+        sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
+      };
+      routePush(query);
+    }
+  }, [algoliaFiltered]);
 
   const clearFilterByLocation = () => {
     const query: any = {

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import './locationListFilter.scss';
 import Dropdown from 'react-dropdown';
 import LocationCard from '../locationCard';
@@ -38,6 +38,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   const [places, setPlaces] = useState<any>(null);
   const [showFilters, setShowFilters] = useState(false);
   const mobileFiltersRef = useRef(null);
+  const [algoliaFiltered, setAlgoliaFiltered] = useState<any>(null); // suggestion value from algolia is set.
 
   useEffect(() => {
     handleAutoComplete();
@@ -80,10 +81,10 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       value: locationSearchVal && locationSearchVal.value,
     });
     setPlaces(placesAutocomplete);
-    placesAutocomplete.on('change', async (e: any) => {
+    placesAutocomplete.on('change', (e: any) => {
       filterByLocation(e.suggestion);
     });
-    placesAutocomplete.on('clear', async (e: any) => {
+    placesAutocomplete.on('clear', (e: any) => {
       if (locationSearchVal) {
         clearFilterByLocation();
       }
@@ -100,21 +101,26 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       }
     });
     setCurrentPage(1); // return to first page.
+    setAlgoliaFiltered(null);
     Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
   };
 
   const filterByLocation = (suggestion: any) => {
-    let query: ILocationListQuery = {
-      //location: suggestion.name.toLowerCase(),
-      lat: suggestion.latlng.lat,
-      lng: suggestion.latlng.lng,
-      category_id,
-      search,
-      sortby,
-    };
     dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
-    routePush(query);
+    setAlgoliaFiltered(suggestion);
   };
+
+  useEffect(() => {
+    if (algoliaFiltered) {
+      const queryParam = {
+        ...query,
+        lat: algoliaFiltered.latlng.lat,
+        lng: algoliaFiltered.latlng.lng,
+        category: categories.categories.find((f: any) => f.id == category_id)?.name.toLowerCase(),
+      };
+      routePush(queryParam);
+    }
+  }, [algoliaFiltered]);
 
   const clearFilterByLocation = () => {
     const query: ILocationListQuery = { sortby, search, category_id };
