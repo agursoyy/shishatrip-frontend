@@ -85,9 +85,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       filterByLocation(e.suggestion);
     });
     placesAutocomplete.on('clear', (e: any) => {
-      if (locationSearchVal) {
-        clearFilterByLocation();
-      }
+      clearFilterByLocation();
     });
   };
 
@@ -123,7 +121,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   }, [algoliaFiltered]);
 
   const clearFilterByLocation = () => {
-    const query: ILocationListQuery = { sortby, search, category_id };
+    const query: ILocationListQuery = { sortby: undefined, search, category_id };
     if (page && page > 1) {
       query.page = page;
     }
