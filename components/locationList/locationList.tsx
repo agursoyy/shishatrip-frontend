@@ -96,7 +96,7 @@ const LocationList: FC<IProps> = ({ query }) => {
                 >
                   {data.locals.map((localItem: any, index: number) => {
                     return (
-                      <LazyLoad key={index}>
+                      <LazyLoad key={index} placeholder={<Loading />}>
                         <div className="location-list-item">
                           <LocationCard
                             link={`/place/${localItem.slug}`}
