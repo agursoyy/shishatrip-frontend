@@ -64,7 +64,9 @@ const LocationList: FC<IProps> = ({ query }) => {
       <div className="list-content">
         <div className="row ml-0 mr-0">
           <div className="col-lg-3">
-            <div className="location-list-filters-wrapper"></div>
+            <div className="location-list-filters-wrapper">
+              <LocationListFilter query={query} />
+            </div>
           </div>
           <div className="col-lg-7">
             <div className="location-list ">
