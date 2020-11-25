@@ -73,8 +73,10 @@ class MyApp extends App<IProps> {
           <title>shishatrip</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <link rel="shortcut icon" href="/icons/favicon.svg" />
-          <script type="text/javascript" src="/js/zuck.min.js"></script>
-          <script type="text/javascript" src="/js/script.js"></script>
+          <script type="text/javascript" src="/js/zuck.min.js" defer={true}></script>
+          <script type="text/javascript" src="/js/script.js" defer={true}></script>
+          <link rel="preconnect" href={publicRuntimeConfig.api} />
+          <link rel="dns-prefetch" href={publicRuntimeConfig.api} />
         </Head>
         {layout ? (
           <>

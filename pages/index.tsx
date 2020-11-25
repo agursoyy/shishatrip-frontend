@@ -51,7 +51,6 @@ function isNumeric(x: any) {
   return parseFloat(x).toString() === x.toString();
 }
 
-/* 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
@@ -120,10 +119,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   };
 });
 
-
-*/
 //export default connect(Home);
-
+/*
 export const getStaticProps = wrapper.getStaticProps(async ({ store, params, preview }) => {
   let page, sortby, lat, lng, category, search;
   if (params) {
@@ -197,6 +194,6 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params, pre
       ),
     },
   };
-});
+}); */
 
 export default Home;

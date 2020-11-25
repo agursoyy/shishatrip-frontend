@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "patch-package",
     "dev": "next",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "start": "next start",
     "lint:ts": "eslint '**/*.{ts,tsx}'",
     "lint:css": "stylelint --syntax scss './pages/mypage/*.scss'",
