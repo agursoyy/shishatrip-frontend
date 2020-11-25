@@ -13,11 +13,11 @@ import dynamic from 'next/dynamic';
 
 const LocationListFilter = dynamic(
   () => import('../locationListFilter'), // replace '@components/map' with your component's location
-  { ssr: true }, // This line is important. It's what prevents server-side render
+  { ssr: false }, // This line is important. It's what prevents server-side render
 );
 const LocationCard = dynamic(
   () => import('../locationCard'), // replace '@components/map' with your component's location
-  { ssr: true }, // This line is important. It's what prevents server-side render
+  { ssr: false }, // This line is important. It's what prevents server-side render
 );
 
 type IProps = {
