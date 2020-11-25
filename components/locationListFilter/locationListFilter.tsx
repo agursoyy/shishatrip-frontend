@@ -1,24 +1,12 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import './locationListFilter.scss';
 import Dropdown from 'react-dropdown';
-import LocationCard from '../locationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
-import {
-  clearFilterBySearchVal,
-  fetchInıtData,
-  filterBySearchVal,
-  fetchData,
-} from '../../stores/locations/actions';
+import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
 import queryString from 'query-string';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
-import Loading from '../../components/loading';
 import ILocationListQuery from '../../interfaces/locationListQuery';
-
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { route } from 'next/dist/next-server/server/router';
-import Link from 'next/link';
 
 type IProps = {
   query: ILocationListQuery;

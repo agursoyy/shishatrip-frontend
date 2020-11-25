@@ -1,17 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
-import Router from 'next/router';
+import React, { FC, useState } from 'react';
 import './locationList.scss';
-import Dropdown from 'react-dropdown';
 import LocationCard from '../locationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
-import {
-  clearFilterBySearchVal,
-  fetchInıtData,
-  filterBySearchVal,
-} from '../../stores/locations/actions';
-import queryString from 'query-string';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+import { fetchInıtData } from '../../stores/locations/actions';
 import Loading from '../../components/loading';
 import LocationListFilter from '../../components/locationListFilter';
 import ILocationListQuery from '../../interfaces/locationListQuery';

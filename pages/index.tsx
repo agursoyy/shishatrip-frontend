@@ -1,24 +1,12 @@
-import React, { FC, useEffect } from 'react';
-import { NextPage, NextPageContext } from 'next';
-import { RootState, Store, wrapper } from '../stores';
-import { success } from '../stores/alert/actions';
+import React from 'react';
+import { NextPage } from 'next';
+import { RootState, wrapper } from '../stores';
 import { useSelector, useDispatch } from 'react-redux';
-import getConfig from 'next/config';
-import { login } from '../stores/auth/actions';
-import {
-  clearFilterBySearchVal,
-  fetchCategories,
-  fetchInıtData,
-} from '../stores/locations/actions';
+import { fetchCategories, fetchInıtData } from '../stores/locations/actions';
 import IPageConfig from '../interfaces/PageConfig';
 import './index/index.scss';
 import LocationList from '../components/locationList';
-import { load } from 'dotenv/types';
-import Loading from '../components/loading/loading';
-import Header from '../components/header';
 import ReturnToTop from '../components/returnToTop';
-
-const { publicRuntimeConfig } = getConfig();
 
 import ILocationListQuery from '../interfaces/locationListQuery';
 type IProps = {
