@@ -18,8 +18,7 @@ import ILocationListQuery from '../../interfaces/locationListQuery';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Alert from '../alert';
-import { authReducer } from '../../stores/auth/reducers';
-import { allowStateReadsStart } from 'mobx/lib/internal';
+import LazyLoad from 'react-lazyload';
 
 type IProps = {
   query: ILocationListQuery;
@@ -95,21 +94,19 @@ const LocationList: FC<IProps> = ({ query }) => {
                     </div>
                   }
                 >
-                  {
-                    <>
-                      {data.locals.map((localItem: any, index: number) => {
-                        return (
-                          <div className="location-list-item" key={index}>
-                            <LocationCard
-                              link={`/place/${localItem.slug}`}
-                              as={'/place/[slug]'}
-                              locationItem={localItem}
-                            />
-                          </div>
-                        );
-                      })}
-                    </>
-                  }
+                  {data.locals.map((localItem: any, index: number) => {
+                    return (
+                      <LazyLoad key={index}>
+                        <div className="location-list-item">
+                          <LocationCard
+                            link={`/place/${localItem.slug}`}
+                            as={'/place/[slug]'}
+                            locationItem={localItem}
+                          />
+                        </div>
+                      </LazyLoad>
+                    );
+                  })}
                 </InfiniteScroll>
               ) : (
                 <div className="mt-5">

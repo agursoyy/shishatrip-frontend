@@ -116,7 +116,7 @@ export function fetchInıtData(query: {
         if (query.page === 1) {
           dispatch({
             type: FETCH_INIT_DATA_SUCCESS,
-            payload: { locals: data.locals.slice(0, 10) },
+            payload: data,
           });
         } else {
           let tempData = locations.data ? { ...locations.data } : { locals: [] };
