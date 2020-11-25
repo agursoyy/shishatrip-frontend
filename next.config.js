@@ -14,7 +14,6 @@ const resolve = path.resolve.bind(path, __dirname);
 const nextConfig = {
   target: 'serverless',
   ...configs, // publicRuntimeConfig and serverRuntimeConfig from ../config at root dir.
-  compresss: true,
   webpack: (config) => {
     // modify the `config` here
     const iconfontConfig = new IconfontPlugin({
