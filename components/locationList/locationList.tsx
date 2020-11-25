@@ -72,9 +72,49 @@ const LocationList: FC<IProps> = ({ query }) => {
       <div className="list-content">
         <div className="row ml-0 mr-0">
           <div className="col-lg-3">
-            <div className="location-list-filters-wrapper">Filter</div>
+            <div className="location-list-filters-wrapper">
+              <LocationListFilter query={query} />
+            </div>
           </div>
-          <div className="col-lg-7">Location List</div>
+          <div className="col-lg-7">
+            <div className="location-list ">
+              {locationSearchLoading ? (
+                <div className="list--loading">
+                  <Loading />
+                </div>
+              ) : data ? (
+                <InfiniteScroll
+                  dataLength={data.locals.length}
+                  next={loadMore}
+                  hasMore={true}
+                  style={{ overflow: 'visible' }}
+                  loader={
+                    <div className="d-flex justify-content-center">
+                      <Loading />
+                    </div>
+                  }
+                >
+                  {data.locals.map((localItem: any, index: number) => {
+                    return (
+                      <LazyLoad key={index} placeholder={<Loading />}>
+                        <div className="location-list-item">
+                          <LocationCard
+                            link={`/place/${localItem.slug}`}
+                            as={'/place/[slug]'}
+                            locationItem={localItem}
+                          />
+                        </div>
+                      </LazyLoad>
+                    );
+                  })}
+                </InfiniteScroll>
+              ) : (
+                <div className="mt-5">
+                  {alert && <Alert type={alert.type} message={alert.message} />}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
