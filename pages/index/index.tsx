@@ -21,7 +21,6 @@ import ReturnToTop from '../../components/returnToTop';
 const { publicRuntimeConfig } = getConfig();
 
 import ILocationListQuery from '../../interfaces/locationListQuery';
-import { isFunction } from 'jquery';
 type IProps = {
   query: ILocationListQuery;
 };
@@ -50,6 +49,7 @@ const Home: INextPage<IProps> = ({ query }) => {
               <Loading />
             </div>
           )*/}
+          <LocationList query={query} />
         </div>
       </div>
     </div>
@@ -127,9 +127,18 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
 }; */
 
 //export default connect(Home);
+
 /*
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
-  const { page, sortby, lat, lng, category, search } = query;
+export const getStaticProps = wrapper.getStaticProps(async ({ store, params, preview }) => {
+  let page, sortby, lat, lng, category, search;
+  if (params) {
+    page = params.page;
+    sortby = params.sortby;
+    lat = params.lat;
+    lng = params.lng;
+    category = params.category;
+    search = params.search;
+  }
   let pageQuery = 1,
     sortByQuery: 'abc' | 'last' | 'near' | undefined,
     latQuery,
@@ -195,18 +204,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   };
 }); */
 
-export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) => {
-  console.log('ALPPP');
-  let page, sortby, lat, lng, category, search;
-  if (params) {
-    console.log(params);
-    page = params.page;
-    sortby = params.sortby;
-    lat = params.lat;
-    lng = params.lng;
-    category = params.category;
-    search = params.search;
-  }
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
+  const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
     sortByQuery: 'abc' | 'last' | 'near' | undefined,
     latQuery,
@@ -230,6 +229,7 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) =
   if (lng && isNumeric(lng.toString())) {
     lngQuery = parseFloat(lng.toString());
   }
+  await store.dispatch(fetchCategories() as any);
   if (category) {
     let catStr = category.toString();
     const { locations } = store.getState() as RootState;
@@ -238,7 +238,7 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) =
       (cat: any) => cat.name.toLowerCase() === catStr.toLowerCase(),
     );
   }
-  await store.dispatch(fetchCategories() as any);
+  console.log(categoryObj);
 
   await store.dispatch(
     fetchInıtData(

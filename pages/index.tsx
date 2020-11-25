@@ -50,67 +50,8 @@ Home.pageConfig = {
 function isNumeric(x: any) {
   return parseFloat(x).toString() === x.toString();
 }
-/*
-Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
-  const { page, sortby, lat, lng, category, search } = query;
-  let pageQuery = 1,
-    sortByQuery: 'abc' | 'last' | 'near' | undefined,
-    latQuery,
-    lngQuery,
-    categoryObj,
-    searchQuery;
 
-  if (page && isNumeric(page.toString())) {
-    pageQuery = parseInt(page.toString());
-  }
-
-  if (sortby) {
-    let temp = sortby.toString();
-    if (temp === 'abc' || temp === 'last' || temp === 'near') {
-      sortByQuery = temp;
-    }
-  }
-  if (lat && isNumeric(lat.toString())) {
-    latQuery = parseFloat(lat.toString());
-  }
-  if (lng && isNumeric(lng.toString())) {
-    lngQuery = parseFloat(lng.toString());
-  }
-  await store.dispatch(fetchCategories() as any);
-  if (category) {
-    let catStr = category.toString();
-    const { locations } = store.getState() as RootState;
-    const { categories } = locations;
-    categoryObj = categories.categories.find(
-      (cat: any) => cat.name.toLowerCase() === catStr.toLowerCase(),
-    );
-  }
-  console.log(categoryObj);
-
-  await store.dispatch(
-    fetchInıtData({
-      page: pageQuery,
-      sortby: sortByQuery,
-      lat: latQuery,
-      lng: lngQuery,
-      category: categoryObj?.id,
-      search: search?.toString(),
-    }) as any,
-  );
-
-  return {
-    query: {
-      page: pageQuery,
-      sortby: sortByQuery,
-      lat: latQuery,
-      lng: lngQuery,
-      category: categoryObj?.name.toLowerCase(),
-      category_id: categoryObj?.id,
-      search: search?.toString(),
-    },
-  };
-}; */
-
+/* 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
@@ -179,8 +120,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   };
 });
 
+
+*/
 //export default connect(Home);
-/*
+
 export const getStaticProps = wrapper.getStaticProps(async ({ store, params, preview }) => {
   let page, sortby, lat, lng, category, search;
   if (params) {
@@ -254,6 +197,6 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params, pre
       ),
     },
   };
-}); */
+});
 
 export default Home;
