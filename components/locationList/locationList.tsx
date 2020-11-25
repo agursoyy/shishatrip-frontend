@@ -1,16 +1,24 @@
 import React, { FC, useState } from 'react';
 import './locationList.scss';
-import LocationCard from '../locationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
 import { fetchInıtData } from '../../stores/locations/actions';
 import Loading from '../../components/loading';
-import LocationListFilter from '../../components/locationListFilter';
 import ILocationListQuery from '../../interfaces/locationListQuery';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Alert from '../alert';
 import LazyLoad from 'react-lazyload';
+import dynamic from 'next/dynamic';
+
+const LocationListFilter = dynamic(
+  () => import('../locationListFilter'), // replace '@components/map' with your component's location
+  { ssr: true }, // This line is important. It's what prevents server-side render
+);
+const LocationCard = dynamic(
+  () => import('../locationCard'), // replace '@components/map' with your component's location
+  { ssr: true }, // This line is important. It's what prevents server-side render
+);
 
 type IProps = {
   query: ILocationListQuery;
