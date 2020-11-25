@@ -11,6 +11,11 @@ const optimizedImages = require('next-optimized-images');
 const cssTemplate = require('./public/icons/template');
 const configs = require('./config');
 const resolve = path.resolve.bind(path, __dirname);
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
   target: 'serverless',
   ...configs, // publicRuntimeConfig and serverRuntimeConfig from ../config at root dir.
@@ -98,6 +103,7 @@ module.exports = withPlugins(
         pngquant: false,
       },
     ],
+    [withBundleAnalyzer],
   ],
   nextConfig,
 );

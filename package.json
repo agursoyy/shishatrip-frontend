@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@next/bundle-analyzer": "^10.0.3",
     "@types/jquery": "^3.5.4",
     "@types/json-stringify-safe": "^5.0.0",
     "@types/nprogress": "^0.2.0",

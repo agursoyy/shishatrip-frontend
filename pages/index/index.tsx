@@ -96,7 +96,6 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
     let catStr = category.toString();
     const { locations } = store.getState() as RootState;
     const { categories } = locations;
-    categoryObj = categories.categories.find(
       (cat: any) => cat.name.toLowerCase() === catStr.toLowerCase(),
     );
   }
