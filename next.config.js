@@ -12,7 +12,6 @@ const cssTemplate = require('./public/icons/template');
 const configs = require('./config');
 const resolve = path.resolve.bind(path, __dirname);
 const nextConfig = {
-  target: 'serverless',
   ...configs, // publicRuntimeConfig and serverRuntimeConfig from ../config at root dir.
   webpack: (config) => {
     // modify the `config` here
