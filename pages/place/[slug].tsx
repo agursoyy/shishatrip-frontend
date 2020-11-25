@@ -147,7 +147,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
 export async function getStaticPaths() {
   const res = await fetch('https://api.shishatrip.de/api/local/search');
   const data = await res.json();
-  const paths = data.locals.map((local: any) => ({
+  const paths = data.locals.slice(0, 10).map((local: any) => ({
     params: { slug: local.slug },
   }));
   return {
