@@ -8,6 +8,7 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { Container } from 'react-bootstrap';
+import '../../styles/globals.scss';
 import './slug.scss';
 import SectionHeaderWithPinkLogo from '../../components/sectionHeaderWithPinkLogo';
 import { fetchVisitedLocalData } from '../../stores/locations/actions';
