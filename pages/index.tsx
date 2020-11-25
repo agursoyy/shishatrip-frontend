@@ -5,10 +5,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories, fetchInıtData } from '../stores/locations/actions';
 import IPageConfig from '../interfaces/PageConfig';
 import './index/index.scss';
-import LocationList from '../components/locationList';
 import ReturnToTop from '../components/returnToTop';
 
+const LocationList = dynamic(
+  () => import('../components/locationList'), // replace '@components/map' with your component's location
+  { ssr: true }, // This line is important. It's what prevents server-side render
+);
+
 import ILocationListQuery from '../interfaces/locationListQuery';
+import dynamic from 'next/dynamic';
 type IProps = {
   query: ILocationListQuery;
 };
