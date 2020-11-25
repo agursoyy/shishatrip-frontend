@@ -5,6 +5,7 @@ import Head from 'next/head';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 
+import '../styles/index.scss';
 import '../styles/globals.scss';
 
 import { Store, wrapper } from '../stores';
