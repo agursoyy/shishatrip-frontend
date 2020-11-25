@@ -7,7 +7,8 @@ import { RootState } from '../../stores';
 import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import ILocationListQuery from '../../interfaces/locationListQuery';
-import { number } from 'prop-types';
+import $ from 'jquery';
+
 interface IProps {
   algoliaSearch: boolean;
 }

@@ -21,7 +21,6 @@ import ReturnToTop from '../../components/returnToTop';
 const { publicRuntimeConfig } = getConfig();
 
 import ILocationListQuery from '../../interfaces/locationListQuery';
-import HeadCustom from '../../utils/headCustom';
 type IProps = {
   query: ILocationListQuery;
 };
@@ -42,7 +41,6 @@ const Home: INextPage<IProps> = ({ query }) => {
 
   return (
     <div className="home-page">
-      <HeadCustom />
       <ReturnToTop />
       <div className="content">
         <div className="home-location-list">

@@ -12,7 +12,6 @@ import { Store, wrapper } from '../stores';
 import Header from '../components/header';
 import { MapDispatchToProps, connect } from 'react-redux';
 import { routeChangeComplete, routeChangeStart } from '../stores/router/actions';
-import HeadCustom from '../utils/headCustom';
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -73,31 +72,7 @@ class MyApp extends App<IProps> {
         <Head>
           <title>shishatrip</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-          <link rel="shortcut icon" href="/icons/favicon.svg" />
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-          />
-          <link
-            rel="text/javascript"
-            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"
-          />
-          <script
-            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossOrigin="anonymous"
-            async={true}
-          ></script>
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-          />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-          />
+          <link rel="shortcut icon" href="/icons/logo-dark.svg" />
           <script type="text/javascript" src="/js/zuck.min.js"></script>
           <script type="text/javascript" src="/js/script.js"></script>
         </Head>
