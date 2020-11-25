@@ -3,14 +3,10 @@ import { NextPage, NextPageContext } from 'next';
 import { RootState, wrapper } from '../stores';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories, fetchInıtData } from '../stores/locations/actions';
+import LocationList from '../components/locationList';
 import IPageConfig from '../interfaces/PageConfig';
 import './index/index.scss';
 import ReturnToTop from '../components/returnToTop';
-
-const LocationList = dynamic(
-  () => import('../components/locationList'), // replace '@components/map' with your component's location
-  { ssr: true }, // This line is important. It's what prevents server-side render
-);
 
 import ILocationListQuery from '../interfaces/locationListQuery';
 import dynamic from 'next/dynamic';
@@ -38,7 +34,7 @@ const Home: INextPage<IProps> = ({ query }) => {
       <ReturnToTop />
       <div className="content">
         <div className="home-location-list">
-          <h1>Hello World</h1>
+          <LocationList query={query} />
         </div>
       </div>
     </div>
