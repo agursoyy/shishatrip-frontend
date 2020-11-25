@@ -198,7 +198,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
 
 */
 
-export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) => {
+export const getStaticProps = wrapper.getStaticProps(async ({ store, params, preview }) => {
   let page, sortby, lat, lng, category, search;
   if (params) {
     page = params.page;
@@ -272,5 +272,4 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) =
     },
   };
 });
-
 export default Home;
