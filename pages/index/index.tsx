@@ -128,7 +128,7 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
 }; */
 
 //export default connect(Home);
-
+/*
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
@@ -196,7 +196,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   };
 });
 
-/*
+*/
 
 export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) => {
   let page, sortby, lat, lng, category, search;
@@ -271,6 +271,6 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) =
       ),
     },
   };
-}); */
+});
 
 export default Home;
