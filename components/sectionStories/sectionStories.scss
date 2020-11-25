@@ -53,40 +53,44 @@
     }
   }
 
-  .local-story-item {
-    position: relative;
+  .local-story-item-lazyload-wrapper {
     width: 100%;
     height: 100%;
-    margin-bottom: 20px;
-    @include respond-above(md) {
-      height: 350px;
-      padding: 10px !important;
-    }
-    @include respond-above(lg) {
-      height: 450px;
-    }
-    &:focus {
-      outline: none;
-      border: none;
-      box-shadow: none;
-    }
-    &__img {
+    .local-story-item {
+      position: relative;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-    &__logo {
-      height: 30px;
-      width: 30px;
-      border-radius: 50%;
-      position: absolute;
-      right: 0.75rem;
-      top: 0.75rem;
+      margin-bottom: 20px;
       @include respond-above(md) {
-        height: 60px;
-        width: 60px;
-        right: 1.5rem;
-        top: 1.5rem;
+        height: 350px;
+        padding: 10px !important;
+      }
+      @include respond-above(lg) {
+        height: 450px;
+      }
+      &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+      &__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      &__logo {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.75rem;
+        @include respond-above(md) {
+          height: 60px;
+          width: 60px;
+          right: 1.5rem;
+          top: 1.5rem;
+        }
       }
     }
   }

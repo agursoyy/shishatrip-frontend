@@ -56,7 +56,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
 
     Router.events.on('routeChangeComplete', () => {
       setShowFilters(false);
-      window.scrollTo({ top: 120, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
     });
   });
   useEffect(() => {

@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../stores';
 import './sectionStories.scss';
 import { generate_stories_format } from '../../stores/stories/actions';
+import LazyLoad from 'react-lazyload';
+import Loading from '../loading';
 
 const ViewStories = dynamic(() => import('../viewStories'));
 
@@ -30,15 +32,17 @@ const SectionStories: FC<any> = () => {
             (story: any, index: number) =>
               index > 0 && (
                 <div className="col col-6 col-md-4" key={index}>
-                  <button
-                    className="btn local-story-item"
-                    onClick={() => {
-                      openStories(0);
-                    }}
-                  >
-                    <img className="local-story-item__img" src={story.url} />
-                    <img className="local-story-item__logo" src={visitedLocalData.logo_img} />
-                  </button>
+                  <LazyLoad placeholder={<Loading />} classNamePrefix="local-story-item-lazyload">
+                    <button
+                      className="btn local-story-item"
+                      onClick={() => {
+                        openStories(0);
+                      }}
+                    >
+                      <img className="local-story-item__img" src={story.url} />
+                      <img className="local-story-item__logo" src={visitedLocalData.logo_img} />
+                    </button>
+                  </LazyLoad>
                 </div>
               ),
           )}

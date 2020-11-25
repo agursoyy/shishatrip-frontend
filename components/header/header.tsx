@@ -134,8 +134,7 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
         isObjectEmpty = false;
       }
     });
-    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
-    window.scrollTo({ top: 120, behavior: 'smooth' });
+    Router.push(`/${!isObjectEmpty ? `?${stringified}` : ''}`);
   };
   return (
     <React.Fragment>
