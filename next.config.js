@@ -15,6 +15,7 @@ const resolve = path.resolve.bind(path, __dirname);
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const nextConfig = {
   target: 'serverless',
@@ -51,6 +52,12 @@ const nextConfig = {
     //config.module.rules.push(eslintLoader);
     config.module.rules.push(importScss);
     config.plugins.push(iconfontConfig);
+    config.plugins.push(new MiniCssExtractPlugin({ filename: '[name].css' }));
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      include: path.resolve(__dirname, '../src'),
+    });
     config.resolve.modules.push(resolve('./'));
 
     return config;
