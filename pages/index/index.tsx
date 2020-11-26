@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import { NextPage, NextPageContext } from 'next';
 import { RootState, Store, wrapper } from '../../stores';
 import { success } from '../../stores/alert/actions';
@@ -205,6 +206,8 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params, pre
 }); */
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
+  ReactDOMServer.renderToString(<h1>Alp</h1>);
+
   const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
     sortByQuery: 'abc' | 'last' | 'near' | undefined,

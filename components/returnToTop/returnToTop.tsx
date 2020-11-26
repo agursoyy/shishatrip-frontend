@@ -1,41 +1,66 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import './returnToTop.scss';
-import $ from 'jquery';
-const ReturnToTop = () => {
-  function scrollDetect() {
-    window.onscroll = function (e: any) {
-      // print "false" if direction is down and "true" if up
-      console.log((this as any).oldScroll > this.scrollY);
-      if ((this as any).oldScroll > this.scrollY) {
-        $('#return-to-top').removeClass('hidden');
-      } else {
-        $('#return-to-top').addClass('hidden');
-      }
-      (this as any).oldScroll = this.scrollY;
-    };
-  }
 
+const ReturnToTop = () => {
+  const returnToTopRef = useRef<HTMLDivElement | any>(null);
+
+  function fadeIn(interval: number) {
+    if (
+      returnToTopRef &&
+      returnToTopRef.current &&
+      returnToTopRef.current.style.display == 'none'
+    ) {
+      returnToTopRef.current.style.display = 'inline';
+      returnToTopRef.current.style.opacity = '0';
+      var opacity = 0;
+      var intervalID = setInterval(function () {
+        if (opacity < 1) {
+          opacity = opacity + 0.1;
+          (returnToTopRef.current as any).style.opacity = opacity.toString();
+        } else {
+          clearInterval(intervalID);
+        }
+      }, interval);
+    }
+  }
+  function fadeOut(interval: number) {
+    if (
+      returnToTopRef &&
+      returnToTopRef.current &&
+      returnToTopRef.current.style.display != 'none'
+    ) {
+      var opacity = 1;
+      var intervalID = setInterval(function () {
+        if (opacity > 0) {
+          opacity = opacity - 0.1;
+          (returnToTopRef.current as any).style.opacity = opacity.toString();
+        } else {
+          clearInterval(intervalID);
+          (returnToTopRef.current as any).style.display = 'none';
+        }
+      }, interval);
+    }
+  }
   useEffect(() => {
-    $(window).scroll(function () {
-      if (($(this) as any).scrollTop() >= 450) {
-        // If page is scrolled more than 50px
-        $('#return-to-top').fadeIn(200); // Fade in the arrow
+    window.addEventListener('scroll', function (e) {
+      var body = document.body;
+      var docElem = document.documentElement;
+      var height = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+      if (height >= 450) {
+        fadeIn(50);
       } else {
-        $('#return-to-top').fadeOut(200); // Else fade out the arrow
+        fadeOut(20);
       }
     });
-    $('#return-to-top').click(function () {
-      // When arrow is clicked
-      $('body,html').animate(
-        {
-          scrollTop: 0, // Scroll to top of body
-        },
-        500,
-      );
-    });
+
+    if (returnToTopRef && returnToTopRef.current) {
+      returnToTopRef.current.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
   }, []);
   return (
-    <a id="return-to-top">
+    <a id="return-to-top" style={{ display: 'none' }} ref={returnToTopRef}>
       <i className="fa fa-chevron-up"></i>{' '}
     </a>
   );

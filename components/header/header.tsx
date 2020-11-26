@@ -7,7 +7,6 @@ import { RootState } from '../../stores';
 import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import ILocationListQuery from '../../interfaces/locationListQuery';
-import $ from 'jquery';
 
 interface IProps {
   algoliaSearch: boolean;
@@ -51,7 +50,9 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   const handleHeaderScrollClass = () => {
     window.onscroll = function (e: any) {
       // called when the window is scrolled.
-      var height = $(window).scrollTop();
+      var body = document.body;
+      var docElem = document.documentElement;
+      var height = window.pageYOffset || docElem.scrollTop || body.scrollTop;
       if (window.innerWidth > 1200) {
         if (height && height >= 225) {
           (headerRef.current as any).classList.add('scrolled');
