@@ -76,6 +76,7 @@ class MyApp extends App<IProps> {
           <script type="text/javascript" src="/js/script.js" defer={true}></script>
           <link rel="preconnect" href={publicRuntimeConfig.api} />
           <link rel="dns-prefetch" href={publicRuntimeConfig.api} />
+          <link rel="stylesheet" href="/_next/static/css/styles.chunk.css" /> {/*preload css */}
         </Head>
         {layout ? (
           <>
