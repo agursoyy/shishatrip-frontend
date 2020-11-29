@@ -2,6 +2,7 @@
   height: 100vh;
   padding-top: 95px; // extract the fixed navbar height.
   background: url('/icons/auth-bg.svg');
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;

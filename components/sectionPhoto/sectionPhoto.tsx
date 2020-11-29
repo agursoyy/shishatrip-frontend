@@ -5,6 +5,9 @@ import Popup from 'reactjs-popup';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Grid } from 'semantic-ui-react';
 import './sectionPhoto.scss';
+import LazyLoad from 'react-lazyload';
+import Loading from '../loading';
+
 // get our fontawesome imports
 
 const SectionPhoto = (props: any) => {
@@ -18,17 +21,18 @@ const SectionPhoto = (props: any) => {
       {props.pics && (
         <div className="row ml-0 mr-0">
           {props.pics.map((picture: any, index: number) => (
-            <React.Fragment key={index}>
-              <div
-                className={'grid-image-view-wrapper col-4'}
-                onClick={() => GalleryViewToggle(index)}
-              >
+            <div
+              key={index}
+              className={'grid-image-view-wrapper col-4 w-100'}
+              onClick={() => GalleryViewToggle(index)}
+            >
+              <LazyLoad placeholder={<Loading />} classNamePrefix="grid-image-lazyload">
                 <div
                   className={'grid-image-item'}
                   style={{ backgroundImage: `url(${picture.path})` }}
                 ></div>
-              </div>
-            </React.Fragment>
+              </LazyLoad>
+            </div>
           ))}
         </div>
       )}

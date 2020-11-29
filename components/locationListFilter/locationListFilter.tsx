@@ -2,23 +2,11 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import Router from 'next/router';
 import './locationListFilter.scss';
 import Dropdown from 'react-dropdown';
-import LocationCard from '../locationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
-import {
-  clearFilterBySearchVal,
-  fetchInıtData,
-  filterBySearchVal,
-  fetchData,
-} from '../../stores/locations/actions';
+import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
 import queryString from 'query-string';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
-import Loading from '../../components/loading';
 import ILocationListQuery from '../../interfaces/locationListQuery';
-
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { route } from 'next/dist/next-server/server/router';
-import Link from 'next/link';
 
 type IProps = {
   query: ILocationListQuery;
@@ -38,6 +26,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   const [places, setPlaces] = useState<any>(null);
   const [showFilters, setShowFilters] = useState(false);
   const mobileFiltersRef = useRef(null);
+  const [algoliaFiltered, setAlgoliaFiltered] = useState<any>(null); // suggestion value from algolia is set.
 
   useEffect(() => {
     handleAutoComplete();
@@ -55,7 +44,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
 
     Router.events.on('routeChangeComplete', () => {
       setShowFilters(false);
-      window.scrollTo({ top: 120, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
     });
   });
   useEffect(() => {
@@ -80,10 +69,10 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       value: locationSearchVal && locationSearchVal.value,
     });
     setPlaces(placesAutocomplete);
-    placesAutocomplete.on('change', async (e: any) => {
+    placesAutocomplete.on('change', (e: any) => {
       filterByLocation(e.suggestion);
     });
-    placesAutocomplete.on('clear', async (e: any) => {
+    placesAutocomplete.on('clear', (e: any) => {
       clearFilterByLocation();
     });
   };
@@ -98,24 +87,29 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
       }
     });
     setCurrentPage(1); // return to first page.
+    setAlgoliaFiltered(null);
     Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
   };
 
   const filterByLocation = (suggestion: any) => {
-    let query: ILocationListQuery = {
-      //location: suggestion.name.toLowerCase(),
-      lat: suggestion.latlng.lat,
-      lng: suggestion.latlng.lng,
-      category_id,
-      search,
-      sortby,
-    };
     dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
-    routePush(query);
+    setAlgoliaFiltered(suggestion);
   };
 
+  useEffect(() => {
+    if (algoliaFiltered) {
+      const queryParam = {
+        ...query,
+        lat: algoliaFiltered.latlng.lat,
+        lng: algoliaFiltered.latlng.lng,
+        category: categories.categories.find((f: any) => f.id == category_id)?.name.toLowerCase(),
+      };
+      routePush(queryParam);
+    }
+  }, [algoliaFiltered]);
+
   const clearFilterByLocation = () => {
-    const query: ILocationListQuery = { sortby, search, category_id };
+    const query: ILocationListQuery = { sortby: undefined, search, category_id };
     if (page && page > 1) {
       query.page = page;
     }
@@ -199,7 +193,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
             ALL
           </a>
         </div>
-        {categories.categories &&
+        {categories &&
           categories.categories.map(
             (cat: any, index: number) =>
               index < 2 && (

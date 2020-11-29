@@ -249,7 +249,8 @@
 }
 #zuck-modal-content .story-viewer .head .left {
   line-height: 1 !important;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin: 6px 0;
 }
 #zuck-modal-content .story-viewer .head .left .info {
@@ -320,12 +321,20 @@
   top: 0;
 }
 #zuck-modal-content .story-viewer .slides .item > .media {
-  height: 100%;
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  margin: auto;
+  width: 100%;
+  object-fit: contain;
+  top: 100px;
+}
+@media only screen and (min-width: 600px) {
+  #zuck-modal-content .story-viewer .slides .item > .media {
+    top: 14px;
+    width: auto;
+    height: 100%;
+  }
 }
 #zuck-modal-content .story-viewer .slides .item.active,
 #zuck-modal-content .story-viewer .slides .item.active .tip.link {

@@ -50,7 +50,9 @@
       flex-direction: column;
       transform-origin: left top;
       animation: animate-slide-down 350ms ease-out forwards;
-      height: 460px;
+      height: calc(
+        100vh - 66px - 66px
+      ); // extract header navbar height and filter mobile-nav height.
       overflow-y: scroll;
     }
   }

@@ -1,25 +1,24 @@
-import React, { FC, useEffect, useState } from 'react';
-import Router from 'next/router';
+import React, { FC, useState } from 'react';
 import './locationList.scss';
-import Dropdown from 'react-dropdown';
-import LocationCard from '../locationCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../stores';
-import {
-  clearFilterBySearchVal,
-  fetchInıtData,
-  filterBySearchVal,
-} from '../../stores/locations/actions';
-import queryString from 'query-string';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
+import { fetchInıtData } from '../../stores/locations/actions';
 import Loading from '../../components/loading';
-import LocationListFilter from '../../components/locationListFilter';
 import ILocationListQuery from '../../interfaces/locationListQuery';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Alert from '../alert';
-import { authReducer } from '../../stores/auth/reducers';
-import { allowStateReadsStart } from 'mobx/lib/internal';
+import LazyLoad from 'react-lazyload';
+import dynamic from 'next/dynamic';
+
+const LocationListFilter = dynamic(
+  () => import('../locationListFilter'), // replace '@components/map' with your component's location
+  { ssr: true }, // This line is important. It's what prevents server-side render
+);
+const LocationCard = dynamic(
+  () => import('../locationCard'), // replace '@components/map' with your component's location
+  { ssr: true }, // This line is important. It's what prevents server-side render
+);
 
 type IProps = {
   query: ILocationListQuery;
@@ -95,21 +94,29 @@ const LocationList: FC<IProps> = ({ query }) => {
                     </div>
                   }
                 >
-                  {
-                    <>
-                      {data.locals.map((localItem: any, index: number) => {
-                        return (
-                          <div className="location-list-item" key={index}>
-                            <LocationCard
-                              link={`/place/${localItem.slug}`}
-                              as={'/place/[slug]'}
-                              locationItem={localItem}
-                            />
+                  {data.locals.map((localItem: any, index: number) => {
+                    return (
+                      <LazyLoad
+                        key={index}
+                        placeholder={
+                          <div
+                            style={{ height: 160 }}
+                            className="d-flex justify-content-center align-items-center"
+                          >
+                            <Loading />
                           </div>
-                        );
-                      })}
-                    </>
-                  }
+                        }
+                      >
+                        <div className="location-list-item">
+                          <LocationCard
+                            link={`/place/${localItem.slug}`}
+                            as={'/place/[slug]'}
+                            locationItem={localItem}
+                          />
+                        </div>
+                      </LazyLoad>
+                    );
+                  })}
                 </InfiniteScroll>
               ) : (
                 <div className="mt-5">

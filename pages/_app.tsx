@@ -1,12 +1,11 @@
 import React, { Dispatch } from 'react';
-import App, { AppContext, AppInitialProps, Container } from 'next/app';
+import App, { AppContext, AppInitialProps, Container, NextWebVitalsMetric } from 'next/app';
 import getConfig from 'next/config';
 import Head from 'next/head';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 
 import '../styles/index.scss';
-import '../styles/globals.scss';
 
 import { Store, wrapper } from '../stores';
 import Header from '../components/header';
@@ -73,32 +72,10 @@ class MyApp extends App<IProps> {
           <title>shishatrip</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <link rel="shortcut icon" href="/icons/favicon.svg" />
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-          />
-          <link
-            rel="text/javascript"
-            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"
-          />
-          <script
-            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossOrigin="anonymous"
-            async={true}
-          ></script>
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-          />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-          />
-          <script type="text/javascript" src="/js/zuck.min.js"></script>
-          <script type="text/javascript" src="/js/script.js"></script>
+          <script type="text/javascript" src="/js/zuck.min.js" defer={true}></script>
+          <script type="text/javascript" src="/js/script.js" defer={true}></script>
+          <link rel="preconnect" href={publicRuntimeConfig.api} />
+          <link rel="dns-prefetch" href={publicRuntimeConfig.api} />
         </Head>
         {layout ? (
           <>
@@ -111,6 +88,10 @@ class MyApp extends App<IProps> {
       </Container>
     );
   }
+}
+
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+  console.log(metric);
 }
 
 function mapDispatchToProps(dispatch: any) {

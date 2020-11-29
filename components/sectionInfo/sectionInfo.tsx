@@ -1,4 +1,3 @@
-import { map } from 'jquery';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { Col, Image, Row } from 'react-bootstrap';

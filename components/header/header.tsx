@@ -7,7 +7,7 @@ import { RootState } from '../../stores';
 import { clearFilterBySearchVal, filterBySearchVal } from '../../stores/locations/actions';
 import queryString from 'query-string';
 import ILocationListQuery from '../../interfaces/locationListQuery';
-import { number } from 'prop-types';
+
 interface IProps {
   algoliaSearch: boolean;
 }
@@ -20,6 +20,7 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   } = useSelector((state: RootState) => state);
 
   const [places, setPlaces] = useState<any>(null);
+  const [algoliaFiltered, setAlgoliaFiltered] = useState<any>(null); // suggestion value from algolia is set.
 
   useEffect(() => {
     if (algoliaSearch) {
@@ -49,7 +50,9 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
   const handleHeaderScrollClass = () => {
     window.onscroll = function (e: any) {
       // called when the window is scrolled.
-      var height = $(window).scrollTop();
+      var body = document.body;
+      var docElem = document.documentElement;
+      var height = window.pageYOffset || docElem.scrollTop || body.scrollTop;
       if (window.innerWidth > 1200) {
         if (height && height >= 225) {
           (headerRef.current as any).classList.add('scrolled');
@@ -82,26 +85,33 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
       filterByLocation(e.suggestion);
     });
     placesAutocomplete.on('clear', async (e: any) => {
-      clearFilterByLocation();
+      if (locationSearchVal) {
+        clearFilterByLocation();
+      }
     });
   };
 
   const filterByLocation = (suggestion: any) => {
     // suggestion object obtained from Algolia autocomplate search.
-    let query: ILocationListQuery | any = {
-      //location: suggestion.name.toLowerCase(),
-      lat: suggestion.latlng.lat,
-      lng: suggestion.latlng.lng,
-      category_id: router.query.category_id
-        ? parseInt(router.query.category_id.toString())
-        : undefined,
-      search: router.query.search ? router.query.search.toString() : undefined,
-      sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
-    };
-    console.log(query);
     dispatch(filterBySearchVal(suggestion)); // save filtered location in store globally!.
-    routePush(query);
+    setAlgoliaFiltered(suggestion);
   };
+
+  useEffect(() => {
+    if (algoliaFiltered) {
+      const query: ILocationListQuery | any = {
+        //location: suggestion.name.toLowerCase(),
+        lat: algoliaFiltered.latlng.lat,
+        lng: algoliaFiltered.latlng.lng,
+        category_id: router.query.category_id
+          ? parseInt(router.query.category_id.toString())
+          : undefined,
+        search: router.query.search ? router.query.search.toString() : undefined,
+        sortby: router.query.sortby ? router.query.sortby.toString() : undefined,
+      };
+      routePush(query);
+    }
+  }, [algoliaFiltered]);
 
   const clearFilterByLocation = () => {
     const query: any = {
@@ -125,8 +135,7 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
         isObjectEmpty = false;
       }
     });
-    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
-    window.scrollTo({ top: 120, behavior: 'smooth' });
+    Router.push(`/${!isObjectEmpty ? `?${stringified}` : ''}`);
   };
   return (
     <React.Fragment>
