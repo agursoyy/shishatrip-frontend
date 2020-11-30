@@ -58,12 +58,12 @@ const SectionInfo = (props: any) => {
               </div>
               <p className="local-section1-info-button-lg-title-cafe">Telephone</p>
               <p className="local-section1-info-button-lg-subtitle-cafe">
-                {visitedLocalData.telephone}
+                <a href={`tel: ${visitedLocalData.telephone}`}>{visitedLocalData.telephone}</a>
               </p>
               <div>
                 <p className="local-section1-info-button-xs-title-cafe">Telephone</p>
                 <p className="local-section1-info-button-xs-subtitle-cafe">
-                  {visitedLocalData.telephone}
+                  <a>{visitedLocalData.telephone}</a>
                 </p>
               </div>
             </div>

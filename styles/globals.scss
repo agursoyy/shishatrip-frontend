@@ -1615,6 +1615,9 @@ a:active .side-menu-span {
   color: #929292;
   margin: 0px 0px;
   padding: 0px 0px;
+  a {
+    text-decoration: underline;
+  }
 }
 
 .local-section1-info-button-xs-title-cafe {
