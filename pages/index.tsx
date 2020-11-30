@@ -33,9 +33,7 @@ const Home: INextPage<IProps> = ({ query }) => {
     <div className="home-page">
       <ReturnToTop />
       <div className="content">
-        <div className="home-location-list">
-          <LocationList query={query} />
-        </div>
+        <div className="home-location-list"></div>
       </div>
     </div>
   );
