@@ -111,7 +111,8 @@ export function fetchInıtData(query: {
     dispatch({ type: FETCH_INIT_DATA_REQUEST });
     try {
       const form = { ...query };
-      const { data, status } = await fetch({ url: `/local/search`, auth: false });
+      //const { data, status } = await fetch({ url: `/local/search`, auth: false });
+      const { data, status } = await Axios.get('https://api.mocki.io/v1/ae9a2089');
       console.log(data);
       console.log(status);
 
