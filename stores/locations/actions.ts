@@ -93,7 +93,7 @@ export function fetchInıtData(query: {
   sortby?: 'abc' | 'last' | 'near';
   lat?: number;
   lng?: number;
-  category?: any;
+  category?: string;
   search?: string;
 }) {
   // force to fetch data even though it exists

@@ -44,7 +44,7 @@ const LocationList: FC<IProps> = ({ query }) => {
         search,
         lat,
         lng,
-        category: category_id,
+        category: category,
         sortby,
         page: nextPage,
       };

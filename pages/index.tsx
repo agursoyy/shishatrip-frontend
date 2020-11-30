@@ -33,7 +33,9 @@ const Home: INextPage<IProps> = ({ query }) => {
     <div className="home-page">
       <ReturnToTop />
       <div className="content">
-        <div className="home-location-list"></div>
+        <div className="home-location-list">
+          <LocationList query={query} />
+        </div>
       </div>
     </div>
   );
@@ -75,30 +77,6 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
     lngQuery = parseFloat(lng.toString());
   }
   await store.dispatch(fetchCategories() as any);
-  if (category) {
-    let catStr = category.toString();
-    const { locations } = store.getState() as RootState;
-    const { categories } = locations;
-    categoryObj = categories.categories.find(
-      (cat: any) => cat.name.toLowerCase() === catStr.toLowerCase(),
-    );
-  }
-  console.log(categoryObj);
-
-  await store.dispatch(
-    fetchInıtData(
-      JSON.parse(
-        JSON.stringify({
-          page: pageQuery,
-          sortby: sortByQuery,
-          lat: latQuery,
-          lng: lngQuery,
-          category: categoryObj?.id,
-          search: search?.toString(),
-        }),
-      ),
-    ) as any,
-  );
 
   return {
     props: {
@@ -108,8 +86,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
           sortby: sortByQuery,
           lat: latQuery,
           lng: lngQuery,
-          category: categoryObj?.name.toLowerCase(),
-          category_id: categoryObj?.id,
+          category: category?.toString().toLowerCase(),
           search: search?.toString(),
         }),
       ),
