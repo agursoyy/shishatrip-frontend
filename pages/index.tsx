@@ -76,21 +76,23 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   if (lng && isNumeric(lng.toString())) {
     lngQuery = parseFloat(lng.toString());
   }
-
-  await store.dispatch(
-    fetchInıtData(
-      JSON.parse(
-        JSON.stringify({
-          page: pageQuery,
-          sortby: sortByQuery,
-          lat: latQuery,
-          lng: lngQuery,
-          category: category?.toString(),
-          search: search?.toString(),
-        }),
-      ),
-    ) as any,
-  );
+  await Promise.all([
+    store.dispatch(fetchCategories() as any),
+    store.dispatch(
+      fetchInıtData(
+        JSON.parse(
+          JSON.stringify({
+            page: pageQuery,
+            sortby: sortByQuery,
+            lat: latQuery,
+            lng: lngQuery,
+            category: category?.toString(),
+            search: search?.toString(),
+          }),
+        ),
+      ) as any,
+    ),
+  ]);
 
   return {
     props: {

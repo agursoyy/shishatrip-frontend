@@ -8,8 +8,9 @@
   }
   .places-search-wrapper {
     padding: 80px 0;
-    background-image: url('/images/shisha-bg-wp2.webp');
     background-color: rgb(250, 177, 189);
+    background-image: url('/images/shisha-bg-webpp.webp');
+    background-position: center;
     background-size: cover;
     box-shadow: 0px 0px 10px 0 rgba(34, 36, 38, 0.6);
     @include respond-above(sm) {
