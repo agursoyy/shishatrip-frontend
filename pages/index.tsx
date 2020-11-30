@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NextPage, NextPageContext } from 'next';
 import { RootState, wrapper } from '../stores';
 import { useSelector, useDispatch } from 'react-redux';
@@ -76,6 +76,21 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   if (lng && isNumeric(lng.toString())) {
     lngQuery = parseFloat(lng.toString());
   }
+
+  await store.dispatch(
+    fetchInıtData(
+      JSON.parse(
+        JSON.stringify({
+          page: pageQuery,
+          sortby: sortByQuery,
+          lat: latQuery,
+          lng: lngQuery,
+          category: category?.toString(),
+          search: search?.toString(),
+        }),
+      ),
+    ) as any,
+  );
 
   return {
     props: {

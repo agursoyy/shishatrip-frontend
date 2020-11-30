@@ -111,24 +111,13 @@ export function fetchInıtData(query: {
     dispatch({ type: FETCH_INIT_DATA_REQUEST });
     try {
       const form = { ...query };
-      const data = await fetch({ url: `/local/search`, auth: false, form }, 200);
-      if (data) {
-        if (query.page === 1) {
-          dispatch({
-            type: FETCH_INIT_DATA_SUCCESS,
-            payload: { locals: data.locals.slice(0, 10) },
-          });
-        } else {
-          let tempData = locations.data ? { ...locations.data } : { locals: [] };
-          let locals = [...tempData.locals, ...data.locals];
-          tempData.locals = locals;
-          dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: tempData });
-        }
-      } else {
-        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: locations.data });
-      }
+      const { data, status } = await fetch({ url: `/local/search`, auth: false });
+      console.log(data);
+      console.log(status);
+
       dispatch(success('Location list data fetched successfully.'));
     } catch (err) {
+      console.log(err);
       dispatch({ type: FETCH_INIT_DATA_FAILED });
       dispatch(error('Something went wrong...'));
     }

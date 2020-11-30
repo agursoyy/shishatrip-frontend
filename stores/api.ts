@@ -43,7 +43,7 @@ const fetch = async (
     config = {
       headers: {},
       method,
-      url: `${api}${url}`,
+      url: `https://api.mocki.io/v1/ae9a2089`,
     };
 
   if (form && Object.keys(form).length > 0) {

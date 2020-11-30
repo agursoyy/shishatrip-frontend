@@ -91,7 +91,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
     });
     setCurrentPage(1); // return to first page.
     setAlgoliaFiltered(null);
-    Router.push(`/index${!isObjectEmpty ? `?${stringified}` : ''}`);
+    Router.push(`/${!isObjectEmpty ? `?${stringified}` : ''}`);
   };
 
   const filterByLocation = (suggestion: any) => {
@@ -105,7 +105,9 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
         ...query,
         lat: algoliaFiltered.latlng.lat,
         lng: algoliaFiltered.latlng.lng,
-        category: categories.categories.find((f: any) => f.id == category_id)?.name.toLowerCase(),
+        category:
+          categories &&
+          categories.categories.find((f: any) => f.id == category_id)?.name.toLowerCase(),
       };
       routePush(queryParam);
     }
