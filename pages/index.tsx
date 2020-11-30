@@ -76,7 +76,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   if (lng && isNumeric(lng.toString())) {
     lngQuery = parseFloat(lng.toString());
   }
-  /* await Promise.all([
+  await Promise.all([
     store.dispatch(fetchCategories() as any),
     store.dispatch(
       fetchInıtData(
@@ -92,7 +92,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
         ),
       ) as any,
     ),
-  ]); */
+  ]);
 
   return {
     props: {
