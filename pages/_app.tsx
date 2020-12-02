@@ -77,6 +77,17 @@ class MyApp extends App<IProps> {
           <link rel="preconnect" href={publicRuntimeConfig.api} />
           <link rel="dns-prefetch" href={publicRuntimeConfig.api} />
           <link rel="preconnect" type="text/css" href="/_next/static/css/styles.chunk.css" />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
+
           {/*preload css */}
         </Head>
         {layout ? (

@@ -81,7 +81,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   };
 
   const routePush = (query: any) => {
-    const stringified = queryString.stringify(query as any);
+    const stringified = queryString.stringify({ page: 1, ...query } as any);
     let isObjectEmpty = true;
     let keys = Object.keys(query);
     keys.forEach((element) => {

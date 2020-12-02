@@ -14,9 +14,6 @@ import {
 import IPageConfig from '../../interfaces/PageConfig';
 import './index.scss';
 import LocationList from '../../components/locationList';
-import { load } from 'dotenv/types';
-import Loading from '../../components/loading/loading';
-import Header from '../../components/header';
 import ReturnToTop from '../../components/returnToTop';
 
 const { publicRuntimeConfig } = getConfig();
@@ -242,21 +239,41 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
     );
   }
   console.log(categoryObj);
-
-  await store.dispatch(
-    fetchInıtData(
-      JSON.parse(
-        JSON.stringify({
-          page: pageQuery,
-          sortby: sortByQuery,
-          lat: latQuery,
-          lng: lngQuery,
-          category: categoryObj?.id,
-          search: search?.toString(),
-        }),
-      ),
-    ) as any,
-  );
+  const { locations } = store.getState();
+  if (locations.query && locations.query.page && locations.query.page >= 1) {
+    for (let i = 1; i <= locations.query.page; i++) {
+      console.log(i);
+      await store.dispatch(
+        fetchInıtData(
+          JSON.parse(
+            JSON.stringify({
+              page: i,
+              sortby: sortByQuery,
+              lat: latQuery,
+              lng: lngQuery,
+              category: categoryObj?.id,
+              search: search?.toString(),
+            }),
+          ),
+        ) as any,
+      );
+    }
+  } else {
+    await store.dispatch(
+      fetchInıtData(
+        JSON.parse(
+          JSON.stringify({
+            page: pageQuery,
+            sortby: sortByQuery,
+            lat: latQuery,
+            lng: lngQuery,
+            category: categoryObj?.id,
+            search: search?.toString(),
+          }),
+        ),
+      ) as any,
+    );
+  }
 
   return {
     props: {

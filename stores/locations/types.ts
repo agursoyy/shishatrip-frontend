@@ -17,6 +17,7 @@ export const FETCH_CATEGORIES_FAILED = 'FETCH_CATEGORIES_FAILED';
 export const FETCH_SINGLE_LOCAL_DATA_SUCESS = 'FETCH_SINGLE_LOCAL_DATA_SUCESS';
 export const FETCH_SINGLE_LOCAL_DATA_FAILED = 'FETCH_SINGLE_LOCAL_DATA_FAILED';
 export const SET_QUERY = 'SET_QUERY';
+export const SET_FETCH_LOCK = 'SET_FETCH_LOCK';
 
 import ILocationListQuery from '../../interfaces/locationListQuery';
 
@@ -27,8 +28,8 @@ export interface ILocationState {
   data: any;
   categories: any;
   locationSearchVal: any;
-  sortByVal: any;
   filterByCategory: any;
   visitedLocalData: any;
-  query: ILocationListQuery | null;
+  query: (ILocationListQuery & { pageFromStore?: boolean }) | null;
+  fetchLock: boolean;
 }

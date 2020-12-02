@@ -35,6 +35,9 @@ const reducer = (state: any, action: any) => {
     if (state.locations.locationSearchVal) {
       nextState.locations.locationSearchVal = state.locations.locationSearchVal;
     }
+    if (state.locations.fetchLock) {
+      nextState.locations.fetchLock = state.locations.fetchLock;
+    }
     return nextState;
   } else {
     return rootReducer(state, action);

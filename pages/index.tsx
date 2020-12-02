@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NextPage, NextPageContext } from 'next';
 import { RootState, wrapper } from '../stores';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories, fetchInıtData } from '../stores/locations/actions';
+import { fetchCategories, fetchInıtData, setFetchLock } from '../stores/locations/actions';
 import LocationList from '../components/locationList';
 import IPageConfig from '../interfaces/PageConfig';
 import './index/index.scss';
@@ -50,7 +50,7 @@ Home.pageConfig = {
 function isNumeric(x: any) {
   return parseFloat(x).toString() === x.toString();
 }
-
+/*
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const { page, sortby, lat, lng, category, search } = query;
   let pageQuery = 1,
@@ -109,7 +109,70 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
     },
   };
 });
+*/
 
+Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
+  const { page, sortby, lat, lng, category, search } = query;
+  let pageQuery = 1,
+    sortByQuery: 'abc' | 'last' | 'near' | undefined,
+    latQuery,
+    lngQuery,
+    categoryObj,
+    searchQuery;
+
+  if (page && isNumeric(page.toString())) {
+    pageQuery = parseInt(page.toString());
+  } else {
+    const { locations } = store.getState();
+    if (locations.query && locations.query.page) {
+      pageQuery = locations.query.page;
+    }
+  }
+
+  if (sortby) {
+    let temp = sortby.toString();
+    if (temp === 'abc' || temp === 'last' || temp === 'near') {
+      sortByQuery = temp;
+    }
+  }
+  if (lat && isNumeric(lat.toString())) {
+    latQuery = parseFloat(lat.toString());
+  }
+  if (lng && isNumeric(lng.toString())) {
+    lngQuery = parseFloat(lng.toString());
+  }
+
+  const {
+    locations: { fetchLock },
+  } = store.getState();
+  if (!fetchLock) {
+    await Promise.all([
+      store.dispatch(fetchCategories() as any),
+      store.dispatch(
+        fetchInıtData({
+          page: pageQuery,
+          sortby: sortByQuery,
+          lat: latQuery,
+          lng: lngQuery,
+          category: category?.toString(),
+          search: search?.toString(),
+        }) as any,
+      ),
+    ]);
+  }
+
+  store.dispatch(setFetchLock(false) as any);
+  return {
+    query: {
+      page: pageQuery,
+      sortby: sortByQuery,
+      lat: latQuery,
+      lng: lngQuery,
+      category: category?.toString().toLowerCase(),
+      search: search?.toString(),
+    },
+  };
+};
 //export default connect(Home);
 /*
 export const getStaticProps = wrapper.getStaticProps(async ({ store, params, preview }) => {

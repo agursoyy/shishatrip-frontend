@@ -1,4 +1,5 @@
 import { settings } from 'nprogress';
+import { boolean } from 'yup';
 import {
   ILocationState,
   FETCH_INIT_DATA_REQUEST,
@@ -19,6 +20,7 @@ import {
   FETCH_BY_SEARCH_PARAM_REQUEST,
   FETCH_BY_SEARCH_PARAM_END,
   SET_QUERY,
+  SET_FETCH_LOCK,
 } from './types';
 
 const initialState: ILocationState = {
@@ -28,10 +30,10 @@ const initialState: ILocationState = {
   data: null,
   categories: null,
   locationSearchVal: null,
-  sortByVal: null,
   filterByCategory: null,
   visitedLocalData: null,
   query: null,
+  fetchLock: false,
 };
 
 export function locationReducer(state: ILocationState = initialState, action: any): ILocationState {
@@ -44,6 +46,8 @@ export function locationReducer(state: ILocationState = initialState, action: an
       return { ...state, loading: false, error: true, categories: null };
     case SET_QUERY:
       return { ...state, query: action.payload };
+    case SET_FETCH_LOCK:
+      return { ...state, fetchLock: action.payload };
     case FETCH_INIT_DATA_REQUEST:
       return { ...state, loading: true };
     case FETCH_INIT_DATA_SUCCESS:
@@ -74,7 +78,7 @@ export function locationReducer(state: ILocationState = initialState, action: an
     case CLEAR_FILTER_BY_SEARCH_PARAM:
       return { ...state, loading: false, locationSearchVal: null };
     case CLEAR_FILTER_SORT_BY_VALUE:
-      return { ...state, loading: false, sortByVal: null };
+      return { ...state, loading: false };
     default:
       return state;
   }

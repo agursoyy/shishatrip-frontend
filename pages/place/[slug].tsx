@@ -11,11 +11,12 @@ import { Container } from 'react-bootstrap';
 import '../../styles/globals.scss';
 import './slug.scss';
 import SectionHeaderWithPinkLogo from '../../components/sectionHeaderWithPinkLogo';
-import { fetchVisitedLocalData } from '../../stores/locations/actions';
-import { useSelector } from 'react-redux';
+import { fetchVisitedLocalData, setFetchLock, setQueryValue } from '../../stores/locations/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 import IPageConfig from '../../interfaces/PageConfig';
 import Router from 'next/router';
+import queryString from 'query-string';
 
 const PhotoSection = dynamic(
   () => import('../../components/sectionPhoto/sectionPhoto'), // replace '@components/map' with your component's location
@@ -50,13 +51,16 @@ const {
 const Slug: INextPage<IProps> = ({ error }) => {
   const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('photo');
   const router = useRouter();
+  const dispatch = useDispatch();
+  const {
+    locations: { query },
+  } = useSelector((state: RootState) => state);
 
   useEffect(() => {
     function historyBackEvent(e: any) {
       var state = e.state;
       if (state !== null) {
-        //load content with ajax
-        //Router.push('/');
+        //Router.push(`/?${queryString.stringify({ alp: 2 })}`);
       }
     }
     window.addEventListener('popstate', historyBackEvent);
@@ -122,6 +126,7 @@ Slug.pageConfig = {
   header_algolia: true,
 };
 
+/*
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req, res, query }) => {
   const slug = query.slug?.toString();
   let error;
@@ -141,7 +146,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
   //await store.dispatch(fetchInıtData() as any);
   // return {props: {error}} causes json.serialize error directly. This is specific for these getServerSideProps, getStaticProps lifecycle method.
   return { props: { ...(error && { error: error }) } };
-});
+});*/
 /*
 //  getStaticPaths function specifies dynamic routes to pre-render based
 export async function getStaticPaths() {
@@ -181,19 +186,20 @@ export const getStaticProps = wrapper.getStaticProps(async ({ store, params }) =
   }
   // return {props: {error}} causes json.serialize error directly. This is specific for these getStaticProps, getServerSideProps  lifecycle method.
   return { props: { ...(error && { error: error }) } };
-});
+});Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps>
 */
-/*
+
 Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Promise<IProps> => {
   const slug = query.slug?.toString();
   let error;
   if (slug) {
     await store.dispatch(fetchVisitedLocalData(slug) as any);
   }
+  store.dispatch(setFetchLock(true) as any); // aim is to return back to the same position in list on index page.
+
   const {
     locations: { visitedLocalData },
   } = store.getState() as RootState;
-
   if (!visitedLocalData) {
     error = {
       status: 404,
@@ -202,5 +208,5 @@ Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   }
   return { error }; // You can pass some custom props to the component from here
 };
-*/
+
 export default Slug;

@@ -28,16 +28,14 @@ const LocationList: FC<IProps> = ({ query }) => {
   const { page, sortby, lat, lng, category, category_id, search, location } = query;
 
   const dispatch = useDispatch();
-  const {
-    locations: { locationSearchLoading, data, locationSearchVal, categories },
-    auth,
-    alert,
-  } = useSelector((state: RootState) => state);
+  const { locations, auth, alert } = useSelector((state: RootState) => state);
+  const { locationSearchLoading, data, locationSearchVal, categories } = locations;
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const loadMore = () => {
     let nextPage = currentPage + 1;
+
     setCurrentPage(nextPage);
     setTimeout(async () => {
       let query = {

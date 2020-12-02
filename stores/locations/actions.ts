@@ -16,6 +16,7 @@ import {
   FETCH_BY_SEARCH_PARAM_END,
   FETCH_BY_SEARCH_PARAM_REQUEST,
   SET_QUERY,
+  SET_FETCH_LOCK,
 } from './types';
 import { RootState } from '../index';
 import getConfig from 'next/config';
@@ -31,6 +32,8 @@ import { error, success } from '../alert/actions';
 import fetch from '../api';
 import { func } from 'prop-types';
 import { fetchVisitedLocalStories } from '../stories/actions';
+import { objectsAreEqual } from '../../utils';
+import { deepEqual } from 'assert';
 
 export function fetchCategories() {
   return async (dispatch: any, getState: () => RootState) => {
@@ -87,6 +90,9 @@ export function fetchData(query: {
 export function setQueryValue(query: ILocationListQuery) {
   return { type: SET_QUERY, payload: query };
 }
+export function setFetchLock(val: boolean) {
+  return { type: SET_FETCH_LOCK, payload: val };
+}
 
 export function fetchInıtData(query: {
   page?: number;
@@ -105,32 +111,41 @@ export function fetchInıtData(query: {
       query.lat = locationSearchVal.latlng.lat;
       query.lng = locationSearchVal.latlng.lng;
     }
+
+    const storeQueryParam = JSON.parse(JSON.stringify(locations.query));
+    const queryParam = JSON.parse(JSON.stringify(query));
+    console.log(storeQueryParam);
+    console.log(queryParam);
+    console.log(objectsAreEqual(storeQueryParam, queryParam));
     const stringified = queryString.stringify(query);
     console.log(stringified);
-    dispatch(setQueryValue(query));
-    dispatch({ type: FETCH_INIT_DATA_REQUEST });
-    try {
-      const form = { ...query };
-      const data = await fetch({ url: `/local/search`, auth: false, form }, 200);
-      if (data) {
-        if (query.page === 1) {
-          dispatch({
-            type: FETCH_INIT_DATA_SUCCESS,
-            payload: { locals: data.locals.slice(0, 10) },
-          });
+    if (!objectsAreEqual(storeQueryParam, queryParam) || !storeQueryParam) {
+      // if we already have the same data, don't fetch same thing again...
+      dispatch(setQueryValue(query));
+      dispatch({ type: FETCH_INIT_DATA_REQUEST });
+      try {
+        const form = { ...query };
+        const data = await fetch({ url: `/local/search`, auth: false, form }, 200);
+        if (data) {
+          if (query.page === 1) {
+            dispatch({
+              type: FETCH_INIT_DATA_SUCCESS,
+              payload: { locals: data.locals.slice(0, 10) },
+            });
+          } else {
+            let tempData = locations.data ? { ...locations.data } : { locals: [] };
+            let locals = [...tempData.locals, ...data.locals];
+            tempData.locals = locals;
+            dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: tempData });
+          }
         } else {
-          let tempData = locations.data ? { ...locations.data } : { locals: [] };
-          let locals = [...tempData.locals, ...data.locals];
-          tempData.locals = locals;
-          dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: tempData });
+          dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: locations.data });
         }
-      } else {
-        dispatch({ type: FETCH_INIT_DATA_SUCCESS, payload: locations.data });
+        dispatch(success('Location list data fetched successfully.'));
+      } catch (err) {
+        dispatch({ type: FETCH_INIT_DATA_FAILED });
+        dispatch(error('Something went wrong...'));
       }
-      dispatch(success('Location list data fetched successfully.'));
-    } catch (err) {
-      dispatch({ type: FETCH_INIT_DATA_FAILED });
-      dispatch(error('Something went wrong...'));
     }
   };
 }
