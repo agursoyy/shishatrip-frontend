@@ -4,18 +4,22 @@
   font-family: acumin-pro, sans-serif;
 }
 
-.popup-content {
-  padding-top: 66px; // extract header height.
-  .carousel-slider {
-    max-height: 100vh !important;
-  }
-
-  .carousel {
-    background: rgba(0, 0, 0, 0.9);
-    height: 80vh;
-    width: 80vw !important;
-    margin: 0 auto !important;
-    pointer-events: all;
+#popup-root {
+  .popup-overlay {
+    background: rgba(0, 0, 0, 0.75) !important;
+    z-index: 999999999999 !important;
+    .popup-content {
+      .carousel-slider {
+        max-height: 100vh !important;
+      }
+      .carousel {
+        background: rgba(0, 0, 0, 0.9);
+        height: 80vh;
+        width: 80vw !important;
+        margin: 0 auto !important;
+        pointer-events: all;
+      }
+    }
   }
 }
 

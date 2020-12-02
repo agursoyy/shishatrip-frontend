@@ -14,7 +14,11 @@ const SectionPhoto = (props: any) => {
   const [gallery, setGallery] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
-  const closeModal = () => setOpen(false);
+  const closeModal = () => {
+    setOpen(false);
+    document.body.style.overflowY = 'auto';
+    document.body.style.overflowX = 'hidden';
+  };
 
   const ListPhotos = (props: any) => (
     <React.Fragment>
@@ -66,19 +70,9 @@ const SectionPhoto = (props: any) => {
 
         {open && (
           <div>
-            <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} lockScroll={true}>
-              <OutsideClickHandler
-                onOutsideClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <PhotoBoxView
-                  images={pics}
-                  selectedItem={selectedItem}
-                  closeGallery={() => {
-                    setOpen(false);
-                  }}
-                />
+            <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} lockScroll={open}>
+              <OutsideClickHandler onOutsideClick={closeModal}>
+                <PhotoBoxView images={pics} selectedItem={selectedItem} closeGallery={closeModal} />
               </OutsideClickHandler>
             </Popup>
           </div>
