@@ -146,11 +146,13 @@ export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req
 
 //  getStaticPaths function specifies dynamic routes to pre-render based
 export async function getStaticPaths() {
-  const res = await fetch('https://api.shishatrip.de/api/local/search');
+  const res = await fetch('https://api.shishatrip.de/api/all');
   const data = await res.json();
-  const paths = data.locals.slice(0, 10).map((local: any) => ({
-    params: { slug: local.slug },
-  }));
+  const paths = data.locals
+    .filter((local: any) => local.slug != null)
+    .map((local: any) => {
+      return { params: { slug: local.slug } };
+    });
   return {
     paths,
     fallback: true,
