@@ -15,18 +15,20 @@ const ReturnToTop = () => {
       } else {
         // fadeOut(20);
         returnToTopRef.current && returnToTopRef.current.classList.remove('scrolled');
+        returnToTopRef.current && returnToTopRef.current.classList.remove('animate-btn');
       }
     });
 
     if (returnToTopRef && returnToTopRef.current) {
       returnToTopRef.current.addEventListener('click', function () {
+        returnToTopRef.current && returnToTopRef.current.classList.add('animate-btn');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
   }, []);
   return (
     <a id="return-to-top" ref={returnToTopRef}>
-      <i className="fa fa-chevron-up"></i>{' '}
+      <img src="/icons/up-arrow-angle.svg" className="arrow-up" />
     </a>
   );
 };
