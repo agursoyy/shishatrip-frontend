@@ -5,6 +5,7 @@
 }
 
 .popup-content {
+  padding-top: 66px; // extract header height.
   .carousel-slider {
     max-height: 100vh !important;
   }
