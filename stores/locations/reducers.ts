@@ -33,7 +33,7 @@ const initialState: ILocationState = {
   filterByCategory: null,
   visitedLocalData: null,
   query: null,
-  fetchLock: false,
+  fetchLock: false, // it enables fetching list data. Default is not locked.
 };
 
 export function locationReducer(state: ILocationState = initialState, action: any): ILocationState {

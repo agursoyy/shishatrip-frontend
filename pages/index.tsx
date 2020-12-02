@@ -143,9 +143,9 @@ Home.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   }
 
   const {
-    locations: { fetchLock },
+    locations: { fetchLock, data },
   } = store.getState();
-  if (!fetchLock) {
+  if (!fetchLock || !data) {
     await Promise.all([
       store.dispatch(fetchCategories() as any),
       store.dispatch(
