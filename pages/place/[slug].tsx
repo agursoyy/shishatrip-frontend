@@ -149,8 +149,8 @@ export async function getStaticPaths() {
   const res = await fetch('https://api.shishatrip.de/api/all');
   const data = await res.json();
   const paths = data.locals
-    .slice(500)
-    .filter((local: any) => local.slug != null && local.slug != '𝗟𝗮-𝗩𝗶𝗱𝗮-cafe-neuss')
+    .slice(300)
+    .filter((local: any) => local.slug != null)
     .map((local: any) => {
       return { params: { slug: local.slug } };
     });
