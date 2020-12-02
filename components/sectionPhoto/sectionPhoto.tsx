@@ -23,7 +23,7 @@ const SectionPhoto = (props: any) => {
           {props.pics.map((picture: any, index: number) => (
             <div
               key={index}
-              className={'grid-image-view-wrapper col-4 w-100'}
+              className={'grid-image-view-wrapper col-4 col-xl-3 w-100'}
               onClick={() => GalleryViewToggle(index)}
             >
               <LazyLoad placeholder={<Loading />} classNamePrefix="grid-image-lazyload">
@@ -66,7 +66,7 @@ const SectionPhoto = (props: any) => {
 
         {open && (
           <div>
-            <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} lockScroll={false}>
+            <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} lockScroll={true}>
               <OutsideClickHandler
                 onOutsideClick={() => {
                   setOpen(false);
