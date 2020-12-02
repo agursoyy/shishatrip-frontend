@@ -49,14 +49,14 @@ const {
 
 const Slug: INextPage<IProps> = ({ error }) => {
   const [profileSection, setProfileSection] = useState<'info' | 'photo' | 'stories'>('photo');
+  const router = useRouter();
 
   useEffect(() => {
     function historyBackEvent(e: any) {
       var state = e.state;
       if (state !== null) {
         //load content with ajax
-        console.log('POOOP');
-        Router.push('/');
+        //Router.push('/');
       }
     }
     window.addEventListener('popstate', historyBackEvent);
@@ -149,7 +149,7 @@ export async function getStaticPaths() {
   const res = await fetch('https://api.shishatrip.de/api/all');
   const data = await res.json();
   const paths = data.locals
-    .slice(1350)
+    .slice(1000)
     .filter((local: any) => local.slug != null && local.slug != '𝗟𝗮-𝗩𝗶𝗱𝗮-cafe-neuss')
     .map((local: any) => {
       return { params: { slug: local.slug } };
