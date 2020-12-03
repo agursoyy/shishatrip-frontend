@@ -28,8 +28,8 @@ const reducer = (state: any, action: any) => {
   if (action.type === HYDRATE) {
     console.log(state);
     const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
+      ...state, // use previous state // current state. When page is refreshed, state is empty and it should be merged by payload and sent to client.
+      ...action.payload, // apply delta from hydration // next state.  (they are merged).
     };
     //if (state.count.count) nextState.count.count = state.count.count; // preserve count value on client side navigation
     if (state.locations.locationSearchVal) {

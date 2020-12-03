@@ -27,7 +27,7 @@ const PhotoBoxView = (props: any) => {
   return (
     <div style={{ position: 'relative' }}>
       <button
-        className="close-btn"
+        className="photoboxview-close-btn"
         onClick={() => {
           closeGallery();
         }}
