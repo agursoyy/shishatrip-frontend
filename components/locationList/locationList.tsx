@@ -96,13 +96,12 @@ const LocationList: FC<IProps> = ({ query }) => {
                     return (
                       <LazyLoad
                         key={index}
+                        once={true}
                         placeholder={
                           <div
                             style={{ height: 160 }}
                             className="d-flex justify-content-center align-items-center"
-                          >
-                            <Loading />
-                          </div>
+                          ></div>
                         }
                       >
                         <div className="location-list-item">
