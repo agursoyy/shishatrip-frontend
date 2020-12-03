@@ -23,7 +23,6 @@ const Home: INextPage<IProps> = ({ query }) => {
   const { news, auth } = useSelector((state: RootState) => state);
   //console.log(auth);
   const dispatch = useDispatch();
-  console.log(query);
 
   const {
     locations: { loading },

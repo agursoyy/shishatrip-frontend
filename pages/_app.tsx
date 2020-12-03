@@ -103,10 +103,6 @@ class MyApp extends App<IProps> {
   }
 }
 
-export function reportWebVitals(metric: NextWebVitalsMetric) {
-  console.log(metric);
-}
-
 function mapDispatchToProps(dispatch: any) {
   return {
     routeChangeStart: () => {
