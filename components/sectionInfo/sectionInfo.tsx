@@ -10,6 +10,7 @@ const Map = dynamic(
   { ssr: false }, // This line is important. It's what prevents server-side render
 );
 const SectionInfo = (props: any) => {
+  const { local } = props;
   const {
     locations: { visitedLocalData },
   } = useSelector((state: RootState) => state);
@@ -20,9 +21,9 @@ const SectionInfo = (props: any) => {
           <Col className="local-col-cafe">
             <div className="local-section1-info-map-wrapper-cafe mb-4">
               <Map
-                location={[visitedLocalData.lat, visitedLocalData.lng]}
-                locationName={visitedLocalData.name}
-                locationAddress={visitedLocalData.address_parsed}
+                location={[local['0'].lat, local['0'].lng]}
+                locationName={local['0'].name}
+                locationAddress={local['0'].address_parsed}
               />
             </div>
           </Col>
@@ -38,12 +39,12 @@ const SectionInfo = (props: any) => {
               </div>
               <p className="local-section1-info-button-lg-title-cafe">Address</p>
               <p className="local-section1-info-button-lg-subtitle-cafe">
-                {visitedLocalData.address_parsed}
+                {local['0'].address_parsed}
               </p>
               <div>
                 <p className="local-section1-info-button-xs-title-cafe">Address</p>
                 <p className="local-section1-info-button-xs-subtitle-cafe">
-                  {visitedLocalData.address_parsed}
+                  {local['0'].address_parsed}
                 </p>
               </div>
             </div>
@@ -58,12 +59,12 @@ const SectionInfo = (props: any) => {
               </div>
               <p className="local-section1-info-button-lg-title-cafe">Telephone</p>
               <p className="local-section1-info-button-lg-subtitle-cafe">
-                <a href={`tel: ${visitedLocalData.telephone}`}>{visitedLocalData.telephone}</a>
+                <a href={`tel: ${local['0'].telephone}`}>{local['0'].telephone}</a>
               </p>
               <div>
                 <p className="local-section1-info-button-xs-title-cafe">Telephone</p>
                 <p className="local-section1-info-button-xs-subtitle-cafe">
-                  <a>{visitedLocalData.telephone}</a>
+                  <a>{local['0'].telephone}</a>
                 </p>
               </div>
             </div>
@@ -79,12 +80,12 @@ const SectionInfo = (props: any) => {
               </div>
               <p className="local-section1-info-button-lg-title-cafe">Website</p>
               <p className="local-section1-info-button-lg-subtitle-cafe">
-                <a href={visitedLocalData.website}>{visitedLocalData.website}</a>
+                <a href={local['0'].website}>{local['0'].website}</a>
               </p>
               <div>
                 <p className="local-section1-info-button-xs-title-cafe">Website</p>
                 <p className="local-section1-info-button-xs-subtitle-cafe">
-                  <a href={visitedLocalData.website}>{visitedLocalData.website}</a>
+                  <a href={local['0'].website}>{local['0'].website}</a>
                 </p>
               </div>
             </div>
@@ -107,12 +108,12 @@ const SectionInfo = (props: any) => {
               </div>
               <p className="local-section1-info-button-lg-title-cafe">Category</p>
               <p className="local-section1-info-button-lg-subtitle-cafe">
-                {visitedLocalData.category.name}
+                {local['0'].category.name}
               </p>
               <div>
                 <p className="local-section1-info-button-xs-title-cafe">Category</p>
                 <p className="local-section1-info-button-xs-subtitle-cafe">
-                  {visitedLocalData.category.name}
+                  {local['0'].category.name}
                 </p>
               </div>
             </div>
@@ -127,51 +128,51 @@ const SectionInfo = (props: any) => {
                 <Image className="" src="/images/navigation-2 (1) 3.svg" alt="React Logo" fluid />
               </div>
               <p className="local-section1-info-button-lg-title-cafe">Work Hours</p>
-              {visitedLocalData.opening_hours && visitedLocalData.opening_hours.length === 7 && (
+              {local['0'].opening_hours && local['0'].opening_hours.length === 7 && (
                 <>
                   <p className="local-section1-info-button-lg-subtitle-cafe mb-2">
                     <span className="font-weight-bold mr-2">Montag - Freitag :</span>
-                    {visitedLocalData.opening_hours[0].open}
+                    {local['0'].opening_hours[0].open}
                     {'Uhr - '}
-                    {visitedLocalData.opening_hours[0].close}
+                    {local['0'].opening_hours[0].close}
                     {' Uhr'}
                   </p>
                   <p className="local-section1-info-button-lg-subtitle-cafe mb-2">
                     <span className="font-weight-bold mr-2">Samstag :</span>
-                    {visitedLocalData.opening_hours[5].open}
+                    {local['0'].opening_hours[5].open}
                     {' Uhr - '}
-                    {visitedLocalData.opening_hours[5].close}
+                    {local['0'].opening_hours[5].close}
                     {' Uhr'}
                   </p>
                   <p className="local-section1-info-button-lg-subtitle-cafe">
                     <span className="font-weight-bold mr-2">Sonntag :</span>
 
-                    {visitedLocalData.opening_hours[6].open}
+                    {local['0'].opening_hours[6].open}
                     {' Uhr - '}
-                    {visitedLocalData.opening_hours[6].close}
+                    {local['0'].opening_hours[6].close}
                     {' Uhr'}
                   </p>
                   <div>
                     <p className="local-section1-info-button-xs-title-cafe">Work Hours</p>
                     <div className="local-section1-info-button-xs-subtitle-cafe">
                       <p className="local-section1-info-button-xs-subtitle-cafe mb-2">
-                        Montag - Freitag : {visitedLocalData.opening_hours[0].open}
+                        Montag - Freitag : {local['0'].opening_hours[0].open}
                         {' Uhr - '}
-                        {visitedLocalData.opening_hours[0].close}
+                        {local['0'].opening_hours[0].close}
                         {' Uhr'}
                       </p>
                       <p className="local-section1-info-button-xs-subtitle-cafe mb-2">
                         {' '}
-                        Samstag : {visitedLocalData.opening_hours[5].open}
+                        Samstag : {local['0'].opening_hours[5].open}
                         {' Uhr - '}
-                        {visitedLocalData.opening_hours[5].close}
+                        {local['0'].opening_hours[5].close}
                         {' Uhr'}
                       </p>
                       <p className="local-section1-info-button-xs-subtitle-cafe">
                         {' '}
-                        Sonntag : {visitedLocalData.opening_hours[6].open}
+                        Sonntag : {local['0'].opening_hours[6].open}
                         {' Uhr - '}
-                        {visitedLocalData.opening_hours[6].close}
+                        {local['0'].opening_hours[6].close}
                         {' Uhr'}
                       </p>
                     </div>

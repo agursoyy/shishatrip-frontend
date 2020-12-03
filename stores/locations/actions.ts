@@ -153,13 +153,18 @@ export function fetchInıtData(query: {
 export function fetchVisitedLocalData(slug: string) {
   // force to fetch data even though it exists
   return async (dispatch: any, getState: () => RootState) => {
-    const { data, status } = await Axios.get(api + '/local/' + slug);
-    const { locations } = getState();
-    if (status == 200) {
-      dispatch({ type: FETCH_SINGLE_LOCAL_DATA_SUCESS, payload: { visitedLocalData: data } });
-      await dispatch(fetchVisitedLocalStories(1)); // fetch it with real id later.
-    } else {
-      dispatch({ type: FETCH_SINGLE_LOCAL_DATA_FAILED });
+    const {
+      locations: { visitedLocalData },
+    } = getState();
+
+    if (!visitedLocalData || visitedLocalData['0'].slug !== slug) {
+      const { data, status } = await Axios.get(api + '/local/' + slug);
+      if (status == 200) {
+        dispatch({ type: FETCH_SINGLE_LOCAL_DATA_SUCESS, payload: { visitedLocalData: data } });
+        await dispatch(fetchVisitedLocalStories(1)); // fetch it with real id later.
+      } else {
+        dispatch({ type: FETCH_SINGLE_LOCAL_DATA_FAILED });
+      }
     }
   };
 }

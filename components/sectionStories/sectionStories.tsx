@@ -40,7 +40,10 @@ const SectionStories: FC<any> = () => {
                       }}
                     >
                       <img className="local-story-item__img" src={story.url} />
-                      <img className="local-story-item__logo" src={visitedLocalData.logo_img} />
+                      <img
+                        className="local-story-item__logo"
+                        src={visitedLocalData['0'].logo_img}
+                      />
                     </button>
                   </LazyLoad>
                 </div>

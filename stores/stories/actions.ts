@@ -52,7 +52,13 @@ var timestamp = function () {
 
 export const generate_stories_format = (visitedLocalStories: any, visitedData: any) => {
   const storyArray = [
-    [visitedData.name, visitedData.logo_img, visitedData.name, 'https://ramon.codes', timestamp()],
+    [
+      visitedData['0'].name,
+      visitedData['0'].logo_img,
+      visitedData['0'].name,
+      'https://ramon.codes',
+      timestamp(),
+    ],
   ];
   let stories = [];
   if (visitedLocalStories && visitedLocalStories.length > 0) {

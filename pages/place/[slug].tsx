@@ -11,7 +11,12 @@ import { Container } from 'react-bootstrap';
 import '../../styles/globals.scss';
 import './slug.scss';
 import SectionHeaderWithPinkLogo from '../../components/sectionHeaderWithPinkLogo';
-import { fetchVisitedLocalData, setFetchLock, setQueryValue } from '../../stores/locations/actions';
+import {
+  fetchCategories,
+  fetchVisitedLocalData,
+  setFetchLock,
+  setQueryValue,
+} from '../../stores/locations/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 import IPageConfig from '../../interfaces/PageConfig';
@@ -79,8 +84,8 @@ const Slug: INextPage<IProps> = ({ error }) => {
     if (callback) callback();
   };
 
-  if (error) {
-    return <Error statusCode={error ? error.status : 404} message={error.message} />;
+  if (!visitedLocalData) {
+    return <Error statusCode={404} />;
   }
 
   if (!visitedLocalData) return null;
@@ -193,20 +198,17 @@ Slug.getInitialProps = async ({ store, pathname, query }: NextPageContext): Prom
   const slug = query.slug?.toString();
   let error;
   if (slug) {
-    await store.dispatch(fetchVisitedLocalData(slug) as any);
+    const promise1 = store.dispatch(fetchCategories() as any);
+    const promise2 = store.dispatch(fetchVisitedLocalData(slug) as any);
+    await Promise.all([promise1, promise2]);
   }
   store.dispatch(setFetchLock(true) as any); // aim is to return back to the same position in list on index page.
 
   const {
     locations: { visitedLocalData },
   } = store.getState() as RootState;
-  if (!visitedLocalData) {
-    error = {
-      status: 404,
-      message: 'data fetching failed...',
-    };
-  }
-  return { error }; // You can pass some custom props to the component from here
+
+  return {}; // You can pass some custom props to the component from here
 };
 
 export default Slug;

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import './locationListFilter.scss';
 import Dropdown from 'react-dropdown';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +30,24 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
 
   useEffect(() => {
     handleAutoComplete();
+
+    const handleRouteonComplete = () => {
+      if (Router.pathname == '/') {
+        setShowFilters(false);
+        window.scrollTo({ top: 0, behavior: 'auto' });
+      }
+    };
+    const handleRouteonStart = () => {
+      if (Router.pathname == '/') {
+        setShowFilters(false);
+      }
+    };
+    Router.events.on('routeChangeComplete', handleRouteonComplete);
+    Router.events.on('routeChangeStart', handleRouteonStart);
+    return () => {
+      Router.events.off('routeChangeStart', handleRouteonStart);
+      Router.events.off('routeChangeComplete', handleRouteonComplete);
+    };
   }, []);
 
   useEffect(() => {
@@ -41,14 +59,6 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
         places.setVal('');
       }
     }
-
-    Router.events.on('routeChangeComplete', () => {
-      setShowFilters(false);
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    });
-    Router.events.on('routeChangeStart', () => {
-      setShowFilters(false);
-    });
   });
   useEffect(() => {
     if (showFilters) {

@@ -52,7 +52,7 @@ const SectionPhoto = (props: any) => {
   let pictures = [];
 
   if (props.local) {
-    pictures = JSON.parse(props.local.pictures);
+    pictures = JSON.parse(props.local['0'].pictures);
 
     pictures.map((p: any, index: number) => {
       pics.push({ path: p, 'id:': index, break: index % 3 });

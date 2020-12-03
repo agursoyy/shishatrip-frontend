@@ -54,8 +54,9 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                       alt="React Logo"
                     />
                     <span className="local-section1-top-left-button-template-number">
-                      {' '}
-                      {props.local.stats.view ? props.local.stats.view : 0}
+                      {props.local.stats && props.local.stats.length > 0
+                        ? props.local.stats[1].total
+                        : 0}{' '}
                     </span>
                   </div>
                   <div className="">
@@ -72,7 +73,7 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                     />
                     <span className="local-section1-top-left-button-template-number">
                       {' '}
-                      {props.local.up ? props.local.up : 0}
+                      {props.local['0'].up ? props.local['0'].up : 0}
                     </span>
                   </div>
                   <div className="">
@@ -89,7 +90,7 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                     />
                     <span className="local-section1-top-left-button-template-number">
                       {' '}
-                      {props.local.trends ? props.local.trends : 'N/A'}
+                      {props.local[0].trends ? props.local[0].trends : 'N/A'}
                     </span>
                   </div>
                   <div className="">
@@ -110,8 +111,8 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                   className={`local-section1-button-cafe local-section1-button-cafe-for-1440 logo ${
                     isStoryExist() && 'story-exists'
                   }`}
-                  src={props.local.logo_img}
-                  alt={props.local.name}
+                  src={props.local['0'].logo_img}
+                  alt={props.local['0'].name}
                   onClick={handleOpenStories}
                 />
               </div>
@@ -140,13 +141,15 @@ const SectionHeaderWithPinkLogo = (props: any) => {
           <Row className="local-row-cafe">
             <Col className="local-col-cafe head-section-metadata">
               <p className="local-section1-brand-text1-cafe">
-                {props.local.name} <br />
+                {props.local['0'].name} <br />
               </p>
               <p className="local-section1-brand-text2-cafe">
-                {props.local.category.name} in {props.local.address_parsed}
+                {props.local['0'].category.name} in {props.local['0'].address_parsed}
               </p>
               <p className="local-section1-brand-text3-cafe">
-                {props.local.description ? props.local.description : 'Keine Beschreibung vorhanden'}
+                {props.local['0'].description
+                  ? props.local['0'].description
+                  : 'Keine Beschreibung vorhanden'}
               </p>
             </Col>
           </Row>
@@ -160,8 +163,9 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                     alt="React Logo"
                   />
                   <span className="local-section1-top-left-button-template-number">
-                    {' '}
-                    {props.local.stats.view ? props.local.stats.view : 0}
+                    {props.local.stats && props.local.stats.length > 0
+                      ? props.local.stats[1].total
+                      : 0}
                   </span>
                 </div>
                 <div className="">
@@ -178,7 +182,7 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                   />
                   <span className="local-section1-top-left-button-template-number">
                     {' '}
-                    {props.local.up ? props.local.up : 0}
+                    {props.local['0'].up ? props.local['0'].up : 0}
                   </span>
                 </div>
                 <div className="">
@@ -195,7 +199,7 @@ const SectionHeaderWithPinkLogo = (props: any) => {
                   />
                   <span className="local-section1-top-left-button-template-number">
                     {' '}
-                    {props.local.trends ? props.local.trends : 'N/A'}
+                    {props.local['0'].trends ? props.local['0'].trends : 'N/A'}
                   </span>
                 </div>
                 <div className="">
