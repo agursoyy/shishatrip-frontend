@@ -1,0 +1,20 @@
+@import '../../styles/mixins/';
+@import '../../styles/variables/';
+
+.dashboard-profile-page {
+  margin-left: 48px;
+  @include respond-above(sm) {
+    margin-left: 66px;
+  }
+  @include respond-above(lg) {
+    margin-left: 280px;
+  }
+  .dashboard-profile-content {
+    background: rgb(246, 246, 252);
+    min-height: 100vh;
+    padding: 20px 20px;
+    @include respond-above(lg) {
+      padding: 40px 50px;
+    }
+  }
+}

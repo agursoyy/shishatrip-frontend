@@ -97,6 +97,7 @@ const LocationList: FC<IProps> = ({ query }) => {
                       <LazyLoad
                         key={index}
                         once={true}
+                        offset={1000}
                         placeholder={
                           <div
                             style={{ height: 160 }}

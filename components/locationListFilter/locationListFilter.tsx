@@ -187,7 +187,7 @@ const LocationListFilter: FC<IProps> = ({ query }) => {
   const sortBy = (sortQuery: 'abc' | 'last' | 'near' | 'clear') => {
     let query: ILocationListQuery = {};
     if (sortQuery === 'clear') {
-      query = { lat, lng, category };
+      query = { lat, lng, category, search };
     } else {
       query = { ...query, lat, lng, category, sortby: sortQuery, location, search };
     }

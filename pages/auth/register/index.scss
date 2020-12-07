@@ -11,6 +11,7 @@
   &-content {
     min-height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
 
     padding-top: 90px;
     display: flex;

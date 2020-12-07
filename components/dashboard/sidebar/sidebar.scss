@@ -1,0 +1,97 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables/';
+
+.dashboard-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background: #fff;
+  z-index: 100;
+  box-shadow: -5px 0 5px -5px #333, 3px 0 5px -5px rgb(211, 210, 210);
+  width: 48px; // mobile width of sidebar.
+  padding-top: 20px;
+  @include respond-above(sm) {
+    width: 66px;
+  }
+  @include respond-above(lg) {
+    display: block;
+    width: 280px; // desktop width of sidebar.
+    padding: 40px 50px;
+  }
+
+  .logo-wrapper {
+    .mobile-logo {
+      @include respond-above(lg) {
+        display: none;
+      }
+      img {
+        width: 36px;
+      }
+    }
+    .desktop-logo {
+      display: none;
+      @include respond-above(lg) {
+        display: inline;
+      }
+      img {
+        width: 116px;
+      }
+    }
+  }
+  .menu {
+    margin-top: 30px;
+    @include respond-above(sm) {
+      margin-top: 60px;
+    }
+    @include respond-above(lg) {
+      margin-top: 160px;
+    }
+    .menu-item {
+      border-radius: 50px;
+      margin-bottom: 20px;
+      &-link {
+        display: block;
+        text-decoration: none;
+        &-icon {
+        }
+        .text {
+          display: none;
+          @include respond-above(lg) {
+            display: inline;
+            margin-left: 12px;
+          }
+          font-size: 1.6rem;
+          color: $main-font-color;
+          font-weight: 500;
+          font-family: 'Titillium';
+          font-weight: 600;
+          letter-spacing: 0.15px;
+          color: #535353;
+        }
+      }
+      &.active {
+        .menu-item-link {
+          .text {
+            color: $primary-color;
+          }
+          &-icon {
+            svg {
+              stroke: $primary-color;
+            }
+            &.fillable {
+              svg path {
+                stroke: $primary-color;
+                border: 2px solid red;
+                fill: $primary-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

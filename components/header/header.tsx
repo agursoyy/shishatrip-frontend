@@ -240,8 +240,8 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
                     </div>
                     <div className="answer-nav-item-separator"></div>
                     <div className="answer-nav-item">
-                      <Link href="/auth/register">
-                        <a className="answer-nav-item-link">Bla</a>
+                      <Link href="/dashboard">
+                        <a className="answer-nav-item-link">Dashboard</a>
                       </Link>
                     </div>
                     <div className="answer-nav-item">
