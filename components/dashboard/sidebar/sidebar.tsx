@@ -1,8 +1,17 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import './sidebar.scss';
 
 const Sidebar: FC = () => {
+  const router = useRouter();
+
+  const isActive = (path: string) => {
+    if (router.pathname === path) {
+      return 'active';
+    }
+    return '';
+  };
   return (
     <div className="dashboard-sidebar">
       <div className="logo-wrapper">
@@ -18,7 +27,7 @@ const Sidebar: FC = () => {
         </Link>
       </div>
       <div className="menu">
-        <div className="menu-item active">
+        <div className={`menu-item ${isActive('/dashboard')}`}>
           <Link href="/dashboard">
             <a className="menu-item-link">
               <span className="menu-item-link-icon">
@@ -42,8 +51,8 @@ const Sidebar: FC = () => {
             </a>
           </Link>
         </div>
-        <div className="menu-item ">
-          <Link href="/dashboard/locations">
+        <div className={`menu-item ${isActive('/dashboard/location')}`}>
+          <Link href="/dashboard/location">
             <a className="menu-item-link">
               <span className="menu-item-link-icon fillable">
                 <svg

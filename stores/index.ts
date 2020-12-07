@@ -13,6 +13,7 @@ import { newsReducer } from './news/reducers';
 import { locationReducer } from './locations/reducers';
 import { storyReducer } from './stories/reducers';
 import { routerReducer } from './router/reducers';
+import { locationFormReducer } from './create-location-form/reducers';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   locations: locationReducer,
   stories: storyReducer,
   router: routerReducer,
+  locationForm: locationFormReducer,
 });
 
 // *****FOR HYDRATE****

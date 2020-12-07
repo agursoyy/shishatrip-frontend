@@ -54,10 +54,12 @@ const Header: FC<IProps> = ({ algoliaSearch }) => {
       var docElem = document.documentElement;
       var height = window.pageYOffset || docElem.scrollTop || body.scrollTop;
       if (window.innerWidth > 1200) {
-        if (height && height >= 225) {
-          (headerRef.current as any).classList.add('scrolled');
-        } else {
-          (headerRef.current as any).classList.remove('scrolled');
+        if (headerRef && headerRef.current) {
+          if (height && height >= 225) {
+            (headerRef.current as any).classList.add('scrolled');
+          } else {
+            (headerRef.current as any).classList.remove('scrolled');
+          }
         }
       }
       if (places) {

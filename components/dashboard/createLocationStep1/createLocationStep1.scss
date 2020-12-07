@@ -1,0 +1,52 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables/';
+
+.location-form-step1 {
+  &-uploaded-photo-wrapper {
+    position: relative;
+    margin-bottom: 27px;
+    height: 140px;
+    @include respond-above(sm) {
+      height: 230px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .remove-photo {
+      position: absolute;
+      right: -11px;
+      top: -11px;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      background: #ee3665;
+      outline: none;
+      &:focus {
+        outline: none;
+      }
+      .icon {
+        height: 8px;
+        width: 8px;
+        margin-bottom: 6px;
+      }
+    }
+  }
+  &-upload-form {
+    label {
+      display: block;
+      width: 100%;
+      height: 140px;
+      background: #e0e3e6;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      @include respond-above(sm) {
+        height: 230px;
+      }
+    }
+  }
+}

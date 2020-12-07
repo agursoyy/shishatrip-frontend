@@ -1,0 +1,112 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables/';
+
+.create-new-location-comp {
+  .local-container-fluid-section1-cafe {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .local-container-fluid-section1-wrapper-cafe {
+    @include respond-above(md) {
+      padding-top: 160px;
+    }
+    @include respond-above(lg) {
+      margin-top: 100px;
+      padding-top: 0;
+    }
+
+    .local-section1-button-wrapper-cafe {
+      .profile-logo {
+        cursor: pointer;
+        object-fit: cover;
+        &.input--error {
+          -webkit-animation: shake 0.5s linear;
+          background-color: #df585a;
+        }
+      }
+    }
+    .local-section1-nav-bar-wrapper {
+      margin-bottom: 40px;
+      .local-section1-nav-bar.nav-pills {
+        height: auto !important;
+        .nav-item {
+          width: 100%;
+          height: auto;
+          a {
+            display: block !important;
+            text-align: center;
+          }
+          @include respond-above(md) {
+            width: 113px;
+            height: 40px;
+          }
+        }
+      }
+    }
+    form.header-form {
+      .form-group {
+        margin-bottom: 14px;
+        input,
+        select {
+          min-height: 50px;
+          width: 100%;
+          text-align: center;
+          text-align-last: center;
+          font-family: 'Titillium';
+          font-size: 18px;
+          color: #a0a0a0;
+          box-sizing: border-box;
+          border-radius: 5px;
+          &.input--error {
+            -webkit-animation: shake 0.5s linear;
+            border: 1px solid #df585a;
+            box-shadow: 0 0 0 0.12rem rgba(223, 88, 90, 0.5);
+          }
+        }
+      }
+    }
+  }
+  .location-step-btn-wrapper {
+    margin-top: 32px;
+    display: flex;
+    .location-step-btn {
+      padding: 12px 24px;
+      background: #d280d7;
+      box-shadow: 0px 3.5px 0px rgba(101, 101, 101, 0.25);
+      border-radius: 5px;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 18px;
+      color: #fff;
+      &:focus {
+        outline: none;
+      }
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes shake {
+  8%,
+  41% {
+    -webkit-transform: translateX(-10px);
+  }
+  25%,
+  58% {
+    -webkit-transform: translateX(10px);
+  }
+  75% {
+    -webkit-transform: translateX(-5px);
+  }
+  92% {
+    -webkit-transform: translateX(5px);
+  }
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+  }
+}

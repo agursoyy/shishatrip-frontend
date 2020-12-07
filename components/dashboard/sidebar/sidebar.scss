@@ -12,7 +12,7 @@
   background: #fff;
   z-index: 100;
   box-shadow: -5px 0 5px -5px #333, 3px 0 5px -5px rgb(211, 210, 210);
-  width: 48px; // mobile width of sidebar.
+  width: 56px; // mobile width of sidebar.
   padding-top: 20px;
   @include respond-above(sm) {
     width: 66px;
@@ -43,7 +43,7 @@
     }
   }
   .menu {
-    margin-top: 30px;
+    margin-top: 40px;
     @include respond-above(sm) {
       margin-top: 60px;
     }

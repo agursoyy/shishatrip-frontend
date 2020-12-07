@@ -1,0 +1,54 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables/';
+
+.location-form-step2 {
+  .location-info-form {
+    .row-1 {
+      .ap-dropdown-menu.ap-with-places {
+        z-index: 10000 !important;
+      }
+    }
+    .form-group {
+      margin-bottom: 14px;
+      label {
+        font-family: 'Titillium';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        color: #4a5568;
+        margin-bottom: 11px;
+      }
+      input {
+        padding: 20px 20px;
+        border: 1px solid #dbdbdb;
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-family: 'Titillium';
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 22px;
+        color: #929292;
+        &.input--error {
+          border-color: #df585a;
+          box-shadow: 0 0 0 0.12rem rgba(223, 88, 90, 0.5);
+        }
+        &.input--valid {
+          border-color: #0bce91;
+          box-shadow: 0 0 0 0.2rem rgba(11, 206, 145, 0.1);
+        }
+      }
+      .error-message {
+        font-family: 'Titillium';
+        font-size: 15px;
+        line-height: 19px;
+        color: #df585a;
+        margin-top: 11px;
+      }
+    }
+    .map-wrapper {
+      margin-top: 24px;
+    }
+  }
+}
